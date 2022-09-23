@@ -1,0 +1,25 @@
+<ng-template #modalupload>
+    <div class="modal-header text-center " style=" background-color: #34495E; ">
+      <h4 class="modal-title pull-left" style=" color:#fff; margin: 10px;"> Subir Archivo </h4>
+      <div class="pull-right">
+        <button nbButton status="danger" title="Cerrar" (click)="cerrarModal()">
+          <nb-icon icon="window-close"></nb-icon>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group col-md text-center">
+          <label>
+            <h5>Selecciona un archivo en PDF:</h5><br>
+          </label>
+          <input type="file" nbInput name="filePDF" fullWidth accept=".pdf" (change)="upfile($event)">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button nbButton shape="semi-round" fullWidth status="success" title="Subir PDF" (click)="subirpdf()"
+        [disabled]="filePath == null">
+        <i class="fas fa-file-upload"></i>Subir Archivo </button>
+    </div>
+  </ng-template>

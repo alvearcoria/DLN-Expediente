@@ -1,0 +1,37 @@
+<div *ngIf="!done" style="height: 600px;">
+    <nb-card [nbSpinner]="true" nbSpinnerStatus="primary" style="height: 100%;">
+        <nb-card-body>
+
+        </nb-card-body>
+    </nb-card>
+</div>
+
+<div *ngIf="done">
+    <div class="row">
+        <div class="col-lg-12">
+            <nb-card>
+                <nb-card-header>
+                    <h4>
+                        Control de Incapacidades
+                        <!-- <button nbButton size="medium" shape="semi-round" status="primary" hero class="float-right"
+                (click)="modalEmpleado()">
+                <nb-icon icon="user-plus"></nb-icon> Nueva Consulta
+              </button> -->
+                    </h4>
+                </nb-card-header>
+                <nb-card-body>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <input class="mb form-control" (keyup)="onQuickFilterChanged($event)" type="text" nbInput
+                                fullWidth shape="semi-round" fieldSize="medium" placeholder="Buscar incapacidad...">
+                            <br>
+                        </div>
+                    </div>
+                    <ag-grid-angular #agGrid2 class="ag-theme-balham" style="width: 100%; height: 567px;"
+                        [gridOptions]="tablaincapacidades" [pagination]="true" (gridReady)="gridReady($event)">
+                    </ag-grid-angular>
+                </nb-card-body>
+            </nb-card>
+        </div>
+    </div>
+</div>

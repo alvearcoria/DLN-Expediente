@@ -1,0 +1,349 @@
+<span>¡Hola mundo!</span>
+<nb-card>
+    <nb-card-header>
+        <div class=" form-group col-lg text-center">
+            <h4 class=" d-block">{{encabezado}}
+                <button nbButton size="medium" shape="semi-round" status="danger" hero class="float-right"
+                    (click)="onCancel();">
+                    <nb-icon icon="window-close"></nb-icon> CANCELAR
+                </button>
+            </h4>
+        </div>
+    </nb-card-header>
+
+    <nb-card-body>
+        <form class="panel" [formGroup]="pacienteForm" (ngSubmit)="btnAccion()" autocomplete="off">
+
+            <div class="form-row">
+                <div class="form-group col-sm-6">
+                    <label class="label ml-2">Selecciona la Subempresa: </label>
+                    <nb-select placeholder="Selecciona la planta" name="subempresa" formControlName="subempresa"
+                        fullWidth
+                        [status]="pacf.subempresa.dirty ? (pacf.subempresa.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-option *ngFor="let a of dataEmpresas;" value="{{ a.id }}">{{ a.nombre }}
+                        </nb-option>
+                    </nb-select>
+                    <ng-container *ngIf="pacf.subempresa.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.subempresa.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group  col-sm-6">
+                    <label class="label ml-2">Area: </label>
+                    <nb-select placeholder="Selecciona el area" name="area" formControlName="area" fullWidth
+                        [status]="pacf.area.dirty ? (pacf.area.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-option nbInput *ngFor="let area of dataAreas;" value="{{ area }}">{{ area }}
+                        </nb-option>
+                    </nb-select>
+                    <ng-container *ngIf="pacf.area.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.area.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">CURP</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="CURP" maxlength="18"
+                        style="text-transform:uppercase;" formControlName="pac_curp" (keyup)="onKeydown($event)"
+                        [status]="pacf.pac_curp.dirty ? (pacf.pac_curp.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_curp.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_curp.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                        <p class="caption status-danger" *ngIf="pacf.pac_curp.errors.pattern">
+                            Formato no valido!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">RFC</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="RFC"
+                        style="text-transform:uppercase;" formControlName="pac_rfc" (keyup)="onKeydown($event)">
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">No. IMSS</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="No. de IMSS"
+                        formControlName="pac_imss" maxlength="11"
+                        [status]="pacf.pac_imss.dirty ? (pacf.pac_imss.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_imss.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_imss.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">NOMINA</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="NOMINA"
+                        formControlName="pac_nomina"
+                        [status]="pacf.pac_nomina.dirty ? (pacf.pac_nomina.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_nomina.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_nomina.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="label ml-2">Nombre (s)</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="Nombre (s)"
+                        style="text-transform:uppercase;" formControlName="pac_nombres" (keyup)="onKeydown($event)"
+                        [status]="pacf.pac_nombres.dirty ? (pacf.pac_nombres.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_nombres.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_nombres.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">Primer apellido</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="Primer apellido"
+                        formControlName="pac_apPrimero" (keyup)="onKeydown($event)" style="text-transform:uppercase;"
+                        [status]="pacf.pac_apPrimero.dirty ? (pacf.pac_apPrimero.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_apPrimero.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_apPrimero.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">Segundo apellido</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="Segundo apellido"
+                        formControlName="pac_apSegundo" (keyup)="onKeydown($event)" style="text-transform:uppercase;"
+                        [status]="pacf.pac_apSegundo.dirty ? (pacf.pac_apSegundo.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_apSegundo.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_apSegundo.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <label class="label ml-2">Fecha de nacimiento</label>
+                    <input type="date" nbInput fullWidth fieldSize="medium" placeholder="Fecha de nacimiento"
+                        formControlName="pac_fNacimiento"
+                        [status]="pacf.pac_fNacimiento.dirty ? (pacf.pac_fNacimiento.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_fNacimiento.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_fNacimiento.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Email</label>
+                    <input type="email" nbInput fullWidth fieldSize="medium" placeholder="Email"
+                        formControlName="pac_email"
+                        [status]="pacf.pac_email.invalid ? (pacf.pac_email.errors.parent  ? 'danger' : 'success') : ''">
+                    <ng-container *ngIf="pacf.pac_email.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_email.errors.pattern">
+                            FORMATO INVALIDO, FAVOR DE VERIFICAR CORREO.
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Teléfono/Celular</label>
+                    <input type="number" nbInput fullWidth fieldSize="medium" placeholder="Teléfono/Celular"
+                        formControlName="pac_tel" maxlength="10"
+                        [status]="pacf.pac_tel.dirty ? (pacf.pac_tel.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_tel.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_tel.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <label class="label ml-2">Estado civil</label>
+                    <nb-select fullWidth placeholder="Elige una opción..." formControlName="pac_estado_civil"
+                        [status]="pacf.pac_estado_civil.dirty ? (pacf.pac_estado_civil.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-option value="Soltero(a)">Soltero(a)</nb-option>
+                        <nb-option value="Casado(a)">Casado(a)</nb-option>
+                        <nb-option value="Separado(a)">Separado(a)</nb-option>
+                        <nb-option value="Divorciado(a)">Divorciado(a)</nb-option>
+                        <nb-option value="Union Libre">Union Libre</nb-option>
+                        <nb-option value="Viudo(a)">Viudo(a)</nb-option>
+                    </nb-select>
+                    <ng-container *ngIf="pacf.pac_estado_civil.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_estado_civil.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Tipo de Sangre</label>
+                    <nb-select fullWidth placeholder="Elige una opción..." formControlName="pac_tipo_sangre"
+                        [status]="pacf.pac_tipo_sangre.dirty ? (pacf.pac_tipo_sangre.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-option value="O +">O positivo</nb-option>
+                        <nb-option value="O -">O negativo</nb-option>
+                        <nb-option value="A +">A positivo</nb-option>
+                        <nb-option value="A -">A negativo</nb-option>
+                        <nb-option value="B +">B positivo</nb-option>
+                        <nb-option value="B -">B negativo</nb-option>
+                        <nb-option value="AB +">AB positivo</nb-option>
+                        <nb-option value="AB -">AB negativo</nb-option>
+                        <nb-option value="Desconocido">Desconocido</nb-option>
+                    </nb-select>
+                    <ng-container *ngIf="pacf.pac_tipo_sangre.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_tipo_sangre.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Escolaridad</label>
+                    <nb-select fullWidth placeholder="Elige una opción..." formControlName="pac_escolaridad"
+                        [status]="pacf.pac_escolaridad.dirty? (pacf.pac_escolaridad.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-option value="Primaria">Primaria</nb-option>
+                        <nb-option value="Secundaria">Secundaria</nb-option>
+                        <nb-option value="Bachillerato">Bachillerato</nb-option>
+                        <nb-option value="Carrera Técnica">Carrera Técnica</nb-option>
+                        <nb-option value="Licenciatura">Licenciatura</nb-option>
+                        <nb-option value="Posgrado">Posgrado</nb-option>
+                    </nb-select>
+                    <ng-container *ngIf="pacf.pac_escolaridad.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_escolaridad.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Sexo/Genero</label><br>
+                    <nb-radio-group name="pac_genero" formControlName="pac_genero" class="custom-control-inline "
+                        [status]="pacf.pac_genero.dirty ? (pacf.pac_genero.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Masculino">&nbsp;&nbsp;<nb-icon icon="male"></nb-icon>
+                        </nb-radio>
+                        <nb-radio value="Femenino">&nbsp;&nbsp;<nb-icon icon="female"></nb-icon>
+                        </nb-radio>
+                    </nb-radio-group>
+                    <ng-container *ngIf="pacf.pac_genero.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_genero.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <label class="label ml-2">Calle y número</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="Calle y número"
+                        formControlName="pac_dir_calle"
+                        [status]="pacf.pac_dir_calle.dirty ? (pacf.pac_dir_calle.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_dir_calle.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_dir_calle.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="label ml-2">Colonia</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="Colonia"
+                        formControlName="pac_dir_col"
+                        [status]="pacf.pac_dir_col.dirty ? (pacf.pac_dir_col.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_dir_col.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_dir_col.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <label class="label ml-2">Ciudad</label>
+                    <input type="text" nbInput fullWidth fieldSize="medium" placeholder="Ciudad"
+                        formControlName="pac_ciudad"
+                        [status]="pacf.pac_ciudad.dirty ? (pacf.pac_ciudad.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_ciudad.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_ciudad.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Estado</label>
+                    <nb-select fullWidth placeholder="Elige una opción..." formControlName="pac_estado"
+                        [status]="pacf.pac_estado.dirty? (pacf.pac_estado.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-option value="Aguascalientes">Aguascalientes</nb-option>
+                        <nb-option value="Baja California">Baja California</nb-option>
+                        <nb-option value="Baja California Sur">Baja California Sur</nb-option>
+                        <nb-option value="Campeche">Campeche</nb-option>
+                        <nb-option value="Coahuila de Zaragoza">Coahuila de Zaragoza</nb-option>
+                        <nb-option value="Colima">Colima</nb-option>
+                        <nb-option value="Chiapas">Chiapas</nb-option>
+                        <nb-option value="Chihuahua">Chihuahua</nb-option>
+                        <nb-option value="Distrito Federal">Distrito Federal</nb-option>
+                        <nb-option value="Durango">Durango</nb-option>
+                        <nb-option value="Guanajuato">Guanajuato</nb-option>
+                        <nb-option value="Guerrero">Guerrero</nb-option>
+                        <nb-option value="Hidalgo">Hidalgo</nb-option>
+                        <nb-option value="Jalisco">Jalisco</nb-option>
+                        <nb-option value="México">México</nb-option>
+                        <nb-option value="Michoacán de Ocampo">Michoacán de Ocampo</nb-option>
+                        <nb-option value="Morelos">Morelos</nb-option>
+                        <nb-option value="Nayarit">Nayarit</nb-option>
+                        <nb-option value="Nuevo León">Nuevo León</nb-option>
+                        <nb-option value="Oaxaca">Oaxaca</nb-option>
+                        <nb-option value="Puebla">Puebla</nb-option>
+                        <nb-option value="Querétaro">Querétaro</nb-option>
+                        <nb-option value="Quintana Roo">Quintana Roo</nb-option>
+                        <nb-option value="San Luis Potosí">San Luis Potosí</nb-option>
+                        <nb-option value="Sinaloa">Sinaloa</nb-option>
+                        <nb-option value="Sonora">Sonora</nb-option>
+                        <nb-option value="Tabasco">Tabasco</nb-option>
+                        <nb-option value="Tamaulipas">Tamaulipas</nb-option>
+                        <nb-option value="Tlaxcala">Tlaxcala</nb-option>
+                        <nb-option value="Veracruz de Ignacio de la Llave">Veracruz de Ignacio de la Llave</nb-option>
+                        <nb-option value="Yucatán">Yucatán</nb-option>
+                        <nb-option value="Zacatecas">Zacatecas</nb-option>
+                    </nb-select>
+                    <ng-container *ngIf="pacf.pac_estado.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_estado.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Código Postal</label>
+                    <input type="text" nbInput nbInput placeholder="Código Postal" formControlName="pac_cp"
+                        [status]="pacf.pac_cp.dirty ? (pacf.pac_cp.invalid  ? 'danger' : 'success') : 'danger'">
+                    <ng-container *ngIf="pacf.pac_cp.invalid ">
+                        <p class="caption status-danger" *ngIf="pacf.pac_cp.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <img [src]="imagepath" width="80%" height="" *ngIf="imagepath != null" />
+                    <input type="hidden" formControlName="Image" class=" form-control">
+                </div>
+                <div class="form-group col-md">
+                    <label class="label ml-2">Foto de perfil</label>
+                    <input type="file" nbInput accept=".png, .jpg, .jpeg" (change)="previewFile($event)" nbInput><br>
+                </div>
+            </div>
+
+            <div class="form-row align-center justify-content-center ">
+                <button type="submit" nbButton shape="semi-round" size="large" status="primary" hero
+                    [disabled]="!pacienteForm.valid">
+                    <nb-icon icon="save"></nb-icon> {{mssbtn}}
+                </button>
+            </div>
+
+        </form>
+    </nb-card-body>
+</nb-card>
+
+<pre>{{pacienteForm.value | json}}</pre>

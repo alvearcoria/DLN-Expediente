@@ -1,0 +1,2156 @@
+<div class="" style="position: absolute">
+    <div class="col-lg-12 " style=" z-index: 1000; ">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <nb-card status=#34495E>
+            <nb-card-header style=" background-color: #34495E; ">
+                <div class=" form-group col-lg">
+                    <h5 style="color:#fff;"> Datos para registro
+                        <button nbButton size="medium" shape="semi-round" status="danger" hero class="float-right"
+                            (click)="redirect();">
+                            <nb-icon icon="window-close"></nb-icon> CANCELAR
+                        </button>
+                    </h5>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="panel is-valid" [formGroup]="datosGeneralesFrom" autocomplete="off">
+                    <div class="form-row">
+                        <div class="col-md text-center">
+                            <h5 class="d-block " style=" background-color: #34495E; color:#fff; margin: 10px;"> Datos
+                                generales del
+                                empleado</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Nombre(s)</label><br>
+                            <input type="text" nbInput icon="window-close" formControlName="pac_nombres" fullWidth
+                                placeholder="Nombre" readonly>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label>Primer Apellido</label><br>
+                            <input type="text" nbInput formControlName="pac_apPrimero" fullWidth
+                                placeholder="Primer Apellido" readonly />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Segundo Apellido</label><br>
+                            <input type="text" nbInput formControlName="pac_apSegundo" fullWidth
+                                placeholder="Segundo Apellido" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label> Fecha Nacimiento </label>
+                            <input type="text" nbInput formControlName="pac_fNacimiento" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label> Edad </label>
+                            <input type="text" nbInput formControlName="pac_edad" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md">
+                            <label>Origen del paciente</label><br>
+                            <input type="text" nbInput formControlName="ori_pac_name" fullWidth readonly />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label> Nomina </label>
+                            <input type="text" nbInput formControlName="pac_nomina" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label> IMSS </label>
+                            <input type="text" nbInput formControlName="pac_imss" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md">
+                            <label>Área de trabajo</label><br>
+                            <input type="text" nbInput formControlName="area" fullWidth readonly />
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <form class="panel" [formGroup]="dataFrom" (ngSubmit)="btnAccion()" autocomplete="off">
+            <div class="form-row">
+                <div class="form-group col-md-4 ">
+                    <input nbInput placeholder="Selecciona la fecha de la consulta" [nbDatepicker]="picker1"
+                        class="form-control" formControlName="fechaRepo" fullWidth
+                        [status]="df.fechaRepo.dirty ? (df.fechaRepo.invalid  ? 'danger' : 'success') : 'danger'" />
+                    <nb-datepicker #picker1 [max]="max"></nb-datepicker>
+                    <ng-container *ngIf="df.fechaRepo.invalid && df.fechaRepo.touched">
+                        <p class="caption status-danger" *ngIf="df.fechaRepo.errors.required">
+                            CAMPO REQUERIDO!
+                        </p>
+                    </ng-container>
+                </div>
+            </div>
+            <br>
+
+            <nb-accordion multi>
+                <nb-accordion-item>
+                    <nb-accordion-item-header style=" background-color: #d0e5f8; color:rgb(0, 0, 0);">
+                        Contacto de Emergencia
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+
+                        <div class="estilo_div">
+                            <div class="form-row text-center">
+                                <div class=" form-group col-md ">
+                                    <label> <strong> Contacto 1 </strong>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label>Nombre(s)</label><br>
+                                    <input type="text" nbInput icon="window-close" formControlName="contacto_nombre"
+                                        fullWidth class="form-control" placeholder="Nombre" (keyup)="onKeydown($event)"
+                                        [status]="df.contacto_nombre.dirty ? (df.contacto_nombre.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container *ngIf="df.contacto_nombre.invalid && df.contacto_nombre.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto_nombre.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+
+                                <div class="form-group col-md-3 ">
+                                    <label>Primer Apellido</label><br>
+                                    <input type="text" nbInput formControlName="contacto_apPrimero" fullWidth
+                                        placeholder="Primer Apellido" (keyup)="onKeydown($event)"
+                                        [status]="df.contacto_apPrimero.dirty ? (df.contacto_apPrimero.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto_apPrimero.invalid && df.contacto_apPrimero.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto_apPrimero.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Segundo Apellido</label><br>
+                                    <input type="text" nbInput formControlName="contacto_apSegundo" fullWidth
+                                        placeholder="Segundo Apellido" (keyup)="onKeydown($event)"
+                                        [status]="df.contacto_apSegundo.dirty ? (df.contacto_apSegundo.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto_apSegundo.invalid && df.contacto_apSegundo.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto_apSegundo.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <label> Edad </label>
+                                    <input type="number" nbInput max="2" formControlName="contacto_edad" fullWidth
+                                        [status]="df.contacto_edad.dirty ? (df.contacto_edad.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container *ngIf="df.contacto_edad.invalid && df.contacto_edad.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto_edad.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label>Telefono/Celular</label><br>
+                                    <input type="number" nbInput min="8" max="10" minlength="8" maxlength="10"
+                                        formControlName="contacto_telefono" placeholder="(000)-000-0000" fullWidth
+                                        [status]="df.contacto_telefono.dirty ? (df.contacto_telefono.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container *ngIf="df.contacto_telefono.invalid && df.contacto_telefono.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto_telefono.errors.required">
+                                            CAMPO REQUERIDO!</p>
+                                        <p class="caption status-danger" *ngIf="df.contacto_telefono.errors.pattern">
+                                            Formato invalido!</p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <label> Dirección de domicilio completa.</label>
+                                    <input type="text" nbInput formControlName="contacto_direccion" fullWidth
+                                        placeholder="Direccion fisica"
+                                        [status]="df.contacto_direccion.dirty ? (df.contacto_direccion.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto_direccion.invalid && df.contacto_direccion.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto_direccion.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="estilo_div">
+                            <div class="form-row text-center">
+                                <div class=" form-group col-md ">
+                                    <label> <strong> Contacto 2 </strong>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label>Nombre(s)</label><br>
+                                    <input type="text" nbInput icon="window-close" formControlName="contacto2_nombre"
+                                        fullWidth class="form-control" placeholder="Nombre" (keyup)="onKeydown($event)"
+                                        [status]="df.contacto2_nombre.dirty ? (df.contacto2_nombre.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container *ngIf="df.contacto2_nombre.invalid && df.contacto2_nombre.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto2_nombre.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+
+                                <div class="form-group col-md-3 ">
+                                    <label>Primer Apellido</label><br>
+                                    <input type="text" nbInput formControlName="contacto2_apPrimero" fullWidth
+                                        placeholder="Primer Apellido" (keyup)="onKeydown($event)"
+                                        [status]="df.contacto2_apPrimero.dirty ? (df.contacto2_apPrimero.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto2_apPrimero.invalid && df.contacto2_apPrimero.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto2_apPrimero.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Segundo Apellido</label><br>
+                                    <input type="text" nbInput formControlName="contacto2_apSegundo" fullWidth
+                                        placeholder="Segundo Apellido" (keyup)="onKeydown($event)"
+                                        [status]="df.contacto2_apSegundo.dirty ? (df.contacto2_apSegundo.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto2_apSegundo.invalid && df.contacto2_apSegundo.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto2_apSegundo.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <label> Edad </label>
+                                    <input type="number" nbInput maxlength="2" formControlName="contacto2_edad"
+                                        fullWidth
+                                        [status]="df.contacto2_edad.dirty ? (df.contacto2_edad.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container *ngIf="df.contacto2_edad.invalid && df.contacto2_edad.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto2_edad.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label>Telefono/Celular</label><br>
+                                    <input type="number" nbInput maxlength="10" formControlName="contacto2_telefono"
+                                        placeholder="000-000-0000" fullWidth
+                                        [status]="df.contacto2_telefono.dirty ? (df.contacto2_telefono.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto2_telefono.invalid && df.contacto2_telefono.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto2_telefono.errors.required">
+                                            CAMPO REQUERIDO!</p>
+                                        <p class="caption status-danger" *ngIf="df.contacto2_telefono.errors.pattern">
+                                            Formato invalido!</p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <label> Dirección de domicilio completa.</label>
+                                    <input type="text" nbInput formControlName="contacto2_direccion" fullWidth
+                                        placeholder="Dirección fisica"
+                                        [status]="df.contacto2_direccion.dirty ? (df.contacto2_direccion.invalid  ? 'danger' : 'success') : ''" />
+                                    <ng-container
+                                        *ngIf="df.contacto2_direccion.invalid && df.contacto2_direccion.touched">
+                                        <p class="caption status-danger" *ngIf="df.contacto2_direccion.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                    <nb-accordion-item-header style=" background-color: #c7f7e5; color:rgb(0, 0, 0);">
+                        Medio laboral
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+
+                        <div class="estilo_div">
+                            <div class="form-row text-center">
+                                <div class="form-group col-md">
+                                    <label name="fecha">Fecha de ingreso a la empresa:</label><br>
+                                    <input nbInput placeholder="Selecciona la fecha de la consulta"
+                                        [nbDatepicker]="picker" class="form-control" formControlName="fechaingreso"
+                                        fullWidth>
+                                    <nb-datepicker #picker [max]="max"></nb-datepicker>
+
+                                </div>
+                                <div class="form-group col-md">
+                                    <label name="area">Número de nomina/ ID Empleado:</label><br>
+                                    <input type="text" nbInput readonly formControlName="numnomina" fullWidth>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label name="puestoac">Puesto actual:</label><br>
+                                    <input type="text" nbInput formControlName="puestoac" placeholder="" fullWidth>
+                                </div>
+                                <div class="form-group col-md">
+                                    <label name="area">Área: </label><br>
+                                    <input type="text" nbInput readonly class="form-control " formControlName="area"
+                                        fullWidth>
+                                    <!--ng-pattern ="/^[a-zA-Z\s]*$/">-->
+                                </div>
+                            </div>
+
+                            <div class="form-row text-center">
+                                <div class="form-group col-md-3 ">
+                                    <label name="area">Tiempo en puesto actual:</label><br>
+                                    <input type="texto" nbInput formControlName="tiempopues" max="2100-01-01"
+                                        placeholder="meses" fullWidth>
+                                </div>
+                                <div class="col-sm">
+                                    <label name="activipuest">Describa las actividades de su puesto actual</label><br>
+                                    <textarea nbInput rows="2" formControlName="puestoacdesc" fullWidth></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+                        <div class="form-row ">
+                            <div class=" form-group col-md ">
+                                <label> <strong> Marque los factores de riesgo a los que ha estado expuesto. &nbsp;
+                                        &nbsp;</strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="estilo_div">
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Ruido</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="ruido_rb" formControlName="ruido_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Vibraciones</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="vibraciones_rb" formControlName="vibraciones_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Temperaturas extremas</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="temp_extrem_rb" formControlName="temp_extrem_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Polvos</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="polvo_rb" formControlName="polvo_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Humo</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="humo_rb" formControlName="humo_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Vapores</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="vapores_rb" formControlName="vapores_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>¿Está expuesto a sustancias químicas?</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="sust_quimicas_rb" formControlName="sust_quimicas_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>¿Está esxpuesto a agentes biológicos?</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="exp_biologico_rb" formControlName="exp_biologico_rb"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!--***************************************************************************************************************************-->
+
+                        <div class="form-row estilo_div text-center">
+                            <div class="form-group col-md-6">
+                                <label> En su área de trabajo pasa el mayor tiempo... &nbsp; </label><br>
+                                <nb-select name="ergopuesto" formControlName="ergopuesto" placeholder="Elige una opcion"
+                                    fullWidth>
+                                    <nb-option value="Parado">Parado</nb-option>
+                                    <nb-option value="Agachado">Agachado</nb-option>
+                                    <nb-option value="Sentado">Sentado</nb-option>
+                                    <nb-option value="Cuclillas">Cuclillas</nb-option>
+                                </nb-select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label> El tamaño de su área de trabajo es... &nbsp; </label><br>
+                                <nb-select name="tamañopuesto" formControlName="tamapuesto"
+                                    placeholder="Elige una opcion" fullWidth>
+                                    <nb-option value="Grande">Grande</nb-option>
+                                    <nb-option value="Reducida">Reducida</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+
+                        <!-- **************************************************************************************************** -->
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>En función de sus actividades, ¿Usted realiza las
+                                        siguientes
+                                        actividades? </strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Actividades debajo del tronco(agacharse repetidamente)</label><br>
+                                <nb-radio-group name="actitronco" formControlName="actitronco"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Actividades a nivel del tronco(inclinarse hacia los lados, voltear)</label><br>
+                                <nb-radio-group name="actiNivelTronco" formControlName="actiNivelTronco"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Actividades por encima de los hombros(levantar brazos por encima de
+                                    cabeza)</label><br>
+                                <nb-radio-group name="actiHombros" formControlName="actiHombros"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Movimientos repetitivos de muñeca u hombros</label><br>
+                                <nb-radio-group name="moviMuneca" formControlName="moviMuneca"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                                <br>
+                                <label *ngIf="dataFrom.get('moviMuneca').value == 'si'">Describa que tipo de
+                                    movimientos:</label><br>
+                                <input *ngIf="dataFrom.get('moviMuneca').value == 'si'" type="text" nbInput
+                                    formControlName="descmovi" fullWidth placeholder="Especifique..."
+                                    [status]="df.descmovi.dirty ? (df.descmovi.invalid  ? 'danger' : 'success') : 'danger'">
+                                <ng-container *ngIf="df.descmovi.invalid ">
+                                    <p class="caption status-danger" *ngIf="df.descmovi.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Manejo de cargas</label><br>
+                                <nb-radio-group name="manejocarga" formControlName="manejocarga"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                                <br>
+                                <label *ngIf="dataFrom.get('manejocarga').value == 'si'">Describa que tipo de
+                                    cargas:</label><br>
+                                <input *ngIf="dataFrom.get('manejocarga').value == 'si'" type="text" nbInput
+                                    formControlName="tipocarga" fullWidth placeholder="Especifique..."
+                                    [status]="df.tipocarga.dirty ? (df.tipocarga.invalid  ? 'danger' : 'success') : 'danger'">
+                                <ng-container *ngIf="df.tipocarga.invalid ">
+                                    <p class="caption status-danger" *ngIf="df.tipocarga.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- ****************************************************************************************************   *ngIf="datosGeneralesFrom.get('').value == 'si'" -->
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Marque el equipo de protección personal que utiliza para
+                                        sus
+                                        actividades: </strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row estilo_div">
+                            <div class="form-group col-md"
+                                *ngFor="let genre_OD of df.proteccion_perso['controls']; let i = index;">
+                                <div formArrayName="proteccion_perso">
+                                    <nb-checkbox [formControl]="genre_OD">
+                                        {{proteccion_personal[i].proteccion}} </nb-checkbox>
+                                </div>
+                            </div>
+                            <!--
+                <div class="form-group col-md-4">
+                  <input type="text" nbInput formControlName="protecciondetalle" placeholder="Especifique cuales...">
+                </div>
+                -->
+                        </div>
+
+                        <br>
+
+                        <!-- **************************************************************************************************** -->
+
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                    <nb-accordion-item-header style=" background-color: #edf7d2; color:rgb(0, 0, 0);">
+                        <label>Antecedentes laborales</label>
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>De haber tenido otro puesto en la empresa, responda:
+                                    </strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Actividades debajo del tronco(agacharse repetidamente)</label><br>
+                                <nb-radio-group name="actividadreptronco" formControlName="actividadreptronco"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Puesto anterior</label><br>
+                                <input type="text" nbInput formControlName="puestoanterior" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Tiempo en el puesto</label><br>
+                                <input type="text" nbInput formControlName="tiempuesto" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>Accidentes sufridos</label><br>
+                                <input type="text" nbInput formControlName="accidentesufridos" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- **************************************************************************************************** -->
+
+                        <div class="form-row ">
+                            <div class=" form-group col-md ">
+                                <label> <strong> ¿Estuvo expuesto a algunos de los siguientes agentes? </strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="estilo_div">
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Ruido</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_ruido" formControlName="rb_ruido"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Temperaturas extremas</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_temperatura" formControlName="rb_temperatura"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Vibraciones</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_vibraciones" formControlName="rb_vibraciones"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Posturas de pie</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_postpie" formControlName="rb_postpie"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Posturas sentado</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_postsentado" formControlName="rb_postsentado"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Mala iluminación</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_iluminacion" formControlName="rb_iluminacion"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Polvos</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_polvo" formControlName="rb_polvo"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label> Vapores</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_vapor" formControlName="rb_vapor"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Radiaciones</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_radiacion" formControlName="rb_radiacion"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <label>Manejo de carga</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_manejocarga" formControlName="rb_manejocarga"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md text-center">
+                                    <label>Movimientos repetitivos de espalda, muñecas, hombros</label>
+                                </div>
+                                <div class="form-group col-md text-center">
+                                    <nb-radio-group name="rb_movirepetitivo" formControlName="rb_movirepetitivo"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <!-- **************************************************************************************************** -->
+
+                        <div class="form-row ">
+                            <div class=" form-group col-md ">
+                                <label> <strong> Respecto a enfermedades,accidentes o lesiones de trabajo
+                                        conteste:</strong>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>¿Ha sufrido accidentes de trabajo?</label><br>
+                                <nb-radio-group name="accidente_sufrido" formControlName="accidente_sufrido"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group><br>
+                                <label *ngIf="dataFrom.get('accidente_sufrido').value == 'si'">Describa que tipo de
+                                    accidente:</label><br>
+                                <input *ngIf="dataFrom.get('accidente_sufrido').value == 'si'" type="text" nbInput
+                                    formControlName="detalle_accidente" fullWidth placeholder="Especifique..."
+                                    [status]="df.detalle_accidente.dirty ? (df.detalle_accidente.invalid  ? 'danger' : 'success') : 'danger'">
+                                <ng-container *ngIf="df.detalle_accidente.invalid ">
+                                    <p class="caption status-danger" *ngIf="df.detalle_accidente.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <label>¿Ha sufrido enfermedades de trabajo?</label><br>
+                                <nb-radio-group name="enfe_trabajo" formControlName="enfe_trabajo"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group><br>
+                                <label *ngIf="dataFrom.get('enfe_trabajo').value == 'si'">Describa que tipo de
+                                    enfermedad:</label><br>
+                                <input *ngIf="dataFrom.get('enfe_trabajo').value == 'si'" type="text" nbInput
+                                    formControlName="detalle_enfermedad" fullWidth placeholder="Especifique..."
+                                    [status]="df.detalle_enfermedad.dirty ? (df.detalle_enfermedad.invalid  ? 'danger' : 'success') : 'danger'">
+                                <ng-container *ngIf="df.detalle_enfermedad.invalid ">
+                                    <p class="caption status-danger" *ngIf="df.detalle_enfermedad.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <!-- **************************************************************************************************** -->
+
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                    <nb-accordion-item-header style=" background-color: #f8f4d1; color:rgb(0, 0, 0); margin: 1px;">
+                        <label>Antecedentes heredofamiliares</label>
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                        <div class="form-row ">
+                            <div class=" form-group col-md ">
+                                <label> <strong> Marque si un familiar directo (vivo o muerto) han sufrido la siguiente
+                                        enfermedad:
+                                    </strong>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Diabetes o azucar alta</label><br>
+                                    <nb-radio-group name="diabetes" formControlName="diabetes"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('diabetes').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="diabetes_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.diabetes_fam.dirty ? (df.diabetes_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.diabetes_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.diabetes_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Hipertensión</label><br>
+                                    <nb-radio-group name="hipertension" formControlName="hipertension"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('hipertension').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="hipertension_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.hipertension_fam.dirty ? (df.hipertension_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.hipertension_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.hipertension_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Presión baja </label><br>
+                                    <nb-radio-group name="presionbaja" formControlName="presionbaja"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('presionbaja').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="presionbaja_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.presionbaja_fam.dirty ? (df.presionbaja_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.presionbaja_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.presionbaja_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas cardiacos</label><br>
+                                    <nb-radio-group name="probcardio" formControlName="probcardio"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('probcardio').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="probcardio_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.probcardio_fam.dirty ? (df.probcardio_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.probcardio_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.probcardio_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas pulmonares</label><br>
+                                    <nb-radio-group name="probpulmonar" formControlName="probpulmonar"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('probpulmonar').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="probpulmonar_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.probpulmonar_fam.dirty ? (df.probpulmonar_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.probpulmonar_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.probpulmonar_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas renales </label><br>
+                                    <nb-radio-group name="probrenal" formControlName="probrenal"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('probrenal').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="probrenal_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.probrenal_fam.dirty ? (df.probrenal_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.probrenal_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.probrenal_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas hepáticos</label><br>
+                                    <nb-radio-group name="problhepatico" formControlName="problhepatico"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('problhepatico').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="problhepatico_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.problhepatico_fam.dirty ? (df.problhepatico_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.problhepatico_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.problhepatico_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Enfermedades de la sangre</label><br>
+                                    <nb-radio-group name="enfersangre" formControlName="enfersangre"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('enfersangre').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="enfersangre_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.enfersangre_fam.dirty ? (df.enfersangre_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.enfersangre_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.enfersangre_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Ansiedad, depresión, ezquizofrenia </label><br>
+                                    <nb-radio-group name="ansi_depre_ezquizo" formControlName="ansi_depre_ezquizo"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('ansi_depre_ezquizo').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="ansi_depre_ezquizo_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.ansi_depre_ezquizo_fam.dirty ? (df.ansi_depre_ezquizo_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.ansi_depre_ezquizo_fam.invalid ">
+                                        <p class="caption status-danger"
+                                            *ngIf="df.ansi_depre_ezquizo_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Convulsión, Epilepsia</label><br>
+                                    <nb-radio-group name="convulcion_epilecia" formControlName="convulcion_epilecia"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('convulcion_epilecia').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="convulcion_epilecia_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.convulcion_epilecia_fam.dirty ? (df.convulcion_epilecia_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.convulcion_epilecia_fam.invalid ">
+                                        <p class="caption status-danger"
+                                            *ngIf="df.convulcion_epilecia_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Cancer, Tumores</label><br>
+                                    <nb-radio-group name="cancer_tumor" formControlName="cancer_tumor"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('cancer_tumor').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="cancer_tumor_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.cancer_tumor_fam.dirty ? (df.cancer_tumor_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.cancer_tumor_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.cancer_tumor_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Embolias, Derrames </label><br>
+                                    <nb-radio-group name="enboloa_derrame" formControlName="enboloa_derrame"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('enboloa_derrame').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="enboloa_derrame_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.enboloa_derrame_fam.dirty ? (df.enboloa_derrame_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.enboloa_derrame_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.enboloa_derrame_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas de tiroides</label><br>
+                                    <nb-radio-group name="probltiroides" formControlName="probltiroides"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('probltiroides').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="probltiroides_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.probltiroides_fam.dirty ? (df.probltiroides_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.probltiroides_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.probltiroides_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Obesidad </label><br>
+                                    <nb-radio-group name="obecidad" formControlName="obecidad"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('obecidad').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="obecidad_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.obecidad_fam.dirty ? (df.obecidad_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.obecidad_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.obecidad_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas visuales </label><br>
+                                    <nb-radio-group name="problvisual" formControlName="problvisual"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('problvisual').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="problvisual_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.problvisual_fam.dirty ? (df.problvisual_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.problvisual_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.problvisual_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Alergias, asma </label><br>
+                                    <nb-radio-group name="alergias" formControlName="alergias"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('alergias').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="alergias_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.alergias_fam.dirty ? (df.alergias_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.alergias_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.alergias_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Defectos congenitos</label><br>
+                                    <nb-radio-group name="defcongenitos" formControlName="defcongenitos"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('defcongenitos').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="defcongenitos_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.defcongenitos_fam.dirty ? (df.defcongenitos_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.defcongenitos_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.defcongenitos_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Problemas huesos, artilculaciones </label><br>
+                                    <nb-radio-group name="problhuesos" formControlName="problhuesos"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group><br>
+                                </div>
+                                <div *ngIf="dataFrom.get('problhuesos').value == 'si'">
+                                    <label>Especifique que miembro:</label><br>
+                                    <input type="text" nbInput formControlName="problhuesos_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.problhuesos_fam.dirty ? (df.problhuesos_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.problhuesos_fam.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.problhuesos_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                    <nb-accordion-item-header style=" background-color: #ffdfde; color:rgb(0, 0, 0); margin: 1px;">
+                        <label>Antecedentes personales no patológicos</label>
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Responda las sigueintes preguntas.</strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>La casa en que habita es:</label><br>
+                                    <nb-select name="casahabita" formControlName="casahabita"
+                                        placeholder="Elige una opcion" fullWidth>
+                                        <nb-option value="Propia">Propia</nb-option>
+                                        <nb-option value="Rentada">Rentada</nb-option>
+                                        <nb-option value="Prestada">Prestada</nb-option>
+                                    </nb-select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Cuenta con agua, luz, gas, drenaje?</label><br>
+                                    <nb-radio-group name="cuenta_servicios" formControlName="cuenta_servicios"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Cuántas personas viven con usted?</label><br>
+                                    <input type="text" nbInput formControlName="numpersonas_viven" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Cuántas son menores de 18 años?</label><br>
+                                    <input type="text" nbInput formControlName="cuantasmenores" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Cuántas son mayores de 65 años??</label><br>
+                                    <input type="text" nbInput formControlName="cuantasmayores" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Alguien en su casa tiene alguna enfermedad? </label><br>
+                                    <nb-radio-group name="familiar_enfe_gravedad"
+                                        formControlName="familiar_enfe_gravedad" class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div *ngIf="dataFrom.get('familiar_enfe_gravedad').value == 'si'">
+                                    <input type="text" nbInput formControlName="familiar_enfe_gravedad_fam" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.familiar_enfe_gravedad_fam.dirty ? (df.familiar_enfe_gravedad_fam.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.familiar_enfe_gravedad_fam.invalid ">
+                                        <p class="caption status-danger"
+                                            *ngIf="df.familiar_enfe_gravedad_fam.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Tiene mascotas?</label><br>
+                                    <nb-radio-group name="mascotas" formControlName="mascotas"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div *ngIf="dataFrom.get('mascotas').value == 'si'">
+                                    <input type="text" nbInput formControlName="mascotas_detalle" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.mascotas_detalle.dirty ? (df.mascotas_detalle.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.mascotas_detalle.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.mascotas_detalle.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Fuma o fumaba? </label><br>
+                                    <nb-radio-group name="ustedfuma" formControlName="ustedfuma"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div *ngIf="dataFrom.get('ustedfuma').value == 'si'">
+                                    <input type="text" nbInput formControlName="ustedfuma_detalle" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.ustedfuma_detalle.dirty ? (df.ustedfuma_detalle.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.ustedfuma_detalle.invalid ">
+                                        <p class="caption status-danger" *ngIf="df.ustedfuma_detalle.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Toma bebidas alcohólicas? </label><br>
+                                    <nb-radio-group name="bebidaalcoholica" formControlName="bebidaalcoholica"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div *ngIf="dataFrom.get('bebidaalcoholica').value == 'si'">
+                                    <input type="text" nbInput formControlName="bebidaalcoholica_detalle" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.bebidaalcoholica_detalle.dirty ? (df.bebidaalcoholica_detalle.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.bebidaalcoholica_detalle.invalid ">
+                                        <p class="caption status-danger"
+                                            *ngIf="df.bebidaalcoholica_detalle.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Consume alguna droga?</label><br>
+                                    <nb-radio-group name="consumedrogas" formControlName="consumedrogas"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div *ngIf="dataFrom.get('consumedrogas').value == 'si'">
+                                    <input type="text" nbInput formControlName="consumedrogas_detalle" fullWidth
+                                        placeholder="Especifique..."
+                                        [status]="df.consumedrogas_detalle.dirty ? (df.consumedrogas_detalle.invalid  ? 'danger' : 'success') : 'danger'">
+                                    <ng-container *ngIf="df.consumedrogas_detalle.invalid ">
+                                        <p class="caption status-danger"
+                                            *ngIf="df.consumedrogas_detalle.errors.required">
+                                            CAMPO REQUERIDO!
+                                        </p>
+                                    </ng-container>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Hace ejercicio? </label><br>
+                                    <nb-radio-group name="haceejercicio" formControlName="haceejercicio"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                                <div *ngIf="dataFrom.get('haceejercicio').value == 'si'">
+                                    <input type="text" nbInput formControlName="haceejercicio_detalle" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Cuántas comidas realiza al día?</label><br>
+                                    <input type="text" nbInput formControlName="comidaxdia" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Cuántas litros de agua toma en un solo día?</label><br>
+                                    <input type="text" nbInput formControlName="litrosagua" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>De 7 días a la semana. ¿Cuántas alimentos
+                                        consume?</strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Verduras </label><br>
+                                    <input type="text" nbInput formControlName="verduras" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Frutas</label><br>
+                                    <input type="text" nbInput formControlName="frutas" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Pastas</label><br>
+                                    <input type="text" nbInput formControlName="pastas" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Carne roja</label><br>
+                                    <input type="text" nbInput formControlName="carneroja" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Carne blanca </label><br>
+                                    <input type="text" nbInput formControlName="carneblanca" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label> Leguminosas</label><br>
+                                    <input type="text" nbInput formControlName="leguminosas" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Lacteos</label><br>
+                                    <input type="text" nbInput formControlName="lacteos" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Cereales</label><br>
+                                    <input type="text" nbInput formControlName="cereales" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label> Embutidos(jamón, salchicha, chorizo) </label><br>
+                                    <input type="text" nbInput formControlName="embutidos" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Chatarra(refresco, pandulce)</label><br>
+                                    <input type="text" nbInput formControlName="chatarra" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!--  ================================= -->
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>En su esquema de vacunacion: </strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Esquema de vacunacion completo</label><br>
+                                    <nb-radio-group name="vacuna_completo" formControlName="vacuna_completo"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Vacuna Covid</label><br>
+                                    <nb-radio-group name="vacuna_covid" formControlName="vacuna_covid"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Influenza estacional</label><br>
+                                    <nb-radio-group name="influenza_estacional" formControlName="influenza_estacional"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Tetanos y difteria</label><br>
+                                    <nb-radio-group name="tetanos" formControlName="tetanos"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Hepatitis B</label><br>
+                                    <nb-radio-group name="hepatitis_b" formControlName="hepatitis_b"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Le han hecho una transfusion de sangre?</label><br>
+                                    <nb-radio-group name="transfucion_sangre" formControlName="transfucion_sangre"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////9 -->
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Respecto a tus antecendetes personales marca si has
+                                        tenido el
+                                        padecimiento</strong> </label>
+                            </div>
+                        </div>
+                        <div class="estilo_div">
+                            <div class="form-row">
+                                <div class="form-group col-md-4"
+                                    *ngFor="let enfe of df.list_enfe['controls']; let i = index;">
+                                    <div formArrayName="list_enfe">
+                                        <nb-checkbox [formControl]="enfe">
+                                            {{listEnfermedades[i].enfermedad}} </nb-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md">
+                                    <div>
+                                        <label *ngIf="view_enfe_detalle">Observaciones (Especificar
+                                            hallazgos)</label><br>
+                                        <textarea *ngIf="view_enfe_detalle" nbInput fullWidth placeholder="Describa..."
+                                            rows="2" formControlName="enfe_detalle"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <!-- ///////////////////////////*ngIf="genero!='Masculino'"/////////////////////////////////////////////////////////////////////////////9 -->
+
+                <nb-accordion-item *ngIf="datosGeneralesFrom.get('pac_sexo').value != 'Masculino' ">
+                    <nb-accordion-item-header style=" background-color: #fddbf7; color:rgb(0, 0, 0); margin: 1px;">
+                        <label style="display: block; ">Gineco obstetricia</label>
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+                        <br>
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Menarca </label><br>
+                                    <input type="text" nbInput formControlName="menarca" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿A que edad inicio Vida sexual?</label><br>
+                                    <input type="text" nbInput formControlName="inicio_vidasexual" fullWidth
+                                        placeholder="años">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Utiliza un métodos de planificació?</label><br>
+                                    <input type="text" nbInput formControlName="metodoplanificacion" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Gestas</label><br>
+                                    <input type="text" nbInput formControlName="gestas" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Cesareas </label><br>
+                                    <input type="text" nbInput formControlName="cesareas" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Abortos</label><br>
+                                    <input type="text" nbInput formControlName="abortos" fullWidth placeholder="años">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>¿Que metodo utiliza?</label><br>
+                                    <input type="text" nbInput formControlName="metodo_utiliza" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Ultimo Parto</label><br>
+                                    <input type="text" nbInput formControlName="ultimo_parto" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Última exploración mamaria </label><br>
+                                    <input type="text" nbInput formControlName="ultima_expl_mamaria" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Última Mastografía</label><br>
+                                    <input type="text" nbInput formControlName="ultima_mastografia" fullWidth
+                                        placeholder="años">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md estilo_div text-center">
+                                <div>
+                                    <label>Resultado Última exploración mamaria</label><br>
+                                    <input type="text" nbInput formControlName="resultado_expl_mamaria" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+
+                <nb-accordion-item>
+                    <nb-accordion-item-header style=" background-color: #f2e1ff; color:rgb(0, 0, 0); margin: 1px;">
+                        <label style="display: block; ">Exploración física</label>
+                    </nb-accordion-item-header>
+                    <nb-accordion-item-body>
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Signos Vitales</strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row estilo_div text-center">
+                            <div class="form-group col-md text-center">
+                                <label>Peso(kg) </label><br>
+                                <input type="text" nbInput formControlName="peso" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>Talla (cm)</label><br>
+                                <input type="text" nbInput formControlName="talla" fullWidth placeholder="Especifique">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>IMC *</label><br>
+                                <input type="text" nbInput formControlName="imc" fullWidth placeholder="Especifique...">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>DXTX</label><br>
+                                <input type="text" nbInput formControlName="dxtx" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+                        </div>
+
+                        <div class="form-row estilo_div text-center">
+                            <div class="form-group col-md text-center">
+                                <label>TA Izquierdo </label><br>
+                                <input type="text" nbInput formControlName="ta_izquierdo" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>Ta Derecho </label><br>
+                                <input type="text" nbInput formControlName="ta_derecho" fullWidth
+                                    placeholder="Especifique">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>FC</label><br>
+                                <input type="text" nbInput formControlName="fc" fullWidth placeholder="Especifique...">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>FR</label><br>
+                                <input type="text" nbInput formControlName="fr" fullWidth placeholder="Especifique...">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Agudeza visual</strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row estilo_div text-center">
+                            <!-- <div class="form-group col-md text-center">
+                  <label>TEMP </label><br>
+                  <input type="text" nbInput formControlName="temp" fullWidth placeholder="Especifique...">
+                </div>
+  
+                <div class="form-group col-md text-center">
+                  <label>Agudeza visual </label><br>
+                  <input type="text" nbInput formControlName="agudeza_visual" fullWidth placeholder="Especifique">
+                </div> -->
+
+                            <div class="form-group col-md text-center">
+                                <label>Binocular S/C</label><br>
+                                <input type="text" nbInput formControlName="binocular" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>Binocular C/C</label><br>
+                                <input type="text" nbInput formControlName="c_c" fullWidth placeholder="Especifique...">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md estilo_div mb">
+                                <label class="d-block text-center"> Con lentes </label>
+                                <div class="col-md">
+                                    <label class="d-block ">Ojo derecho</label>
+                                    <input type="text" nbInput formControlName="conlentes_d" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                                <div class="col-md">
+                                    <label class="d-block ">Ojo izquierdo </label>
+                                    <input type="text" nbInput formControlName="conlentes_i" fullWidth
+                                        placeholder="Especifique">
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-2 col-md estilo_div">
+                                <label class="d-block text-center"> Sin lentes </label>
+                                <div class="col-md">
+                                    <label class="d-block ">Ojo derecho </label>
+                                    <input type="text" nbInput formControlName="sinlentes_d" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                                <div class="col-md">
+                                    <label class="d-block ">Ojo izquierdo </label>
+                                    <input type="text" nbInput formControlName="sinlentes_i" fullWidth
+                                        placeholder="Especifique...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row estilo_div text-center">
+                            <div class="form-group col-md text-center">
+                                <label>Agudeza visual cercana </label><br>
+                                <input type="text" nbInput formControlName="agudeza_visual_cercana" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+                            <div class="form-group col-md text-center">
+                                <label>Campintetría </label><br>
+                                <input type="text" nbInput formControlName="campinteria" fullWidth
+                                    placeholder="Especifique...">
+                            </div>
+                            <div class="form-group col-md text-center">
+                                <label>Tiene daltonismo</label><br>
+                                <nb-radio-group name="daltonismo" formControlName="daltonismo"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="si"> Si </nb-radio>
+                                    <nb-radio value="no"> No </nb-radio>
+                                </nb-radio-group>
+                            </div>
+                        </div>
+                        <br>
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Exploración fisica y descripción.</strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Cabeza </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="cabeza"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Craneo</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="craneo"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Cara </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="cara"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Pupilas</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="craneo"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Conjuntivas </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="conjuntivas"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Nariz</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="nariz"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Boca </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="boca"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Cavidad oral</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="cavidad_oral"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Amigdalas </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="amigdalas"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Faringe</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="faringe"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Estado dental </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="estado_dental"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Cuello</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="cuello"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Oído derecho (Pabellon, conducto, timpano y audicion)</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="oido_derecho"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Oído Izquierdo (Pabellon, conducto, timpano y audicion)</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="oido_izquierdo"></textarea>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Torax</strong> </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <!-- <div class="form-group col-md-6">
+                  <label>Torax </label><br>
+                  <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                    formControlName="torax"></textarea>
+                </div> -->
+                            <div class="form-group col-md-6">
+                                <label>Mamas </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="mamas"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Movimiento respiratorios</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="mov_respiratorios"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Ruidos cardiacos </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="ruidos_cardiacos"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Campos pulmonares</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="campos_pulmonares"></textarea>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Abdomen</strong> </label>
+                            </div>
+                        </div>
+
+                        <!-- <div class="form-row">
+                 <div class="form-group col-md-6">
+                  <label>Mamas </label><br>
+                  <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                    formControlName="mamas"></textarea>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Abdomen</label><br>
+                  <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                    formControlName="abdomen"></textarea>
+                </div>
+              </div> -->
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Auscultación </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="auscultacion"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Palpaciones</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="palpaciones"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Visceromealias </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="visceromealias"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Hernias</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="hernias"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Tumoraciones </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="tumoraciones"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Genitales</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="genitales"></textarea>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="form-row">
+                            <!-- <div class="form-group col-md-6">
+                  <label>Urinario </label><br>
+                  <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                    formControlName="urinario"></textarea>
+                </div> -->
+                            <div class="form-group col-md-6">
+                                <label>Piel </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="piel"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Columna</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="columna"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Extremidades superiores </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="extremidades_sup"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Extremidades inferiores</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="extremidades_inf"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+
+                            <div class="form-group col-md-6">
+                                <label>Sistema nervioso</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="sistema_nervioso"></textarea>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Diagnostico Clínico </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="diagnostico_clinico"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Observaciones</label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="observaciones"></textarea>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>Recomendaciones </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa..." rows="2"
+                                    formControlName="recomendaciones"></textarea>
+                            </div>
+                        </div>
+
+                    </nb-accordion-item-body>
+                </nb-accordion-item>
+            </nb-accordion>
+
+            <br>
+
+            <div class="form-row align-center justify-content-center ">
+                <button type="submit" nbButton shape="semi-round" size="large" status="primary" hero
+                    [disabled]="!dataFrom.valid">
+                    <nb-icon icon="save"></nb-icon> {{mssbtn}} reporte
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

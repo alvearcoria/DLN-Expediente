@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header>
+          <div class=" form-group col-lg">
+            <h4>{{encabezado}}
+              <button nbButton size="medium" shape="semi-round" status="danger" hero class="float-right"
+                (click)="redirect();">
+                <nb-icon icon="window-close"></nb-icon> CANCELAR
+              </button>
+            </h4>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <form class="panel is-valid " [formGroup]="subempForm" (ngSubmit)="btnAccion()" novalidate autocomplete="off"
+            [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="giant">
+  
+            <div class="form-row">
+              <div class="form-group col-md">
+                <label> Nombre subempresa </label>
+                <input type="text" nbInput formControlName="nombre" fullWidth
+                  [status]="sEmp.nombre.dirty ? (sEmp.nombre.touched && sEmp.nombre.invalid ? 'danger' : 'success') : '' " />
+                <ng-container *ngIf="sEmp.nombre.invalid && sEmp.nombre.touched">
+                  <p class="caption status-danger" *ngIf="sEmp.nombre.errors.required">
+                    CAMPO REQUERIDO!
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+            <div *ngFor="let area of areasFC.controls; let i = index;">
+              <div class="form-row">
+                <div class="form-group col-md-6" [formGroup]="area">
+                  <label>{{i+1}} Nombre de area </label>
+                  <input type="text" nbInput formControlName="name_area" fullWidth
+                    [status]="validname_area(i) ?  'success': 'danger'" />
+                  <ng-container *ngIf="areasFC.controls[i].get('name_area').invalid && areasFC.controls[i].get('name_area').touched">
+                    <p class="caption status-danger" *ngIf="areasFC.controls[i].get('name_area').errors.required"> CAMPO REQUERIDO! </p>
+                  </ng-container>
+  
+                  <ng-container *ngIf="messageError != ''"><p class="caption status-danger">{{messageError}}</p>
+                  </ng-container>
+                </div>
+                <div class="form-group col-md-1">
+                  <br>
+                  <button *ngIf="i >= 1" type="button" nbButton shape="semi-round" status="danger" hero
+                    (click)="areasFC.removeAt(i)" class=" mt-2">
+                    <nb-icon icon="minus-circle"></nb-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="button" nbButton shape="semi-round" status="success" hero
+                (click)="areasFC.push(this.addArea())" class=" mt-2">
+                <nb-icon icon="plus-circle"></nb-icon>Agregar area
+              </button>
+            </div>
+            <br>
+            <br>
+            <div class="form-row align-center justify-content-center ">
+              <button type="submit" nbButton shape="semi-round" size="large" status="primary" hero
+                [disabled]="!subempForm.valid || messageError != ''">
+                <nb-icon icon="save"></nb-icon> {{mssbtn}}
+              </button>
+            </div>
+  
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>

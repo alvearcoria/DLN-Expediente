@@ -1,0 +1,1851 @@
+<div class="row">
+    <div class="col-lg-12">
+      <nb-card>
+        <nb-card-header style=" background-color: #34495E; ">
+          <div class=" form-group col-lg">
+            <h5 style="color:#fff;"> Datos del empleado
+              <button nbButton size="medium" shape="semi-round" status="danger" hero class="float-right"
+                (click)="onCancel();">
+                <nb-icon icon="window-close"></nb-icon> CANCELAR
+              </button>
+            </h5>
+          </div>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="form-row">
+            <div class="form-group col-md">
+              <label>Nombre(s)</label>
+              <input type="text" nbInput icon="window-close" fullWidth readonly [value]=currentEmpleado.pac_nombres />
+            </div>
+            <div class="form-group col-md-3">
+              <label>Primer Apellido</label>
+              <input type="text" nbInput fullWidth readonly [value]=currentEmpleado.pac_apPrimero />
+            </div>
+            <div class="form-group col-md-3">
+              <label>Segundo Apellido</label>
+              <input type="text" nbInput fullWidth readonly [value]=currentEmpleado.pac_apSegundo />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md">
+              <label> Numero de seguro social </label>
+              <input type="text" nbInput fullWidth readonly [value]=currentEmpleado.pac_imss id="prueba" />
+            </div>
+            <div class="form-group col-md">
+              <label>Numero de Nomina </label>
+              <input type="text" nbInput fullWidth readonly [value]=currentEmpleado.pac_nomina id="prueba" />
+            </div>
+          </div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <form class="panel" [formGroup]="dataFrom" (ngSubmit)="btnAccion(currentBTN)" autocomplete="off" id="dataFrom">
+        <nb-card>
+          <nb-card-header style=" background-color: #677077;">
+            <h4 class="d-block " style="color:#fff; ">Captura de información </h4>
+          </nb-card-header>
+          <nb-card-body>
+            <div class="form-row estilo_div ">
+              <div class="form-group col-md-4 align-center">
+                <label>Fecha de examen</label>
+                <input nbInput placeholder="Selecciona la fecha de la consulta" [nbDatepicker]="picker1"
+                  class="form-control" formControlName="f_examen_medico" fullWidth id="f_examen_medico"
+                  [status]="df.f_examen_medico.dirty ? (df.f_examen_medico.invalid  ? 'danger' : 'success') : 'danger'" />
+                <nb-datepicker #picker1 ></nb-datepicker>
+                <ng-container *ngIf="df.f_examen_medico.invalid && df.f_examen_medico.touched">
+                  <p class="caption status-danger" *ngIf="df.f_examen_medico.errors.required">
+                    CAMPO REQUERIDO!
+                  </p>
+                </ng-container>
+              </div>
+  
+              <div class="form-group col-md-4 align-center">
+                <label>Tipo de examen</label> <br>
+                <nb-radio-group name="tipo_examen_medico" formControlName="tipo_examen_medico"
+                  class="custom-control-inline"
+                  [status]="df.tipo_examen_medico.dirty ? (df.tipo_examen_medico.invalid  ? 'danger' : 'success') : 'danger'">
+                  <nb-radio value="Periodico"> Periodico </nb-radio>
+                  <nb-radio value="Ingreso"> Ingreso </nb-radio>
+                </nb-radio-group><br>
+                <ng-container *ngIf="df.tipo_examen_medico.invalid && df.tipo_examen_medico.touched">
+                  <p class="caption status-danger" *ngIf="df.tipo_examen_medico.errors.required">
+                    CAMPO REQUERIDO!
+                  </p>
+                </ng-container>
+              </div>
+            </div>
+  
+            <nb-accordion multi>
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #c7f7e5; color:rgb(0, 0, 0);">
+                  LABORATORIOS
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md">
+                      <label> BIOMETRIA HEMATICA &nbsp; </label><br>
+                      <nb-select name="exmed_bh" formControlName="exmed_bh"
+                        [status]="df.exmed_bh.dirty ? (df.exmed_bh.invalid  ? 'danger' : 'success') : 'danger'"
+                        placeholder="Elige una opcion" fullWidth>
+                        <nb-option value="LEUCOPENIA (LEUCOCITOS BAJOS)"> LEUCOPENIA (LEUCOCITOS BAJOS)</nb-option>
+                        <nb-option value="LEUCOCITOSIS (LEUCOCITOS ALTOS)"> LEUCOCITOSIS (LEUCOCITOS ALTOS)</nb-option>
+                        <nb-option value="POLICITEMIA (AUMENTO GLOBULOS ROJOS)"> POLICITEMIA (AUMENTO GLOBULOS ROJOS)
+                        </nb-option>
+                        <nb-option value="ANEMIA (DISMINUCION GLOBULOS ROJOS)"> ANEMIA (DISMINUCION GLOBULOS ROJOS)
+                        </nb-option>
+                        <nb-option value="HEMOGLOBINA ELEVADA"> HEMOGLOBINA ELEVADA</nb-option>
+                        <nb-option value="HEMOGLOBINA BAJA"> HEMOGLOBINA BAJA</nb-option>
+                        <nb-option value="HEMATOCRITO ELEVADO"> HEMATOCRITO ELEVADO</nb-option>
+                        <nb-option value="HEMATOCRITO BAJO"> HEMATOCRITO BAJO</nb-option>
+                        <nb-option value="NORMAL"> NORMAL</nb-option>
+                        <nb-option value="NO APLICA"> NO APLICA</nb-option>
+                      </nb-select>
+                      <ng-container *ngIf="df.exmed_bh.invalid && df.exmed_bh.touched">
+                        <p class="caption status-danger" *ngIf="df.exmed_bh.errors.required">
+                          CAMPO REQUERIDO!
+                        </p>
+                      </ng-container>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <label> PERFIL LIPIDOS &nbsp; </label><br>
+                      <nb-select name="exmed_plipidos" formControlName="exmed_plipidos"
+                        [status]="df.exmed_plipidos.dirty ? (df.exmed_plipidos.invalid  ? 'danger' : 'success') : 'danger'"
+                        placeholder="Elige una opcion" fullWidth>
+                        <nb-option value="TRIGLICERIDOS ELEVADOS">TRIGLICERIDOS ELEVADOS</nb-option>
+                        <nb-option value="HDL ELEVADO">HDL ELEVADO</nb-option>
+                        <nb-option value="LDL ELEVADO">LDL ELEVADO</nb-option>
+                        <nb-option value="HDL Y LDL ELEVADOS">HDL Y LDL ELEVADOS</nb-option>
+                        <nb-option value="RELACION HDL / LDL ELEVADA">RELACION HDL / LDL ELEVADA</nb-option>
+                        <nb-option value="RELACION HDL/LDL BAJA">RELACION HDL/LDL BAJA</nb-option>
+                        <nb-option value="NORMAL">NORMAL</nb-option>
+                        <nb-option value="NO APLICA">NO APLICA</nb-option>
+                      </nb-select>
+                      <ng-container *ngIf="df.exmed_plipidos.invalid && df.exmed_plipidos.touched">
+                        <p class="caption status-danger" *ngIf="df.exmed_plipidos.errors.required">
+                          CAMPO REQUERIDO!
+                        </p>
+                      </ng-container>
+                    </div>
+                  </div>
+  
+                  <div class=" estilo_div ">
+                    <label> Quimica Sanginea - elementos </label><br>
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>CREATIN FOSFOKINASA</label><br>
+                          <nb-radio-group name="exmed_CREATIN_FOSFOKINASA" formControlName="exmed_CREATIN_FOSFOKINASA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_CREATIN_FOSFOKINASA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_CREATIN_FOSFOKINASA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_CREATIN_FOSFOKINASA_valor.dirty ? (df.exmed_CREATIN_FOSFOKINASA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_CREATIN_FOSFOKINASA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_CREATIN_FOSFOKINASA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>DESHIDROGENASA LACTICA</label><br>
+                          <nb-radio-group name="exmed_DESHIDROGENASA_LACTICA"
+                            formControlName="exmed_DESHIDROGENASA_LACTICA" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_DESHIDROGENASA_LACTICA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_DESHIDROGENASA_LACTICA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_DESHIDROGENASA_LACTICA_valor.dirty ? (df.exmed_DESHIDROGENASA_LACTICA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_DESHIDROGENASA_LACTICA_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_DESHIDROGENASA_LACTICA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>ALBUMINA</label><br>
+                          <nb-radio-group name="exmed_ALBUMINA" formControlName="exmed_ALBUMINA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_ALBUMINA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_ALBUMINA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_ALBUMINA_valor.dirty ? (df.exmed_ALBUMINA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_ALBUMINA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_ALBUMINA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>CREATININA</label><br>
+                          <nb-radio-group name="exmed_CREATININA" formControlName="exmed_CREATININA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_CREATININA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_CREATININA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_CREATININA_valor.dirty ? (df.exmed_CREATININA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_CREATININA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_CREATININA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>UREA</label><br>
+                          <nb-radio-group name="exmed_UREA" formControlName="exmed_UREA" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_UREA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_UREA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_UREA_valor.dirty ? (df.exmed_UREA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_UREA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_UREA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>CALCIO</label><br>
+                          <nb-radio-group name="exmed_CALCIO" formControlName="exmed_CALCIO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_CALCIO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_CALCIO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_CALCIO_valor.dirty ? (df.exmed_CALCIO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_CALCIO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_CALCIO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>FOSFORO</label><br>
+                          <nb-radio-group name="exmed_FOSFORO" formControlName="exmed_FOSFORO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_FOSFORO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_FOSFORO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_FOSFORO_valor.dirty ? (df.exmed_FOSFORO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_FOSFORO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_FOSFORO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>MAGNESIO</label><br>
+                          <nb-radio-group name="exmed_MAGNESIO" formControlName="exmed_MAGNESIO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_MAGNESIO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_MAGNESIO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_MAGNESIO_valor.dirty ? (df.exmed_MAGNESIO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_MAGNESIO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_MAGNESIO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>SODIO</label><br>
+                          <nb-radio-group name="exmed_SODIO" formControlName="exmed_SODIO" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_SODIO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_SODIO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_SODIO_valor.dirty ? (df.exmed_SODIO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_SODIO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_SODIO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>POTASIO</label><br>
+                          <nb-radio-group name="exmed_POTASIO" formControlName="exmed_POTASIO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_POTASIO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_POTASIO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_POTASIO_valor.dirty ? (df.exmed_POTASIO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_POTASIO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_POTASIO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>CLORO</label><br>
+                          <nb-radio-group name="exmed_CLORO" formControlName="exmed_CLORO" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_CLORO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_CLORO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_CLORO_valor.dirty ? (df.exmed_CLORO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_CLORO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_CLORO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>PROTEINAS TOTALES</label><br>
+                          <nb-radio-group name="exmed_PROTEINAS_TOTALES" formControlName="exmed_PROTEINAS_TOTALES"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_PROTEINAS_TOTALES').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_PROTEINAS_TOTALES_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_PROTEINAS_TOTALES_valor.dirty ? (df.exmed_PROTEINAS_TOTALES_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_PROTEINAS_TOTALES_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_PROTEINAS_TOTALES_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>NITROGENO UREICO</label><br>
+                          <nb-radio-group name="exmed_NITROGENO_UREICO" formControlName="exmed_NITROGENO_UREICO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_NITROGENO_UREICO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_NITROGENO_UREICO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_NITROGENO_UREICO_valor.dirty ? (df.exmed_NITROGENO_UREICO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_NITROGENO_UREICO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_NITROGENO_UREICO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>FILTRADO GLOMERULAR</label><br>
+                          <nb-radio-group name="exmed_FILTRADO_GLOMERULAR" formControlName="exmed_FILTRADO_GLOMERULAR"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_FILTRADO_GLOMERULAR').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_FILTRADO_GLOMERULAR_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_FILTRADO_GLOMERULAR_valor.dirty ? (df.exmed_FILTRADO_GLOMERULAR_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_FILTRADO_GLOMERULAR_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_FILTRADO_GLOMERULAR_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>GLOBULINA SERICA</label><br>
+                          <nb-radio-group name="exmed_GLOBULINA_SERICA" formControlName="exmed_GLOBULINA_SERICA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_GLOBULINA_SERICA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_GLOBULINA_SERICA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_GLOBULINA_SERICA_valor.dirty ? (df.exmed_GLOBULINA_SERICA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_GLOBULINA_SERICA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_GLOBULINA_SERICA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>GLOBULINAS</label><br>
+                          <nb-radio-group name="exmed_GLOBULINAS" formControlName="exmed_GLOBULINAS"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_GLOBULINAS').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_GLOBULINAS_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_GLOBULINAS_valor.dirty ? (df.exmed_GLOBULINAS_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_GLOBULINAS_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_GLOBULINAS_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>BILIRRUBINA TOTAL</label><br>
+                          <nb-radio-group name="exmed_BILIRRUBINA_TOTAL" formControlName="exmed_BILIRRUBINA_TOTAL"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_BILIRRUBINA_TOTAL').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_BILIRRUBINA_TOTAL_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_BILIRRUBINA_TOTAL_valor.dirty ? (df.exmed_BILIRRUBINA_TOTAL_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_BILIRRUBINA_TOTAL_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_BILIRRUBINA_TOTAL_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>FOSFATASA ALCALINA</label><br>
+                          <nb-radio-group name="exmed_FOSFATASA_ALCALINA" formControlName="exmed_FOSFATASA_ALCALINA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_FOSFATASA_ALCALINA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_FOSFATASA_ALCALINA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_FOSFATASA_ALCALINA_valor.dirty ? (df.exmed_FOSFATASA_ALCALINA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_FOSFATASA_ALCALINA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_FOSFATASA_ALCALINA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>ALANINO AMINO TRANSFERASA (TGP)</label><br>
+                          <nb-radio-group name="exmed_ALANINO_AMINO_TRANSFERASA"
+                            formControlName="exmed_ALANINO_AMINO_TRANSFERASA" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_ALANINO_AMINO_TRANSFERASA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_ALANINO_AMINO_TRANSFERASA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_ALANINO_AMINO_TRANSFERASA_valor.dirty ? (df.exmed_ALANINO_AMINO_TRANSFERASA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_ALANINO_AMINO_TRANSFERASA_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_ALANINO_AMINO_TRANSFERASA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>ASPARTATO AMINO TRANSFERASA</label><br>
+                          <nb-radio-group name="exmed_ASPARTATO_AMINO_TRANSFERASA"
+                            formControlName="exmed_ASPARTATO_AMINO_TRANSFERASA" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_ASPARTATO_AMINO_TRANSFERASA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_ASPARTATO_AMINO_TRANSFERASA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_ASPARTATO_AMINO_TRANSFERASA_valor.dirty ? (df.exmed_ASPARTATO_AMINO_TRANSFERASA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_ASPARTATO_AMINO_TRANSFERASA_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_ASPARTATO_AMINO_TRANSFERASA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>GAMA GLUTAMIL TRANSPEPTIDASA (GGT)</label><br>
+                          <nb-radio-group name="exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA"
+                            formControlName="exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA_valor.dirty ? (df.exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_GAMA_GLUTAMIL_TRANSPEPTIDASA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>BILIRRUBINA DIRECTA</label><br>
+                          <nb-radio-group name="exmed_BILIRRUBINA_DIRECTA" formControlName="exmed_BILIRRUBINA_DIRECTA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_BILIRRUBINA_DIRECTA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_BILIRRUBINA_DIRECTA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_BILIRRUBINA_DIRECTA_valor.dirty ? (df.exmed_BILIRRUBINA_DIRECTA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_BILIRRUBINA_DIRECTA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_BILIRRUBINA_DIRECTA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>BILIRRUBINA INDIRECTA</label><br>
+                          <nb-radio-group name="exmed_BILIRRUBINA_INDIRECTA" formControlName="exmed_BILIRRUBINA_INDIRECTA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_BILIRRUBINA_INDIRECTA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_BILIRRUBINA_INDIRECTA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_BILIRRUBINA_INDIRECTA_valor.dirty ? (df.exmed_BILIRRUBINA_INDIRECTA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_BILIRRUBINA_INDIRECTA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_BILIRRUBINA_INDIRECTA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>COLESTEROL DE ALTA DENSIDAD (HDL)</label><br>
+                          <nb-radio-group name="exmed_COLESTEROL_ALTA_DENSIDAD"
+                            formControlName="exmed_COLESTEROL_ALTA_DENSIDAD" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_COLESTEROL_ALTA_DENSIDAD').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_COLESTEROL_ALTA_DENSIDAD_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_COLESTEROL_ALTA_DENSIDAD_valor.dirty ? (df.exmed_COLESTEROL_ALTA_DENSIDAD_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_COLESTEROL_ALTA_DENSIDAD_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_COLESTEROL_ALTA_DENSIDAD_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>COLESTEROL DE BAJA DENSIDAD (LDL)</label><br>
+                          <nb-radio-group name="exmed_COLESTEROL_BAJA_DENSIDAD"
+                            formControlName="exmed_COLESTEROL_BAJA_DENSIDAD" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_COLESTEROL_BAJA_DENSIDAD').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_COLESTEROL_BAJA_DENSIDAD_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_COLESTEROL_BAJA_DENSIDAD_valor.dirty ? (df.exmed_COLESTEROL_BAJA_DENSIDAD_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_COLESTEROL_BAJA_DENSIDAD_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_COLESTEROL_BAJA_DENSIDAD_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>COLESTEROL TOTAL</label><br>
+                          <nb-radio-group name="exmed_COLESTEROL_TOTAL" formControlName="exmed_COLESTEROL_TOTAL"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_COLESTEROL_TOTAL').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_COLESTEROL_TOTAL_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_COLESTEROL_TOTAL_valor.dirty ? (df.exmed_COLESTEROL_TOTAL_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_COLESTEROL_TOTAL_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_COLESTEROL_TOTAL_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>TRIGLICERIDOS</label><br>
+                          <nb-radio-group name="exmed_TRIGLICERIDOS" formControlName="exmed_TRIGLICERIDOS"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_TRIGLICERIDOS').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_TRIGLICERIDOS_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_TRIGLICERIDOS_valor.dirty ? (df.exmed_TRIGLICERIDOS_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_TRIGLICERIDOS_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_TRIGLICERIDOS_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>FOSFOLIPIDOS</label><br>
+                          <nb-radio-group name="exmed_FOSFOLIPIDOS" formControlName="exmed_FOSFOLIPIDOS"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_FOSFOLIPIDOS').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_FOSFOLIPIDOS_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_FOSFOLIPIDOS_valor.dirty ? (df.exmed_FOSFOLIPIDOS_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_FOSFOLIPIDOS_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_FOSFOLIPIDOS_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>LIPIDOS TOTALES</label><br>
+                          <nb-radio-group name="exmed_LIPIDOS_TOTALES" formControlName="exmed_LIPIDOS_TOTALES"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_LIPIDOS_TOTALES').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_LIPIDOS_TOTALES_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_LIPIDOS_TOTALES_valor.dirty ? (df.exmed_LIPIDOS_TOTALES_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_LIPIDOS_TOTALES_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_LIPIDOS_TOTALES_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>HIERRO SERICO</label><br>
+                          <nb-radio-group name="exmed_HIERRO_SERICO" formControlName="exmed_HIERRO_SERICO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_HIERRO_SERICO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_HIERRO_SERICO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_HIERRO_SERICO_valor.dirty ? (df.exmed_HIERRO_SERICO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_HIERRO_SERICO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_HIERRO_SERICO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>INDICE DE SATURACION (HIERRO)</label><br>
+                          <nb-radio-group name="exmed_INDICE_SATURACION" formControlName="exmed_INDICE_SATURACION"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_INDICE_SATURACION').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_INDICE_SATURACION_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_INDICE_SATURACION_valor.dirty ? (df.exmed_INDICE_SATURACION_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_INDICE_SATURACION_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_INDICE_SATURACION_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>UIBC (Capacidad de fijación de hierro saturado)</label><br>
+                          <nb-radio-group name="exmed_UIBC" formControlName="exmed_UIBC" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_UIBC').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_UIBC_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_UIBC_valor.dirty ? (df.exmed_UIBC_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_UIBC_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_UIBC_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>Capacidad de fijación de hierro</label><br>
+                          <nb-radio-group name="exmed_Capacidad_fijacion_hierro"
+                            formControlName="exmed_Capacidad_fijacion_hierro" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_Capacidad_fijacion_hierro').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_Capacidad_fijacion_hierro_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_Capacidad_fijacion_hierro_valor.dirty ? (df.exmed_Capacidad_fijacion_hierro_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_Capacidad_fijacion_hierro_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_Capacidad_fijacion_hierro_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>FERRITINA</label><br>
+                          <nb-radio-group name="exmed_FERRITINA" formControlName="exmed_FERRITINA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_FERRITINA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_FERRITINA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_FERRITINA_valor.dirty ? (df.exmed_FERRITINA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_FERRITINA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_FERRITINA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>TRANSFERRINA</label><br>
+                          <nb-radio-group name="exmed_TRANSFERRINA" formControlName="exmed_TRANSFERRINA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_TRANSFERRINA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_TRANSFERRINA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_TRANSFERRINA_valor.dirty ? (df.exmed_TRANSFERRINA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_TRANSFERRINA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_TRANSFERRINA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>GLUCOSA</label><br>
+                          <nb-radio-group name="exmed_GLUCOSA" formControlName="exmed_GLUCOSA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_GLUCOSA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_GLUCOSA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_GLUCOSA_valor.dirty ? (df.exmed_GLUCOSA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_GLUCOSA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_GLUCOSA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>INSULINA BASAL</label><br>
+                          <nb-radio-group name="exmed_INSULINA_BASAL" formControlName="exmed_INSULINA_BASAL"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_INSULINA_BASAL').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_INSULINA_BASAL_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_INSULINA_BASAL_valor.dirty ? (df.exmed_INSULINA_BASAL_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_INSULINA_BASAL_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_INSULINA_BASAL_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>OSMORALIDAD EN SUERO</label><br>
+                          <nb-radio-group name="exmed_OSMORALIDAD_SUERO" formControlName="exmed_OSMORALIDAD_SUERO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_OSMORALIDAD_SUERO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_OSMORALIDAD_SUERO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_OSMORALIDAD_SUERO_valor.dirty ? (df.exmed_OSMORALIDAD_SUERO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_OSMORALIDAD_SUERO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_OSMORALIDAD_SUERO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>AMILASA</label><br>
+                          <nb-radio-group name="exmed_AMILASA" formControlName="exmed_AMILASA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_AMILASA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_AMILASA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_AMILASA_valor.dirty ? (df.exmed_AMILASA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_AMILASA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_AMILASA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>LIPASA</label><br>
+                          <nb-radio-group name="exmed_LIPASA" formControlName="exmed_LIPASA"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_LIPASA').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_LIPASA_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_LIPASA_valor.dirty ? (df.exmed_LIPASA_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_LIPASA_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_LIPASA_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>Triyodotironina Total T3</label><br>
+                          <nb-radio-group name="exmed_TriyodotironinaTotalT3"
+                            formControlName="exmed_TriyodotironinaTotalT3" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_TriyodotironinaTotalT3').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_TriyodotironinaTotalT3_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_TriyodotironinaTotalT3_valor.dirty ? (df.exmed_TriyodotironinaTotalT3_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_TriyodotironinaTotalT3_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_TriyodotironinaTotalT3_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>Tiroxina T4</label><br>
+                          <nb-radio-group name="exmed_TiroxinaT4" formControlName="exmed_TiroxinaT4"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_TiroxinaT4').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_TiroxinaT4_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_TiroxinaT4_valor.dirty ? (df.exmed_TiroxinaT4_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_TiroxinaT4_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_TiroxinaT4_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>TSH</label><br>
+                          <nb-radio-group name="exmed_TSH" formControlName="exmed_TSH" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_TSH').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_TSH_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_TSH_valor.dirty ? (df.exmed_TSH_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_TSH_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_TSH_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>FACTOR REUMATOIDE CUANTITATIVO</label><br>
+                          <nb-radio-group name="exmed_FACTOR_REUMATOIDE_CUANTITATIVO"
+                            formControlName="exmed_FACTOR_REUMATOIDE_CUANTITATIVO" class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_FACTOR_REUMATOIDE_CUANTITATIVO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_FACTOR_REUMATOIDE_CUANTITATIVO_valor"
+                            fullWidth placeholder="Especifique..."
+                            [status]="df.exmed_FACTOR_REUMATOIDE_CUANTITATIVO_valor.dirty ? (df.exmed_FACTOR_REUMATOIDE_CUANTITATIVO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_FACTOR_REUMATOIDE_CUANTITATIVO_valor.invalid ">
+                            <p class="caption status-danger"
+                              *ngIf="df.exmed_FACTOR_REUMATOIDE_CUANTITATIVO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="form-row">
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>ANTI ESTREPTO LICINAS</label><br>
+                          <nb-radio-group name="exmed_ANTI_ESTREPTO_LICINAS" formControlName="exmed_ANTI_ESTREPTO_LICINAS"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_ANTI_ESTREPTO_LICINAS').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_ANTI_ESTREPTO_LICINAS_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_ANTI_ESTREPTO_LICINAS_valor.dirty ? (df.exmed_ANTI_ESTREPTO_LICINAS_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_ANTI_ESTREPTO_LICINAS_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_ANTI_ESTREPTO_LICINAS_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>PROTEINA C REACTIVA CUANTITATIVA</label><br>
+                          <nb-radio-group name="exmed_PROTEINA_C" formControlName="exmed_PROTEINA_C"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_PROTEINA_C').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_PROTEINA_C_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_PROTEINA_C_valor.dirty ? (df.exmed_PROTEINA_C_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_PROTEINA_C_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_PROTEINA_C_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                      <div class="form-group col-md estilo_div text-center">
+                        <div>
+                          <label>ACIDO URICO</label><br>
+                          <nb-radio-group name="exmed_ACIDO_URICO" formControlName="exmed_ACIDO_URICO"
+                            class="custom-control-inline">
+                            <nb-radio value="si"> Si </nb-radio>
+                            <nb-radio value="no"> No </nb-radio>
+                          </nb-radio-group><br>
+                        </div>
+                        <div *ngIf="dataFrom.get('exmed_ACIDO_URICO').value == 'si'">
+                          <label>Especifique los valores:</label><br>
+                          <input type="text" nbInput formControlName="exmed_ACIDO_URICO_valor" fullWidth
+                            placeholder="Especifique..."
+                            [status]="df.exmed_ACIDO_URICO_valor.dirty ? (df.exmed_ACIDO_URICO_valor.invalid  ? 'danger' : 'success') : 'danger'">
+                          <ng-container *ngIf="df.exmed_ACIDO_URICO_valor.invalid ">
+                            <p class="caption status-danger" *ngIf="df.exmed_ACIDO_URICO_valor.errors.required">
+                              CAMPO REQUERIDO!
+                            </p>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #edf7d2; color:rgb(0, 0, 0);">
+                  RADIOGRAFIAS
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md-4">
+                      <label> Hombro derecho &nbsp; </label><br>
+                      <ng-select [(ngModel)]="hombro_der" [multiple]="true" [closeOnSelect]="false"
+                        placeholder="Elige una opcion o varias" name="exmed_hombro_der"
+                        formControlName="exmed_hombro_der">
+                        <ng-option value="ACROMION TIPO I">ACROMION TIPO I</ng-option>
+                        <ng-option value="ACROMION TIPO II">ACROMION TIPO II</ng-option>
+                        <ng-option value="ACROMION TIPO III">ACROMION TIPO III</ng-option>
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                    </div>
+  
+                    <div class="form-group col-md-4">
+                      <label> Hombro izquierdo &nbsp; </label><br>
+                      <ng-select [(ngModel)]="hombro_izq" [multiple]="true" [closeOnSelect]="false"
+                        placeholder="Elige una opcion o varias" name="exmed_hombro_izq"
+                        formControlName="exmed_hombro_izq">
+                        <ng-option value="ACROMION TIPO I">ACROMION TIPO I</ng-option>
+                        <ng-option value="ACROMION TIPO II">ACROMION TIPO II</ng-option>
+                        <ng-option value="ACROMION TIPO III">ACROMION TIPO III</ng-option>
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                    </div>
+  
+                    <div class="form-group col-md-4">
+                      <label> TORAX &nbsp; </label><br>
+                      <ng-select [(ngModel)]="torax" [multiple]="true" [closeOnSelect]="false"
+                        placeholder="Elige una opcion o varias" name="exmed_torax" formControlName="exmed_torax">
+                        <ng-option value="GRANULOMA  1CM">GRANULOMA 1CM</ng-option>
+                        <ng-option value="GRANULOMA  2CM">GRANULOMA 2CM</ng-option>
+                        <ng-option value="ANORMAL">ANORMAL</ng-option>
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+  
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md-4">
+                      <label> Muñeca derecha &nbsp; </label><br>
+                      <ng-select [(ngModel)]="muneca_der" [multiple]="true" [closeOnSelect]="false"
+                        name="exmed_muneca_der" placeholder="Elige una opcion o varias"
+                        formControlName="exmed_muneca_der">
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA Y AUMENTO DE ESTILOIDES CUBITAL">VARIANZA NEGATIVA Y AUMENTO
+                          DE ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="VARIANZA POSITIVA Y AUMENTO DE ESTILOIDES CUBITAL">VARIANZA POSITIVA Y AUMENTO
+                          DE ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="VARIANZA POSITIVA DEL CUBITO">VARIANZA POSITIVA DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA DEL CUBITO">VARIANZA NEGATIVA DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA POSITIVA Y SUBLUXACIÓN DEL CUBITO">VARIANZA POSITIVA Y SUBLUXACIÓN DEL
+                          CUBITO</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA Y SUBLUXACIÓN DEL CUBITO">VARIANZA NEGATIVA Y SUBLUXACIÓN DEL
+                          CUBITO</ng-option>
+                        <ng-option value="SUBLUXACION DEL CUBITO">SUBLUXACION DEL CUBITO</ng-option>
+                        <ng-option value="AUMENTO DE ESTILOIDES CUBITAL Y SUBLUXACIÓN DEL CUBITO">AUMENTO DE ESTILOIDES
+                          CUBITAL Y SUBLUXACIÓN DEL CUBITO</ng-option>
+                        <ng-option value="DISRRUPCIÓN DE LA ARTICULACIÓN RADIO CUBITAL DISTAL">DISRRUPCIÓN DE LA
+                          ARTICULACIÓN RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option value="CAMBIOS DEGENERATIVOS">CAMBIOS DEGENERATIVOS</ng-option>
+                        <ng-option value="SECUELA DE FRACTURA">SECUELA DE FRACTURA</ng-option>
+                        <ng-option
+                          value="VARIANZA NEGATIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL">
+                          VARIANZA NEGATIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option
+                          value="VARIANZA POSITIVA  DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL">
+                          VARIANZA POSITIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option value="AUMENTO ESTILOIDES CUBITAL">AUMENTO ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                    </div>
+  
+                    <div class="form-group col-md-4">
+                      <label> Muñeca izquierda &nbsp; </label><br>
+                      <ng-select [(ngModel)]="muneca_izq" [multiple]="true" [closeOnSelect]="false"
+                        placeholder="Elige una opcion o varias" name="exmed_muneca_izq"
+                        formControlName="exmed_muneca_izq">
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA Y AUMENTO DE ESTILOIDES CUBITAL">VARIANZA NEGATIVA Y AUMENTO
+                          DE ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="VARIANZA POSITIVA Y AUMENTO DE ESTILOIDES CUBITAL">VARIANZA POSITIVA Y AUMENTO
+                          DE ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="VARIANZA POSITIVA DEL CUBITO">VARIANZA POSITIVA DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA DEL CUBITO">VARIANZA NEGATIVA DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA POSITIVA Y SUBLUXACIÓN DEL CUBITO">VARIANZA POSITIVA Y SUBLUXACIÓN DEL
+                          CUBITO</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA Y SUBLUXACIÓN DEL CUBITO">VARIANZA NEGATIVA Y SUBLUXACIÓN DEL
+                          CUBITO</ng-option>
+                        <ng-option value="SUBLUXACION DEL CUBITO">SUBLUXACION DEL CUBITO</ng-option>
+                        <ng-option value="AUMENTO DE ESTILOIDES CUBITAL Y SUBLUXACIÓN DEL CUBITO">AUMENTO DE ESTILOIDES
+                          CUBITAL Y SUBLUXACIÓN DEL CUBITO</ng-option>
+                        <ng-option value="DISRRUPCIÓN DE LA ARTICULACIÓN RADIO CUBITAL DISTAL">DISRRUPCIÓN DE LA
+                          ARTICULACIÓN RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option value="CAMBIOS DEGENERATIVOS">CAMBIOS DEGENERATIVOS</ng-option>
+                        <ng-option value="SECUELA DE FRACTURA">SECUELA DE FRACTURA</ng-option>
+                        <ng-option
+                          value="VARIANZA NEGATIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL">
+                          VARIANZA NEGATIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option
+                          value="VARIANZA POSITIVA  DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL">
+                          VARIANZA POSITIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option value="AUMENTO ESTILOIDES CUBITAL">AUMENTO ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                    </div>
+  
+                    <div class="form-group col-md-4">
+                      <label> Columna cervical &nbsp; </label><br>
+                      <ng-select [(ngModel)]="columna_cervical" [multiple]="true" [closeOnSelect]="false"
+                        placeholder="Elige una opcion o varias" name="exmed_col_cervical"
+                        formControlName="exmed_col_cervical">
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="RECTIFICACIÓN CERVICAL">RECTIFICACIÓN CERVICAL</ng-option>
+                        <ng-option value="DESVIACION IZQUIERDA">DESVIACIÓN IZQUIERDA</ng-option>
+                        <ng-option value="DESVIACION DERECHA">DESVIACIÓN DERECHA</ng-option>
+                        <ng-option value="HIPERLORDOSIS CERVICAL">HIPERLORDOSIS CERVICAL</ng-option>
+                        <ng-option value="ESPONDILOLISTESIS">ESPONDILOLISTESIS</ng-option>
+                        <ng-option value="CAMBIOS DEGENERATIVOS INCIPIENTES">CAMBIOS DEGENERATIVOS INCIPIENTES</ng-option>
+                        <ng-option value="CAMBIOS DEGENERATIVOS MODERADOS">CAMBIOS DEGENERATIVOS MODERADOS</ng-option>
+                        <ng-option value="CAMBIOS DEGENERATIVOS SEVEROS">CAMBIOS DEGENERATIVOS SEVEROS</ng-option>
+                        <ng-option value="FRACTURA APLASTAMIENTO">FRACTURA APLASTAMIENTO</ng-option>
+                        <ng-option value="DISMINUCION DEL ESPACIO">DISMINUCION DEL ESPACIO</ng-option>
+                        <ng-option value="OTRAS">OTRAS</ng-option>                      
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                      <label *ngIf="columna_cervical_otras"> Otros &nbsp; </label><br>
+                      <input *ngIf="columna_cervical_otras" type="text" class="form-control" name="a"
+                        formControlName="exmed_otros_col_cervical" placeholder="Especifica cual...">
+                    </div>
+                  </div>
+  
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md-4">
+                      <label> Columna dorsal &nbsp; </label><br>
+                      <ng-select [(ngModel)]="columna_dorsal" [multiple]="true" [closeOnSelect]="false"
+                        name="exmed_col_dorsal" placeholder="Elige una opcion o varias"
+                        formControlName="exmed_col_dorsal">
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA Y AUMENTO DE ESTILOIDES CUBITAL">VARIANZA NEGATIVA Y AUMENTO DE ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="VARIANZA POSITIVA Y AUMENTO DE ESTILOIDES CUBITAL">VARIANZA POSITIVA Y AUMENTO DE ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="VARIANZA POSITIVA DEL CUBITO">VARIANZA POSITIVA DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA DEL CUBITO">VARIANZA NEGATIVA DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA POSITIVA Y SUBLUXACIÓN DEL CUBITO">VARIANZA POSITIVA Y SUBLUXACIÓN DEL CUBITO</ng-option>
+                        <ng-option value="VARIANZA NEGATIVA Y SUBLUXACIÓN DEL CUBITO">VARIANZA NEGATIVA Y SUBLUXACIÓN DEL CUBITO</ng-option>
+                        <ng-option value="SUBLUXACION DEL CUBITO">SUBLUXACION DEL CUBITO</ng-option>
+                        <ng-option value="AUMENTO DE ESTILOIDES CUBITAL Y SUBLUXACIÓN DEL CUBITO">AUMENTO DE ESTILOIDES
+                          CUBITAL Y SUBLUXACIÓN DEL CUBITO</ng-option>
+                        <ng-option value="DISRRUPCIÓN DE LA ARTICULACIÓN RADIO CUBITAL DISTAL">DISRRUPCIÓN DE LA
+                          ARTICULACIÓN RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option value="CAMBIOS DEGENERATIVOS">CAMBIOS DEGENERATIVOS</ng-option>
+                        <ng-option value="SECUELA DE FRACTURA">SECUELA DE FRACTURA</ng-option>
+                        <ng-option
+                          value="VARIANZA NEGATIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL">
+                          VARIANZA NEGATIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option
+                          value="VARIANZA POSITIVA  DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL">
+                          VARIANZA POSITIVA DEL CUBITO Y DISRRUPCION DE LA ARTICULACION RADIO CUBITAL DISTAL</ng-option>
+                        <ng-option value="AUMENTO ESTILOIDES CUBITAL">AUMENTO ESTILOIDES CUBITAL</ng-option>
+                        <ng-option value="Otras">Otras</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                      <label *ngIf="columna_dorsal_otras"> Otros &nbsp; </label><br>
+                      <input *ngIf="columna_dorsal_otras" type="text" class="form-control" name="a"
+                        formControlName="exmed_otros_col_dorsal" placeholder="Especifica cual...">
+                    </div>
+  
+                    <div class="form-group col-md-4">
+                      <label> Columna lumbar &nbsp; </label><br>
+                      <ng-select [(ngModel)]="columna_lumbar" [multiple]="true" [closeOnSelect]="false"
+                        placeholder="Elige una opcion o varias" name="exmed_col_lumbar"
+                        formControlName="exmed_col_lumbar">
+                        <ng-option value="NORMAL">NORMAL</ng-option>
+                        <ng-option value="Ratificación lordosis lumbar">Ratificación lordosis lumbar</ng-option>
+                        <ng-option value="Desviación a la izquierda">Desviación a la izquierda</ng-option>
+                        <ng-option value="Desviación a la derecha">Desviación a la derecha</ng-option>
+                        <ng-option value="Rotación del eje a la izquierda">Rotación del eje a la izquierda</ng-option>
+                        <ng-option value="Rotación del eje a la derecha">Rotación del eje a la derecha</ng-option>
+                        <ng-option value="Cambios degenerativos seg lumbar">Cambios degenerativos seg lumbar</ng-option>
+                        <ng-option value="Cambios degenerativos seg lumbar superior">Cambios degenerativos seg lumbar superior</ng-option>
+                        <ng-option value="Cambios degenerativos seg lumbar inferior">Cambios degenerativos seg lumbar inferior</ng-option>
+                        <ng-option value="Espondilolistesis Ly-Ls">Espondilolistesis Ly-Ls</ng-option>
+                        <ng-option value="Mega apófisis transversal bilateral LS tipo II">Mega apófisis transversal bilateral LS tipo II</ng-option>
+                        <ng-option value="Mega apófisis transversal izquierda LS tipo II">Mega apófisis transversal izquierda LS tipo II</ng-option>
+                        <ng-option value="Mega apófisis transversal derecha LS tipo II">Mega apófisis transversal derecha LS tipo II</ng-option>
+                        <ng-option value="Mega apófisis transversal no articular LS-SI tipo I">Mega apófisis transversal no articular LS-SI tipo I</ng-option>
+                        <ng-option value="Fractura aplastamiento LI a LS">Fractura aplastamiento LI a LS</ng-option>
+                        <ng-option value="Otras">Otras</ng-option>
+                        <ng-option value="NO APLICA">NO APLICA</ng-option>
+                      </ng-select>
+                      
+  
+                      <label *ngIf="columna_lumbar_otras"> Otros &nbsp; </label><br>
+                      <input *ngIf="columna_lumbar_otras" type="text" class="form-control" name="a"
+                        formControlName="exmed_otros_col_lumbar" placeholder="Especifica cual...">
+                    </div>
+                  </div>
+  
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #c7f7e5; color:rgb(0, 0, 0);">
+                  ULTRASONIDO
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="estilo_div">
+  
+                    <div class="form-row">
+                      <div class="form-group col-md">
+                        <label> ¿Se le aplico este estudio? &nbsp;&nbsp; </label>
+                        <nb-radio-group name="exmed_ultrasonido" formControlName="exmed_ultrasonido"
+                          class="custom-control-inline"
+                          [status]="df.exmed_ultrasonido.dirty ? (df.exmed_ultrasonido.invalid  ? 'danger' : 'success') : 'danger'">
+                          <nb-radio value="Si"> Si </nb-radio>
+                          <nb-radio value="No"> No </nb-radio>
+                        </nb-radio-group><br>
+                      </div>
+                    </div>
+  
+                    <div class="form-row" *ngIf="dataFrom.get('exmed_ultrasonido').value == 'Si'">
+                      <div class="form-group col-md">
+                        <label> MUÑECA IZQUIERDA &nbsp; </label><br>
+                        <nb-select name="exmed_ultson_muneca_izq" formControlName="exmed_ultson_muneca_izq"
+                          [status]="df.exmed_ultson_muneca_izq.dirty ? (df.exmed_ultson_muneca_izq.invalid  ? 'danger' : 'success') : 'danger'"
+                          placeholder="Elige una opcion" fullWidth>
+                          <nb-option value="NORMAL"> NORMAL</nb-option>
+                          <nb-option value="Síndrome del túnel carpiano"> Síndrome del túnel carpiano</nb-option>
+                          <nb-option value="Enfermedad De Quervain"> Enfermedad De Quervain</nb-option>
+                          <nb-option value="Quiste sinovial"> Quiste sinovial</nb-option>
+                          <nb-option value="Tendinitis"> Tendinitis</nb-option>
+                          <nb-option value="NO APLICA"> NO APLICA</nb-option>
+                        </nb-select>
+                        <ng-container *ngIf="df.exmed_ultson_muneca_izq.invalid && df.exmed_ultson_muneca_izq.touched">
+                          <p class="caption status-danger" *ngIf="df.exmed_ultson_muneca_izq.errors.required">
+                            CAMPO REQUERIDO!
+                          </p>
+                        </ng-container>
+                      </div>
+    
+                      <div class="form-group col-md">
+                        <label> MUÑECA DERECHA &nbsp; </label><br>
+                        <nb-select name="exmed_ultson_muneca_der" formControlName="exmed_ultson_muneca_der"
+                          [status]="df.exmed_ultson_muneca_der.dirty ? (df.exmed_ultson_muneca_der.invalid  ? 'danger' : 'success') : 'danger'"
+                          placeholder="Elige una opcion" fullWidth>
+                          <nb-option value="NORMAL"> NORMAL</nb-option>
+                          <nb-option value="Síndrome del túnel carpiano"> Síndrome del túnel carpiano</nb-option>
+                          <nb-option value="Enfermedad De Quervain"> Enfermedad De Quervain</nb-option>
+                          <nb-option value="Quiste sinovial"> Quiste sinovial</nb-option>
+                          <nb-option value="Tendinitis"> Tendinitis</nb-option>
+                          <nb-option value="NO APLICA"> NO APLICA</nb-option>
+                        </nb-select>
+                        <ng-container *ngIf="df.exmed_ultson_muneca_der.invalid && df.exmed_ultson_muneca_der.touched">
+                          <p class="caption status-danger" *ngIf="df.exmed_ultson_muneca_der.errors.required">
+                            CAMPO REQUERIDO!
+                          </p>
+                        </ng-container>
+                      </div>
+                      </div>
+  
+  
+  
+  
+  
+  
+                    
+                  </div>
+  
+                  
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #f8f4d1; color:rgb(0, 0, 0);">
+                  ESPIROMETRIA Simple
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md">
+                      <label> Valoración de espirometria &nbsp; </label><br>
+                      <nb-select name="exmed_espiro" formControlName="exmed_espiro"
+                        [status]="df.exmed_espiro.dirty ? (df.exmed_espiro.invalid  ? 'danger' : 'success') : 'danger'"
+                        placeholder="Elige una opcion" fullWidth>
+                        <nb-option value="MANIOBRAS INADECUADAS">MANIOBRAS INADECUADAS</nb-option>
+                        <nb-option value="RESTRICCION LEVE">RESTRICCION LEVE</nb-option>
+                        <nb-option value="OBSTRUCCION LEVE">OBSTRUCCION LEVE</nb-option>
+                        <nb-option value="OBSTRUCCION MODERADA">OBSTRUCCION MODERADA</nb-option>
+                        <nb-option value="OBSTRUCCION SEVERA">OBSTRUCCION SEVERA</nb-option>
+                        <nb-option value="RESTRICCION MODERADA">RESTRICCION MODERADA</nb-option>
+                        <nb-option value="RESTRICCION SEVERA">RESTRICCION SEVERA</nb-option>
+                        <nb-option value="NORMAL">NORMAL</nb-option>
+                        <nb-option value="PATRON SUGESTIVO DE RESTRICCION">PATRON SUGESTIVO DE RESTRICCION</nb-option>
+                        <nb-option value="VALORES ESPIROMETRICOS CON FEV 1 BAJO">VALORES ESPIROMETRICOS CON FEV 1 BAJO
+                        </nb-option>
+                        <nb-option value="NO APLICA">NO APLICA</nb-option>
+                      </nb-select>
+                      <ng-container *ngIf="df.exmed_espiro.invalid ">
+                        <p class="caption status-danger" *ngIf="df.exmed_espiro.errors.required">
+                          CAMPO REQUERIDO!
+                        </p>
+                      </ng-container>
+                    </div>
+  
+                    <div class="form-group col-md" *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'">
+                      <label *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'"> FEV1 &nbsp; </label><br>
+                      <input *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'" type="text" nbInput
+                        formControlName="exmed_espiro_fev1" fullWidth
+                        [status]="df.exmed_espiro_fev1.dirty ? (df.exmed_espiro_fev1.invalid  ? 'danger' : 'success') : 'danger'">
+                      <ng-container *ngIf="df.exmed_espiro_fev1.invalid ">
+                        <p class="caption status-danger" *ngIf="df.exmed_espiro_fev1.errors.required">
+                          CAMPO REQUERIDO!
+                        </p>
+                      </ng-container>
+                    </div>
+  
+                    <div class="form-group col-md" *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'">
+                      <label *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'"> FVC &nbsp; </label><br>
+                      <input *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'" type="text" nbInput
+                        formControlName="exmed_espiro_fvc" fullWidth
+                        [status]="df.exmed_espiro_fvc.dirty ? (df.exmed_espiro_fvc.invalid  ? 'danger' : 'success') : 'danger'">
+                      <ng-container *ngIf="df.exmed_espiro_fvc.invalid ">
+                        <p class="caption status-danger" *ngIf="df.exmed_espiro_fvc.errors.required">
+                          CAMPO REQUERIDO!
+                        </p>
+                      </ng-container>
+                    </div>
+  
+                    <div class="form-group col-md" *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'">
+                      <label *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'"> RELACIÓN FEV1/ FVC &nbsp;
+                      </label><br>
+                      <input *ngIf="dataFrom.get('exmed_espiro').value != 'NO APLICA'" type="text" nbInput
+                        formControlName="exmed_espiro_relacion" fullWidth
+                        [status]="df.exmed_espiro_relacion.dirty ? (df.exmed_espiro_relacion.invalid  ? 'danger' : 'success') : 'danger'">
+                      <ng-container *ngIf="df.exmed_espiro_relacion.invalid ">
+                        <p class="caption status-danger" *ngIf="df.exmed_espiro_relacion.errors.required">
+                          CAMPO REQUERIDO!
+                        </p>
+                      </ng-container>
+                    </div>
+  
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #f8f4d1; color:rgb(0, 0, 0);">
+                  ESPIROMETRIA - Posbroncodilatador
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+  
+                  <div class="estilo_div">
+                    <div class="form-row">
+                      <div class="form-group col-md">
+                        <label> ¿Se le aplico este estudio? &nbsp;&nbsp; </label>
+                        <nb-radio-group name="exmed_espiro2_aplica" formControlName="exmed_espiro2_aplica"
+                          class="custom-control-inline"
+                          [status]="df.exmed_espiro2_aplica.dirty ? (df.exmed_espiro2_aplica.invalid  ? 'danger' : 'success') : 'danger'">
+                          <nb-radio value="Si"> Si </nb-radio>
+                          <nb-radio value="No"> No </nb-radio>
+                        </nb-radio-group><br>
+                      </div>
+                    </div>
+                    <div class="form-row" *ngIf="dataFrom.get('exmed_espiro2_aplica').value == 'Si'">
+                      <div class="form-group col-md">
+                        <label> Valoración de espirometria &nbsp; </label><br>
+                        <nb-select name="exmed_espiro2" formControlName="exmed_espiro2"
+                          [status]="df.exmed_espiro2.dirty ? (df.exmed_espiro2.invalid  ? 'danger' : 'success') : 'danger'"
+                          placeholder="Elige una opcion" fullWidth>
+                          <nb-option value="MANIOBRAS INADECUADAS">MANIOBRAS INADECUADAS</nb-option>
+                          <nb-option value="RESTRICCION LEVE">RESTRICCION LEVE</nb-option>
+                          <nb-option value="OBSTRUCCION LEVE">OBSTRUCCION LEVE</nb-option>
+                          <nb-option value="OBSTRUCCION MODERADA">OBSTRUCCION MODERADA</nb-option>
+                          <nb-option value="OBSTRUCCION SEVERA">OBSTRUCCION SEVERA</nb-option>
+                          <nb-option value="RESTRICCION MODERADA">RESTRICCION MODERADA</nb-option>
+                          <nb-option value="RESTRICCION SEVERA">RESTRICCION SEVERA</nb-option>
+                          <nb-option value="NORMAL">NORMAL</nb-option>
+                          <nb-option value="PATRON SUGESTIVO DE RESTRICCION">PATRON SUGESTIVO DE RESTRICCION</nb-option>
+                          <nb-option value="VALORES ESPIROMETRICOS CON FEV 1 BAJO">VALORES ESPIROMETRICOS CON FEV 1 BAJO
+                          </nb-option>
+                          <nb-option value="NO APLICA">NO APLICA</nb-option>
+                        </nb-select>
+                      </div>
+  
+                      <div class="form-group col-md" *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'">
+                        <label *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'"> FEV1 &nbsp; </label><br>
+                        <input *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'" type="text" nbInput
+                          formControlName="exmed_espiro2_fev1" fullWidth
+                          [status]="df.exmed_espiro2_fev1.dirty ? (df.exmed_espiro2_fev1.invalid  ? 'danger' : 'success') : 'danger'">
+                        <ng-container *ngIf="df.exmed_espiro2_fev1.invalid ">
+                          <p class="caption status-danger" *ngIf="df.exmed_espiro2_fev1.errors.required">
+                            CAMPO REQUERIDO!
+                          </p>
+                        </ng-container>
+                      </div>
+  
+                      <div class="form-group col-md" *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'">
+                        <label *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'"> FVC &nbsp; </label><br>
+                        <input *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'" type="text" nbInput
+                          formControlName="exmed_espiro2_fvc" fullWidth
+                          [status]="df.exmed_espiro2_fvc.dirty ? (df.exmed_espiro2_fvc.invalid  ? 'danger' : 'success') : 'danger'">
+                        <ng-container *ngIf="df.exmed_espiro2_fvc.invalid ">
+                          <p class="caption status-danger" *ngIf="df.exmed_espiro2_fvc.errors.required">
+                            CAMPO REQUERIDO!
+                          </p>
+                        </ng-container>
+                      </div>
+  
+                      <div class="form-group col-md" *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'">
+                        <label *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'"> RELACIÓN FEV1/ FVC &nbsp;
+                        </label><br>
+                        <input *ngIf="dataFrom.get('exmed_espiro2').value != 'NO APLICA'" type="text" nbInput
+                          formControlName="exmed_espiro2_relacion" fullWidth
+                          [status]="df.exmed_espiro2_relacion.dirty ? (df.exmed_espiro2_relacion.invalid  ? 'danger' : 'success') : 'danger'">
+                        <ng-container *ngIf="df.exmed_espiro2_relacion.invalid ">
+                          <p class="caption status-danger" *ngIf="df.exmed_espiro2_relacion.errors.required">
+                            CAMPO REQUERIDO!
+                          </p>
+                        </ng-container>
+                      </div>
+  
+                    </div>
+                  </div>
+  
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #ffdfde; color:rgb(0, 0, 0);">
+                  AUDIOMETRIA
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="estilo_div">
+                    <div class="form-row">
+                      <div class="form-group col-md">
+                        <label> Valoración de oido derecho &nbsp; </label><br>
+                        <nb-select name="exmed_audio_OD" formControlName="exmed_audio_OD"
+                          [status]="df.exmed_audio_OD.dirty ? (df.exmed_audio_OD.invalid  ? 'danger' : 'success') : 'danger'"
+                          placeholder="Elige una opcion" fullWidth>
+                          <nb-option value="NORMOACUSIA">NORMOACUSIA</nb-option>
+                          <nb-option value="TRANSMISION LEVE">TRANSMISION LEVE</nb-option>
+                          <nb-option value="TRANSMISION MODERADA">TRANSMISION MODERADA</nb-option>
+                          <nb-option value="TRANSMISION SEVERA">TRANSMISION SEVERA</nb-option>
+                          <nb-option value="NEUROSENSORIAL LEVE">NEUROSENSORIAL LEVE</nb-option>
+                          <nb-option value="NEUROSENSORIAL MODERADA">NEUROSENSORIAL MODERADA</nb-option>
+                          <nb-option value="NEUROSENSORIAL SEVERA">NEUROSENSORIAL SEVERA</nb-option>
+                          <nb-option value="NO APLICA">NO APLICA</nb-option>
+                          <nb-option value="MIXTA LEVE">MIXTA LEVE</nb-option>
+                          <nb-option value="MIXTA MODERADA">MIXTA MODERADA</nb-option>
+                          <nb-option value="MIXTA SEVERA">MIXTA SEVERA</nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="form-group col-md">
+                        <label> Herzios (Hertz) &nbsp; </label><br>
+                        <input nbInput type="number" min="125" max="8000" step="125" fullWidth placeholder="Eje:20HzD" >
+                      </div>
+                      <div class="form-group col-md">
+                        <label> Decibelios (dB) &nbsp; </label><br>
+                        <input nbInput type="number" min="-10" max="120" step="5" fullWidth placeholder="Eje:20dB" >
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md">
+                        <label> Valoración de oido izquierdo &nbsp; </label><br>
+                        <nb-select name="exmed_audio_OI" formControlName="exmed_audio_OI"
+                          [status]="df.exmed_audio_OI.dirty ? (df.exmed_audio_OI.invalid  ? 'danger' : 'success') : 'danger'"
+                          placeholder="Elige una opcion" fullWidth>
+                          <nb-option value="NORMOACUSIA">NORMOACUSIA</nb-option>
+                          <nb-option value="TRANSMISION LEVE">TRANSMISION LEVE</nb-option>
+                          <nb-option value="TRANSMISION MODERADA">TRANSMISION MODERADA</nb-option>
+                          <nb-option value="TRANSMISION SEVERA">TRANSMISION SEVERA</nb-option>
+                          <nb-option value="NEUROSENSORIAL LEVE">NEUROSENSORIAL LEVE</nb-option>
+                          <nb-option value="NEUROSENSORIAL MODERADA">NEUROSENSORIAL MODERADA</nb-option>
+                          <nb-option value="NEUROSENSORIAL SEVERA">NEUROSENSORIAL SEVERA</nb-option>
+                          <nb-option value="NO APLICA">NO APLICA</nb-option>
+                          <nb-option value="MIXTA LEVE">MIXTA LEVE</nb-option>
+                          <nb-option value="MIXTA MODERADA">MIXTA MODERADA</nb-option>
+                          <nb-option value="MIXTA SEVERA">MIXTA SEVERA</nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="form-group col-md">
+                        <label> Herzios (Hertz) &nbsp; </label><br>
+                        <input nbInput type="number" min="125" max="8000" step="125" fullWidth placeholder="Eje:20HzD" >
+                      </div>
+                      <div class="form-group col-md">
+                        <label> Decibelios (dB) &nbsp; </label><br>
+                        <input nbInput type="number" min="-10" max="120" step="5" fullWidth placeholder="Eje:20dB" >
+                      </div>
+                    </div>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #fddbf7; color:rgb(0, 0, 0);">
+                  VALORACIÓN OFTALMOLOGICA
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md">
+                      <label> Visión cercana &nbsp; </label><br>
+                      <nb-select name="exmed_vision_cercana" formControlName="exmed_vision_cercana"
+                        [status]="df.exmed_vision_cercana.dirty ? (df.exmed_vision_cercana.invalid  ? 'danger' : 'success') : 'danger'"
+                        placeholder="Elige una opcion" fullWidth>
+                        <nb-option value="PRESBICIA">PRESBICIA</nb-option>
+                        <nb-option value="NORMAL">NORMAL</nb-option>
+                      </nb-select>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <label> Visión lejana &nbsp; </label><br>
+                      <nb-select name="exmed_vision_lejana" formControlName="exmed_vision_lejana"
+                        [status]="df.exmed_vision_lejana.dirty ? (df.exmed_vision_lejana.invalid  ? 'danger' : 'success') : 'danger'"
+                        placeholder="Elige una opcion" fullWidth>
+                        <nb-option value="AMETROPIA CORREGIDA ">AMETROPIA CORREGIDA </nb-option>
+                        <nb-option value="AMETROPIA NO CORREGIDA">AMETROPIA NO CORREGIDA</nb-option>
+                        <nb-option value="NORMAL">NORMAL</nb-option>
+                        <nb-option value="NO APLICA">NO APLICA</nb-option>
+                      </nb-select>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <label> ¿Usa lentes? &nbsp; </label><br>
+                      <nb-radio-group name="exmed_lentes" formControlName="exmed_lentes" class="custom-control-inline"
+                        [status]="df.exmed_lentes.dirty ? (df.exmed_lentes.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="si"> Si </nb-radio>
+                        <nb-radio value="no"> No </nb-radio>
+                      </nb-radio-group>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <label> ¿Tiene daltonismo? &nbsp; </label><br>
+                      <nb-radio-group name="exmed_daltonismo" formControlName="exmed_daltonismo"
+                        class="custom-control-inline"
+                        [status]="df.exmed_daltonismo.dirty ? (df.exmed_daltonismo.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="si"> Si </nb-radio>
+                        <nb-radio value="no"> No </nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+  
+              <nb-accordion-item>
+                <nb-accordion-item-header style=" background-color: #f2e1ff; color:rgb(0, 0, 0);">
+                  EXAMENES ESPECIALES
+                </nb-accordion-item-header>
+                <nb-accordion-item-body>
+                  <div class="form-row estilo_div">
+                    <div class="form-group col-md">
+                      <label> EXAMEN GENERAL DE ORINA &nbsp; </label><br>
+                      <nb-select name="exmed_ego" formControlName="exmed_ego"
+                        [status]="df.exmed_ego.dirty ? (df.exmed_ego.invalid  ? 'danger' : 'success') : 'danger'"
+                        placeholder="Elige una opcion" fullWidth>
+                        <nb-option value="PATOLOGICO (IVU)">PATOLOGICO (IVU)</nb-option>
+                        <nb-option value="NORMAL">NORMAL</nb-option>
+                        <nb-option value="NO APLICA">NO APLICA</nb-option>
+                      </nb-select>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <label> ANTIDOPING &nbsp; </label><br>
+                      <div class="form-group col-md">
+                        <label> ¿De cuantos elementos? &nbsp; </label><br>
+                        <nb-radio-group name="exmed_anti_tipo" formControlName="exmed_anti_tipo"
+                          class="custom-control-inline"
+                          [status]="df.exmed_anti_tipo.dirty ? (df.exmed_anti_tipo.invalid  ? 'danger' : 'success') : 'danger'">
+                          <nb-radio value="3 elementos"> 3 elementos </nb-radio>
+                          <nb-radio value="5 elementos"> 5 elementos </nb-radio>
+                          <nb-radio value="6 elementos"> 6 elementos </nb-radio>
+                          <nb-radio value="No aplica"> No aplica </nb-radio>
+                        </nb-radio-group>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row estilo_div"
+                    *ngIf="dataFrom.get('exmed_anti_tipo').value != 'No aplica' || dataFrom.get('exmed_anti_tipo').value == '' ">
+                    <div class="form-group col-md">
+  
+                      <nb-checkbox status="success" formControlName="exmed_anti_meta">1. Metanfetaminas &nbsp;
+                      </nb-checkbox><br>
+                      <nb-radio-group name="exmed_anti_meta_res" formControlName="exmed_anti_meta_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_meta').value == true"
+                        [status]="df.exmed_anti_meta_res.dirty ? (df.exmed_anti_meta_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group> <br>
+  
+                      <nb-checkbox status="success" formControlName="exmed_anti_afetaminas">2. Afetaminas &nbsp;
+                      </nb-checkbox><br>
+                      <nb-radio-group name="exmed_anti_afetaminas_res" formControlName="exmed_anti_afetaminas_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_afetaminas').value == true"
+                        [status]="df.exmed_anti_afetaminas_res.dirty ? (df.exmed_anti_afetaminas_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+  
+                      <nb-checkbox status="success" formControlName="exmed_anti_barbituricos">3. Barbitúricos &nbsp;
+                      </nb-checkbox><br>
+                      <nb-radio-group name="exmed_anti_barbituricos_res" formControlName="exmed_anti_barbituricos_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_barbituricos').value == true"
+                        [status]="df.exmed_anti_barbituricos_res.dirty ? (df.exmed_anti_barbituricos_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <nb-checkbox status="success" formControlName="exmed_anti_cocaina">4. Cocaína &nbsp;</nb-checkbox>
+                      <br>
+                      <nb-radio-group name="exmed_anti_cocaina_res" formControlName="exmed_anti_cocaina_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_cocaina').value == true"
+                        [status]="df.exmed_anti_cocaina_res.dirty ? (df.exmed_anti_cocaina_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+  
+                      <nb-checkbox status="success" formControlName="exmed_anti_canabinoide">5. Canabinoides &nbsp;
+                      </nb-checkbox><br>
+                      <nb-radio-group name="exmed_anti_canabinoide_res" formControlName="exmed_anti_canabinoide_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_canabinoide').value == true"
+                        [status]="df.exmed_anti_canabinoide_res.dirty ? (df.exmed_anti_canabinoide_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+  
+                      <nb-checkbox status="success" formControlName="exmed_anti_benzodiacepina">6. Benzodiacepinas &nbsp;
+                      </nb-checkbox><br>
+                      <nb-radio-group name="exmed_anti_benzodiacepina_res" formControlName="exmed_anti_benzodiacepina_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_benzodiacepina').value == true"
+                        [status]="df.exmed_anti_benzodiacepina_res.dirty ? (df.exmed_anti_benzodiacepina_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+                    </div>
+  
+                    <div class="form-group col-md">
+                      <nb-checkbox status="success" formControlName="exmed_anti_opiaceos">7. Opiáceos &nbsp;</nb-checkbox>
+                      <br>
+                      <nb-radio-group name="exmed_anti_opiaceos_res" formControlName="exmed_anti_opiaceos_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_opiaceos').value == true"
+                        [status]="df.exmed_anti_opiaceos_res.dirty ? (df.exmed_anti_opiaceos_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+  
+                      <nb-checkbox status="success" formControlName="exmed_anti_alcoholSangre">8. Alcohol en sangre &nbsp;
+                      </nb-checkbox><br>
+                      <nb-radio-group name="exmed_anti_alcoholSangre_res" formControlName="exmed_anti_alcoholSangre_res"
+                        class="custom-control-inline" *ngIf="dataFrom.get('exmed_anti_alcoholSangre').value == true"
+                        [status]="df.exmed_anti_alcoholSangre_res.dirty ? (df.exmed_anti_alcoholSangre_res.invalid  ? 'danger' : 'success') : 'danger'">
+                        <nb-radio value="Positivo"> Positivo </nb-radio>
+                        <nb-radio value="Negativo"> Negativo </nb-radio>
+                      </nb-radio-group><br>
+                    </div>
+  
+                  </div>
+  
+                  
+                </nb-accordion-item-body>
+              </nb-accordion-item>
+            </nb-accordion>
+            <br>
+            <br>
+            <div class="form-row align-center justify-content-center " *ngIf="currentAction != 'view'">
+              <button type="submit" nbButton shape="semi-round" size="large" status="primary" hero
+                [disabled]="!dataFrom.valid">
+                <nb-icon icon="save"></nb-icon> {{currentBTN}} reporte
+              </button>
+            </div>
+          </nb-card-body>
+        </nb-card>
+      </form>
+    </div>
+  </div>
+  
+ <!--  <pre>{{dataFrom.value | json}}</pre> -->

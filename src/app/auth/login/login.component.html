@@ -1,0 +1,59 @@
+<div >
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://amc-sc.mx/wp-content/uploads/2019/05/LOGOSELMEDICAAMCPORTADA02.png" id="icon" alt="User Icon"
+          style="padding: 30px;" />
+      </div>
+
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <!-- Login Form -->
+          <form [formGroup]="loginForm" (ngSubmit)='login()'>
+
+            <div class="form-group">
+              <input type="number" formControlName="num_cuenta" class="form-control" placeholder="Numero de Cuenta"
+                [ngClass]="{ 'is-invalid': cuentaError && f.num_cuenta.errors }" />
+              <div *ngIf="cuentaError && f.num_cuenta.errors" class="invalid-feedback">
+                <div *ngIf="f.num_cuenta.errors.required">Se requiere el numero de cuenta</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <input type="text" formControlName="email" class="form-control" placeholder="Correo Electrónico"
+                [ngClass]="{ 'is-invalid': emailError && f.email.errors }" />
+              <div *ngIf="emailError && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Se requiere el correo electrónico</div>
+                <div *ngIf="f.email.errors.email">El correo electrónico no es valido</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="password" formControlName="password" class="form-control" placeholder="Contraseña"
+                [ngClass]="{ 'is-invalid': passError && f.password.errors }" />
+              <div *ngIf="passError && f.password.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">Se requiere la contraseña</div>
+                <div *ngIf="f.password.errors.minlength">La contraseña debe de tener minimo 6 caracteres</div>
+
+              </div>
+            </div>
+
+            <div class="form-row align-center justify-content-center ">
+              <button type="submit" nbButton shape="semi-round" size="large" hero status="success" fullWidth
+                [disabled]="!loginForm.valid"> LOGIN
+              </button>
+            </div>
+            <br>
+          </form>
+        </div>
+      </div>
+
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <span class="underlineHover">{{errorMessage}}</span>
+      </div>
+    </div>
+  </div>
+</div>

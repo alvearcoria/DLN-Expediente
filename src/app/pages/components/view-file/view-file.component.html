@@ -1,0 +1,37 @@
+<ng-template #ModalOpen>
+    <div class="modal-header text-center " style=" background-color: #34495E; ">
+      <h4 class="modal-title pull-left" style=" color:#fff; margin: 10px;"> Visor PDF - Nuevo </h4>
+      <div class="pull-right">
+        <button nbButton status="danger" title="Cerrar" (click)="closeModal()">
+          <nb-icon icon="window-close"></nb-icon>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="form-row">
+            <div class="form-group col-md">
+              <object *ngIf="extencion == 'pdf'; else Imagen;" [data]="URLFile | safe" width="100%" title="PDfViewer"
+                height="800" type="application/pdf">
+                <param name="title" value="safepiped">
+                No Support
+              </object>
+              <ng-template #Imagen>
+                <img [src]="URLFile" width="99%" id="sourcer" (change)="changeimage()">
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+      <div class="modal-footer">
+          <div class="form-row justify-content-center">
+              <button type="button" shape="semi-round" size="large" status="danger" hero (click)="closeModal()">
+                 <!-- nbButton<nb-icon icon="times"></nb-icon>-- > Cancelar
+              </button>
+          </div>
+      </div>
+    -->
+  </ng-template>

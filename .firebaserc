@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "dlnexpediente-2bee6"
+  },
+  "targets": {
+    "dlnexpediente-2bee6": {
+      "hosting": {
+        "ngx-admin-demo": [
+          "dlnexpediente-2bee6"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.estilo_div{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 2px;
+  }
+  .estilo_sub_div{
+    border: solid 1px #f3efff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 1px;
+  }
+  
+  .modal-body{
+    height: 500px;
+    overflow: auto;
+  }
+  
+  .modal{
+    display:flex;
+    top:40%;
+  }
+  
