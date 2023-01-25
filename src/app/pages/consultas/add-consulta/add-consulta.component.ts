@@ -640,7 +640,7 @@ export class AddConsultaComponent implements OnInit {
             if (!this.tieneInca) {
               Swal.fire({
                 title: 'Registrar Incapacidad',
-                // tslint:disable-next-line: max-line-length
+                // eslint-disable-next-line max-len
                 text: '¿Deseas agregar ahora una incapacidad?',
                 icon: 'warning',
                 showCancelButton: true,

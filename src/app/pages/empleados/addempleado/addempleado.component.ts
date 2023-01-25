@@ -70,7 +70,7 @@ export class AddempleadoComponent implements OnInit {
           } else {
             Swal.fire({
               title: 'No tienes subempresas registradas.',
-              // tslint:disable-next-line: max-line-length
+              // eslint-disable-next-line max-len
               text: 'Para poder registrar un usuario favor de agregar al menos una subempresa con sus respectivas áreas. ¿Deseas agregar una subempresa ahora?',
               type: 'warning',
               showCancelButton: true,
