@@ -1,1 +1,671 @@
-<p>add-consulta works!</p>
+<div class="" style="position: absolute">
+    <div class="col-lg-12 " style=" z-index: 1000; ">
+        <!--<h2 class="spancronometro" *ngIf="counter;"><span class="badge badge-secondary">{{cronometro}}</span></h2>-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <nb-card status=#34495E>
+            <nb-card-header style=" background-color: #34495E; ">
+                <div class=" form-group col-lg">
+                    <h5 style="color:#fff;"> Datos para registro
+                        <button nbButton size="medium" shape="semi-round" status="danger" hero class="float-right"
+                            (click)="redirect();">
+                            <nb-icon icon="window-close"></nb-icon> CANCELAR
+                        </button>
+                    </h5>
+                </div>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="panel is-valid" [formGroup]="datosGeneralesFrom" autocomplete="off">
+                    <div class="form-row">
+                        <div class="col-md text-center">
+                            <h5 class="d-block " style=" background-color: #34495E; color:#fff; margin: 10px;"> Datos
+                                generales del
+                                empleado</h5>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Nombre(s)</label><br>
+                            <input type="text" nbInput icon="window-close" formControlName="pac_nombres" fullWidth
+                                placeholder="Nombre" readonly>
+                        </div>
+                        <div class="form-group col-md-3 ">
+                            <label>Primer Apellido</label><br>
+                            <input type="text" nbInput formControlName="pac_apPrimero" fullWidth
+                                placeholder="Primer Apellido" readonly />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Segundo Apellido</label><br>
+                            <input type="text" nbInput formControlName="pac_apSegundo" fullWidth
+                                placeholder="Segundo Apellido" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label> Fecha Nacimiento </label>
+                            <input type="text" nbInput formControlName="pac_fNacimiento" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label> Edad </label>
+                            <input type="text" nbInput formControlName="pac_edad" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md">
+                            <label>Origen del paciente</label><br>
+                            <input type="text" nbInput formControlName="ori_pac_name" fullWidth readonly />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label> Nomina </label>
+                            <input type="text" nbInput formControlName="pac_nomina" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label> IMSS </label>
+                            <input type="text" nbInput formControlName="pac_imss" fullWidth readonly />
+                        </div>
+                        <div class="form-group col-md">
+                            <label>Area de trabajo</label><br>
+                            <input type="text" nbInput formControlName="area" fullWidth readonly />
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <nb-card status=#34495E>
+            <nb-card-header style=" background-color: #34495E; ">
+                <div class=" form-group col-lg">
+                    <h5 style="color:#fff;"> Registro de consulta</h5>
+                </div>
+            </nb-card-header>
+            <nb-card-body [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerStatus="danger">
+
+                <form [formGroup]="dataFrom" (ngSubmit)="btnAccion()" autocomplete="off">
+                    <br>
+
+                    <!-- DATOS INICIALES -->
+
+                    <div class="estilo_sub_div">
+                        <div class="form-row">
+                            <div class="form-group col-md-3 text-center">
+                                <label>Fecha de la consulta</label><br>
+                                <input nbInput placeholder="Selecciona la fecha de la consulta" [nbDatepicker]="picker"
+                                    class="form-control" formControlName="consu_fecha" fullWidth
+                                    [status]="cons.consu_fecha.dirty ? (cons.consu_fecha.invalid  ? 'danger' : 'success') : ''">
+                                <nb-datepicker #picker [max]="max"></nb-datepicker>
+                                <ng-container *ngIf="cons.consu_fecha.invalid && cons.consu_fecha.touched">
+                                    <p class="caption status-danger" *ngIf="cons.consu_fecha.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md-3 text-center">
+                                <label>Turno</label><br>
+                                <nb-select placeholder="Selecciona un turno" name="consu_turno"
+                                    formControlName="consu_turno" fullWidth
+                                    [status]="cons.consu_turno.dirty ? (cons.consu_turno.invalid  ? 'danger' : 'success') : ''">
+                                    <nb-option value="Primero">Primero</nb-option>
+                                    <nb-option value="Segundo">Segundo</nb-option>
+                                    <nb-option value="Tercero">Tercero</nb-option>
+                                    <nb-option value="Extra">Extra</nb-option>
+                                    <nb-option value="12 horas">12 horas</nb-option>
+                                    <nb-option value="Mixto">Mixto</nb-option>
+                                </nb-select>
+                                <ng-container *ngIf="cons.consu_turno.invalid && cons.consu_turno.touched">
+                                    <p class="caption status-danger" *ngIf="cons.consu_turno.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md-3 text-center">
+                                <label>Tipo de consulta</label><br>
+                                <nb-select placeholder="Selecciona un turno" name="consu_tipo"
+                                    formControlName="consu_tipo" fullWidth
+                                    [status]="cons.consu_tipo.dirty ? (cons.consu_tipo.invalid  ? 'danger' : 'success') : ''">
+                                    <nb-option value="Riesgo de trabajo">Riesgo de trabajo</nb-option>
+                                    <nb-option value="Enfermedad general">Enfermedad general</nb-option>
+                                </nb-select>
+                                <ng-container *ngIf="cons.consu_tipo.invalid && cons.consu_tipo.touched">
+                                    <p class="caption status-danger" *ngIf="cons.consu_tipo.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md-3 text-center"
+                                *ngIf="dataFrom.get('consu_tipo').value == 'Riesgo de trabajo'">
+                                <label>Tipo de riesgo</label><br>
+                                <nb-select placeholder="Selecciona una opción" name="tipo_urge"
+                                    formControlName="tipo_urge" fullWidth
+                                    [status]="cons.tipo_urge.dirty ? (cons.tipo_urge.invalid  ? 'danger' : 'success') : ''">
+                                    <nb-option value="Incidente">Incidente</nb-option>
+                                    <nb-option value="Accidente">Accidente</nb-option>
+                                    <nb-option value="Enfermedad laboral">Enfermedad laboral</nb-option>
+                                </nb-select>
+                                <ng-container *ngIf="cons.tipo_urge.invalid && cons.tipo_urge.touched">
+                                    <p class="caption status-danger" *ngIf="cons.tipo_urge.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- DATOS DE SIGNOS VITALES -->
+
+                    <div class="estilo_sub_div">
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block">
+                                    <h5><strong>Signos Vitales </strong></h5>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md text-center">
+                                <label> Presion arterial </label><br>
+                                <input type="text" nbInput formControlName="pre_arterial" fullWidth
+                                    [status]="cons.pre_arterial.dirty ? (cons.pre_arterial.invalid  ? 'danger' : 'success') : ''" />
+                                <ng-container *ngIf="cons.pre_arterial.invalid && cons.pre_arterial.touched">
+                                    <p class="caption status-danger" *ngIf="cons.pre_arterial.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                            <div class="form-group col-md text-center">
+                                <label>Frecuencia cardiaca </label><br>
+                                <input type="text" nbInput formControlName="frec_cardiaca" fullWidth
+                                    [status]="cons.frec_cardiaca.dirty ? (cons.frec_cardiaca.invalid  ? 'danger' : 'success') : ''" />
+                                <ng-container *ngIf="cons.frec_cardiaca.invalid && cons.frec_cardiaca.touched">
+                                    <p class="caption status-danger" *ngIf="cons.frec_cardiaca.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md text-center">
+                                <label>Frecuencia respiratoria </label><br>
+                                <input type="text" nbInput formControlName="frec_respi" fullWidth
+                                    [status]="cons.frec_respi.dirty ? (cons.frec_respi.invalid  ? 'danger' : 'success') : ''" />
+                                <ng-container *ngIf="cons.frec_respi.invalid && cons.frec_respi.touched">
+                                    <p class="caption status-danger" *ngIf="cons.frec_respi.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                            <div class="form-group col-md text-center">
+                                <label>Temperatura (C°) </label><br>
+                                <input type="text" nbInput formControlName="temperatura" fullWidth
+                                    [status]="cons.temperatura.dirty ? (cons.temperatura.invalid  ? 'danger' : 'success') : ''" />
+                                <ng-container *ngIf="cons.temperatura.invalid && cons.temperatura.touched">
+                                    <p class="caption status-danger" *ngIf="cons.temperatura.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!-- DATOS DE ACCIDENTE -->
+
+                    <div class="estilo_sub_div"
+                        *ngIf="dataFrom.get('consu_tipo').value == 'Riesgo de trabajo' && dataFrom.get('tipo_urge').value != ''">
+                        <div class="form-row">
+                            <div class="col-md" *ngIf="dataFrom.get('tipo_urge').value == 'Accidente'">
+                                <label class="d-block">
+                                    <h5><strong>Datos del accidente</strong></h5>
+                                </label>
+                            </div>
+                            <div class="col-md" *ngIf="dataFrom.get('tipo_urge').value == 'Incidente'">
+                                <label class="d-block">
+                                    <h5><strong>Datos del Incidente</strong></h5>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Fecha del accidente: </label>
+                                <input nbInput placeholder="Selecciona la fecha de la consulta"
+                                    [nbDatepicker]="faccidente" class="form-control"
+                                    formControlName="accidente_faccidente" fullWidth
+                                    [status]="cons.accidente_faccidente.dirty ? (cons.accidente_faccidente.invalid  ? 'danger' : 'success') : ''">
+                                <nb-datepicker #faccidente [max]="max"></nb-datepicker>
+                                <ng-container
+                                    *ngIf="cons.accidente_faccidente.invalid && cons.accidente_faccidente.touched">
+                                    <p class="caption status-danger" *ngIf="cons.accidente_faccidente.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label> Fecha en la que acude: </label>
+                                <input nbInput placeholder="Selecciona la fecha de la consulta" [nbDatepicker]="facude"
+                                    class="form-control" formControlName="accidente_facude" fullWidth
+                                    [status]="cons.accidente_facude.dirty ? (cons.accidente_facude.invalid  ? 'danger' : 'success') : ''">
+                                <nb-datepicker #facude [max]="max"></nb-datepicker>
+                                <ng-container *ngIf="cons.accidente_facude.invalid && cons.accidente_facude.touched">
+                                    <p class="caption status-danger" *ngIf="cons.accidente_facude.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label> Tipo de riesgo: </label>
+                                <nb-select placeholder="Selecciona una opción" name="accidente_tiporiesgo"
+                                    formControlName="accidente_tiporiesgo" fullWidth
+                                    [status]="cons.accidente_tiporiesgo.dirty ? (cons.accidente_tiporiesgo.invalid  ? 'danger' : 'success') : ''">
+                                    <nb-option value="Accidente de trabajo">Accidente de trabajo</nb-option>
+                                    <nb-option value="Accidente de trayecto">Accidente de trayecto</nb-option>
+                                    <nb-option value="Incidente de trabajo">Incidente de trabajo</nb-option>
+                                </nb-select>
+                                <ng-container
+                                    *ngIf="cons.accidente_tiporiesgo.invalid && cons.accidente_tiporiesgo.touched">
+                                    <p class="caption status-danger" *ngIf="cons.accidente_tiporiesgo.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md">
+                                <label> Supervisor: </label>
+                                <input type="text" nbInput formControlName="accidente_supervisor" fullWidth
+                                    [status]="cons.accidente_supervisor.dirty ? (cons.accidente_supervisor.invalid  ? 'danger' : 'success') : ''" />
+                                <ng-container
+                                    *ngIf="cons.accidente_supervisor.invalid && cons.accidente_supervisor.touched">
+                                    <p class="caption status-danger" *ngIf="cons.accidente_supervisor.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block"> <strong>Datos del diagnostico</strong>
+                                </label>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label> Parte del cuerpo afectada: </label>
+
+                                <!-- <nb-select selected="selectedItems" placeholder="Elige una o más opciones" multiple
+                  name="accidente_parteAfectada" formControlName="accidente_parteAfectada" fullWidth
+                  [status]="cons.accidente_parteAfectada.dirty ? (cons.accidente_parteAfectada.invalid  ? 'danger' : 'success') : ''">
+                  <nb-option *ngFor="let a of listPartesCuerpo;" [value]=" a.id ">{{ a.parte_cuerpo }}
+                  </nb-option>
+                </nb-select> -->
+
+                                <ng-select [(ngModel)]="selected" [multiple]="true" [closeOnSelect]="false"
+                                    placeholder="Selecciona una o varias partes del cuerpo afectadas"
+                                    formControlName="accidente_parteAfectada">
+                                    <ng-option *ngFor="let parte of listPartesCuerpo" [value]="parte.id">
+                                        {{parte.parte_cuerpo}}
+                                    </ng-option>
+                                </ng-select>
+
+                                <!-- <input type="text" nbInput formControlName="accidente_parteAfectada" fullWidth
+                  [status]="cons.accidente_parteAfectada.dirty ? (cons.accidente_parteAfectada.invalid  ? 'danger' : 'success') : ''" /> -->
+
+                                <ng-container
+                                    *ngIf="cons.accidente_parteAfectada.invalid && cons.accidente_parteAfectada.touched">
+                                    <p class="caption status-danger"
+                                        *ngIf="cons.accidente_parteAfectada.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label> Diagnóstico: </label>
+                                <input type="text" nbInput formControlName="accidente_diagnostico" fullWidth
+                                    [status]="cons.accidente_diagnostico.dirty ? (cons.accidente_diagnostico.invalid  ? 'danger' : 'success') : ''" />
+                                <ng-container
+                                    *ngIf="cons.accidente_diagnostico.invalid && cons.accidente_diagnostico.touched">
+                                    <p class="caption status-danger" *ngIf="cons.accidente_diagnostico.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label> Descripción del {{dataFrom.get('tipo_urge').value}}: </label>
+                                <textarea nbInput fullWidth placeholder="" rows="5"
+                                    formControlName="accidente_observacion"
+                                    [status]="cons.accidente_observacion.dirty ? (cons.accidente_observacion.invalid  ? 'danger' : 'success') : ''"></textarea>
+                                <ng-container
+                                    *ngIf="cons.accidente_observacion.invalid && cons.accidente_observacion.touched">
+                                    <p class="caption status-danger" *ngIf="cons.accidente_observacion.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                            <div class="form-group col-md">
+                                <label>Observaciones generales: </label><br>
+                                <textarea nbInput fullWidth placeholder="" rows="5"
+                                    formControlName="accidente_diag_general"
+                                    [status]="cons.accidente_diag_general.dirty ? (cons.accidente_diag_general.invalid  ? 'danger' : 'success') : ''"></textarea>
+                                <ng-container
+                                    *ngIf="cons.accidente_diag_general.invalid && cons.accidente_diag_general.touched">
+                                    <p class="caption status-danger"
+                                        *ngIf="cons.accidente_diag_general.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Datos Consulta  -->
+
+                    <div class="estilo_sub_div"
+                        *ngIf="dataFrom.get('consu_tipo').value != '' && dataFrom.get('consu_tipo').value != 'Riesgo de trabajo'">
+                        <div class="form-row">
+                            <div class="col-md">
+                                <label class="d-block">
+                                    <h5><strong>Datos de la consulta </strong></h5>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label> Descripcion de los síntomas: </label>
+                                <textarea nbInput fullWidth placeholder="Describa los sintomas del empleado" rows="5"
+                                    formControlName="descripcion_sintomas"
+                                    [status]="cons.descripcion_sintomas.dirty ? (cons.descripcion_sintomas.invalid  ? 'danger' : 'success') : ''"></textarea>
+                                <ng-container
+                                    *ngIf="cons.descripcion_sintomas.invalid && cons.descripcion_sintomas.touched">
+                                    <p class="caption status-danger" *ngIf="cons.descripcion_sintomas.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                            <div class="form-group col-md">
+                                <label>Diagnóstico: </label><br>
+                                <textarea nbInput fullWidth placeholder="Describa su diagnostico del empleado" rows="5"
+                                    formControlName="diagnostico_clinico"
+                                    [status]="cons.diagnostico_clinico.dirty ? (cons.diagnostico_clinico.invalid  ? 'danger' : 'success') : ''"></textarea>
+                                <ng-container
+                                    *ngIf="cons.diagnostico_clinico.invalid && cons.diagnostico_clinico.touched">
+                                    <p class="caption status-danger" *ngIf="cons.diagnostico_clinico.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md">
+                                <label> Receta: </label>
+                                <textarea nbInput fullWidth placeholder="Describa la receta dada al empleado" rows="3"
+                                    formControlName="receta"
+                                    [status]="cons.receta.dirty ? (cons.receta.invalid  ? 'danger' : 'success') : ''"></textarea>
+                                <ng-container *ngIf="cons.receta.invalid && cons.receta.touched">
+                                    <p class="caption status-danger" *ngIf="cons.receta.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+
+                        <!-- <div>
+              <div class="form-group col-md-6">
+                <label for="inputEstadoCivil">Despues de la consulta el paciente: </label>
+                <nb-select placeholder="Elige tipo de Identificación" name="TipoIDE" formControlName="consu_detalle"
+                  fullWidth
+                  [status]="cons.consu_detalle.dirty ? (cons.consu_detalle.invalid  ? 'danger' : 'success') : ''">
+                  <nb-option value="Continuo trabajando">Continuo trabajando</nb-option>
+                  <nb-option value="Requiere traslado">Requiere traslado</nb-option>
+                  <nb-option value="Requiere reposo">Requiere reposo</nb-option>
+                </nb-select>
+                <ng-container *ngIf="cons.consu_detalle.invalid ">
+                  <p class="caption status-danger" *ngIf="cons.consu_detalle.errors.required">
+                    CAMPO REQUERIDO! </p>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label> Nombre de quien atendió: </label>
+                <input type="text" nbInput formControlName="nombre_atiende" fullWidth
+                  [status]="cons.nombre_atiende.dirty ? (cons.nombre_atiende.invalid  ? 'danger' : 'success') : ''" />
+                <ng-container *ngIf="cons.nombre_atiende.invalid && cons.nombre_atiende.touched">
+                  <p class="caption status-danger" *ngIf="cons.nombre_atiende.errors.required">
+                    CAMPO REQUERIDO!
+                  </p>
+                </ng-container>
+                <br>
+
+
+                <div class="form-group col-md text-center m-1">
+                  <div>
+                    <button nbButton type="button" (click)="modalfirma('ate')">Abierta sin clic de fondo</button>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="form-group col-md-6">
+                <label> Nombre del paciente </label>
+                <input type="text" nbInput
+                  value="{{datosGeneralesFrom.get('pac_nombres').value + ' ' + datosGeneralesFrom.get('pac_apPrimero').value + ' '+ datosGeneralesFrom.get('pac_apSegundo').value }}"
+                  fullWidth readonly />
+                <br>
+                <div class="form-group col-md text-center m-1">
+                  <div>
+                    <button nbButton type="button" (click)="modalfirma('pac')">Abierta sin clic de fondo</button>
+                  </div>
+                </div>
+              </div>
+
+
+            </div> -->
+                    </div>
+
+
+
+                    <!-- SUBIR EVIDENCIA -->
+
+                    <div class="estilo_sub_div" *ngIf="dataFrom.get('consu_tipo').value != ''">
+                        <div class="form-row">
+                            <div class="form-group col-md text-center">
+                                <div>
+                                    <label>¿Deseas subir alguna evidencia? </label><br>
+                                    <nb-radio-group name="subir_evi" formControlName="subir_evi"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="si"> Si </nb-radio>
+                                        <nb-radio value="no"> No </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md text-center" *ngIf="dataFrom.get('subir_evi').value == 'si'">
+                                <div>
+                                    <label>¿Como deseas subir evidencia?</label><br>
+                                    <nb-radio-group name="evi_tipo" formControlName="evi_tipo"
+                                        class=" custom-control-inline">
+                                        <nb-radio value="pdf"> Subir PDF </nb-radio>
+                                        <nb-radio value="photo"> Tomar foto </nb-radio>
+                                    </nb-radio-group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" *ngIf="mssbtn == 'Actualizar' && dataFrom.get('subir_evi').value == 'si'">
+                            <div class="form-group col-md text-center">
+                                <div>
+                                    <h5>Archivo actual</h5><br>
+                                    <object *ngIf="mssbtn == 'Actualizar' && dataFrom.get('evi_tipo').value == 'pdf' "
+                                        [data]="fileURL | safe" width="100%" title="Alvear" height="500"
+                                        type="application/pdf">
+                                        <param name="title" value="Alexander">
+                                        No Support
+                                    </object>
+                                    <img *ngIf="mssbtn == 'Actualizar' && dataFrom.get('evi_tipo').value == 'photo' "
+                                        [src]="fileURL" width="90%">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" *ngIf="dataFrom.get('evi_tipo').value == 'photo'">
+                            <div class="form-group col-md text-center">
+                                <div>
+                                    <dln-camara (Screenshot)="getImagen($event)"></dln-camara>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row" *ngIf="dataFrom.get('evi_tipo').value == 'pdf'">
+                            <div class="form-group col-md text-center">
+                                <label>Selecciona un archivo en PDF:</label>
+                                <input type="file" nbInput name="file" formControlName="file" fullWidth accept=".pdf"
+                                    (change)="upfile($event)"
+                                    [status]="cons.file.dirty ? (cons.file.invalid  ? 'danger' : 'success') : ''">
+                                <ng-container *ngIf="cons.file.invalid && cons.file.touched">
+                                    <p class="caption status-danger" *ngIf="cons.file.errors.required">
+                                        CAMPO REQUERIDO!
+                                    </p>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- APLICA INCAPACIDAD -->
+
+                    <div class="form-row estilo_sub_div" *ngIf="dataFrom.get('consu_tipo').value != ''">
+                        <div class="form-group col-md-3 text-center" *ngIf="!tieneInca">
+                            <div>
+                                <label>¿Aplica incapacidad? </label><br>
+                                <nb-radio-group name="inca_aplica" formControlName="inca_aplica"
+                                    class=" custom-control-inline">
+                                    <nb-radio value="Si"> Si </nb-radio>
+                                    <nb-radio value="No"> No </nb-radio>
+                                </nb-radio-group>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 text-center" *ngIf="tieneInca">
+                            <div>
+                                <label>¿Aplica incapacidad? </label><br>
+                                <nb-alert accent="warning">La consulta cuenta con incapacidad.</nb-alert>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md text-center">
+                            <label>Despues de la consulta el paciente:</label><br>
+                            <nb-select placeholder="Selecciona un turno" name="se_refiere" formControlName="se_refiere"
+                                fullWidth
+                                [status]="cons.se_refiere.dirty ? (cons.se_refiere.invalid  ? 'danger' : 'success') : ''">
+                                <nb-option value="Se reincorpora sin restricciones">Se reincorpora sin restricciones
+                                </nb-option>
+                                <nb-option value="Se reincorpora con restricciones">Se reincorpora con restricciones
+                                </nb-option>
+                                <nb-option value="Se canaliza al IMSS">Se canaliza al IMSS</nb-option>
+                                <nb-option value="Se canaliza  a AMC o particular">Se canaliza a AMC o particular
+                                </nb-option>
+                            </nb-select>
+                            <ng-container *ngIf="cons.se_refiere.invalid && cons.se_refiere.touched">
+                                <p class="caption status-danger" *ngIf="cons.se_refiere.errors.required">
+                                    CAMPO REQUERIDO!
+                                </p>
+                            </ng-container>
+                        </div>
+
+                        <div class="form-group col-md">
+                            <label> Nombre de quien atendió y/o registra: </label>
+                            <input type="text" nbInput formControlName="nombre_atiende" fullWidth
+                                [status]="cons.nombre_atiende.dirty ? (cons.nombre_atiende.invalid  ? 'danger' : 'success') : ''"
+                                readonly />
+                            <ng-container *ngIf="cons.nombre_atiende.invalid && cons.nombre_atiende.touched">
+                                <p class="caption status-danger" *ngIf="cons.nombre_atiende.errors.required">
+                                    CAMPO REQUERIDO!
+                                </p>
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="form-row" *ngIf="dataFrom.get('inca_aplica').value == 'Si'">
+                        <div class="form-group col-md text-center">
+                            <nb-alert outline="warning">Guarda la consulta para continuar con los datos de la
+                                incapacidad.</nb-alert>
+                        </div>
+                    </div>
+
+                    <!-- BOTON GUARDAR -->
+
+                    <div class="form-row align-center justify-content-center ">
+                        <button type="submit" nbButton shape="semi-round" size="large" status="primary" hero
+                            [disabled]="!dataFrom.valid">
+                            <nb-icon icon="save"></nb-icon> {{mssbtn}} consulta
+                        </button>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+
+<ng-template #efirmamodal>
+    <div class="modal-header text-center " style=" background-color: #34495E; ">
+        <h4 class="modal-title pull-left" style=" color:#fff; margin: 10px;"> Crear firma </h4>
+        <div class="pull-right">
+            <button nbButton status="danger" title="Cerrar" (click)="cerrarModal()">
+                <nb-icon icon="window-close"></nb-icon>
+            </button>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="typefirma == 'ate'">
+            <dln-efirma (efirma)="getfirma_ate($event)"></dln-efirma>
+        </div>
+        <div *ngIf="typefirma == 'pac'">
+            <dln-efirma (efirma)="getfirma_pac($event)"></dln-efirma>
+        </div>
+    </div>
+</ng-template>
+
+<!--
+<pre>{{dataFrom.value | json}}</pre>
+
+  <button nbButton type="button" (click)="openDialog(dialog, 'ate')">Abierta sin clic de fondo</button>
+  <button nbButton type="button" (click)="openDialog(dialog, 'pac')">Abierta sin clic de fondo</button>
+
+  <ng-template #dialog let-data let-ref="dialogRef">
+  <nb-card>
+    <nb-card-header>Template Dialog</nb-card-header>
+    <nb-card-body>
+      <div *ngIf="typefirma == 'ate'">
+        <dln-efirma (efirma)="getfirma_ate($event)"></dln-efirma>
+      </div>
+      <div *ngIf="typefirma == 'pac'">
+        <dln-efirma (efirma)="getfirma_pac($event)"></dln-efirma>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()">Close Dialog</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+-->

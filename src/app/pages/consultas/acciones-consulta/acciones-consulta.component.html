@@ -1,1 +1,16 @@
-<p>acciones-consulta works!</p>
+<button nbButton size="tiny" title="Ver y/o Actualizar" hero status="primary" (click)="viewConsulta()">
+    <nb-icon icon="eye"></nb-icon>
+</button> &nbsp;
+
+<button nbButton size="tiny" title="Ver PDF" hero status="info" (click)="viewFile()">
+    <nb-icon icon="file-alt"></nb-icon>
+</button> &nbsp;
+
+<button nbButton size="tiny" title="Subir pdf firmado" hero status="success" (click)="uploadFile()">
+    <nb-icon icon="file-upload"></nb-icon>
+</button> &nbsp;
+
+<button nbButton size="tiny" title="Detalles Incapacidad" hero status="warning"
+    (click)="detalleIncapacidad(params.data.id_consulta)" *ngIf="params.data.inca_aplica =='Si'">
+    <nb-icon icon="info-circle"></nb-icon>
+</button> &nbsp;

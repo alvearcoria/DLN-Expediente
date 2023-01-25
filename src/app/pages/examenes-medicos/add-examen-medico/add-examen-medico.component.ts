@@ -1059,7 +1059,7 @@ export class AddExamenMedicoComponent implements OnInit {
       pac_nomina: this.currentEmpleado.pac_nomina,
       pac_imss: this.currentEmpleado.pac_imss,
       pac_fNacimiento: this.currentEmpleado.pac_fNacimiento,
-      pac_sexo: this.currentEmpleado.pac_sexo,
+      pac_sexo: this.currentEmpleado.pac_genero,
       subempresa: this.currentEmpleado.subempresa,
       ori_pac_name: this.currentEmpleado.ori_pac_name,
     };

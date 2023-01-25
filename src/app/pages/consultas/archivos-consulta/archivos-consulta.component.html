@@ -1,1 +1,40 @@
-<p>archivos-consulta works!</p>
+<div *ngIf="currentAccion == 'ViewFile'; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-row">
+                <div class="form-group col-md">
+                    <object *ngIf="currentURL.fileExt == 'pdf'; else Imagen;" [data]="currentURL.fileURL | view"
+                        width="100%" title="PDfViewer" height="800" type="application/pdf">
+                        <param name="title" value="Alexander">
+                        No Support
+                    </object>
+                    <ng-template #Imagen>
+                        <img [src]="currentURL.fileURL" width="99%" id="sourcer" (change)="changeimage()">
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+
+    <div class="form-row">
+        <div class="form-group col-md text-center">
+            <label>
+                <h5>Selecciona un archivo en PDF:</h5><br>
+            </label>
+            <input type="file" nbInput name="filePDF" fullWidth accept=".pdf" (change)="upfile($event)">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md text-center">
+            <button nbButton shape="semi-round" fullWidth status="success" title="Subir PDF" (click)="subirpdf()"
+                [disabled]="filePath == null">
+                <i class="fas fa-file-upload"></i>Subir Archivo </button>
+        </div>
+    </div>
+
+</ng-template>

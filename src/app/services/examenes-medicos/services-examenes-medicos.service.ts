@@ -14,6 +14,8 @@ export class ServicesExamenesMedicosService {
   ) { }
 
   getAllExamenes() {
+    console.log('Data', this.auth.dataEmp)
+    console.log('Data',this.auth.dataEmp.raiz)
     return this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('examenes_medicos', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
   }
 

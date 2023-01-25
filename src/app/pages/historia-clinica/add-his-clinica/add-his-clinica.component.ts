@@ -1011,7 +1011,7 @@ export class AddHisClinicaComponent implements OnInit {
       .filter((value) => value !== null);
     post["list_enfe"] = detalles_enfermedades;
 
-    const ref = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('expedientelaboral');
+    const ref = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('Historias_Clinicas');
     ref.doc("counter").valueChanges().pipe(take(1)).subscribe(async (c) => {
       const idNum = Number(c["counter"]) + 1;
       post["idNumerico"] = idNum;

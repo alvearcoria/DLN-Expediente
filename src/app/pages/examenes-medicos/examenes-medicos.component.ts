@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators';
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
 import * as moment from 'moment';
@@ -7,13 +7,18 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ServicesExamenesMedicosService } from '../../services/examenes-medicos/services-examenes-medicos.service';
 
 import { ActionButtonsComponent } from './action-buttons/action-buttons.component';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'dln-examenes-medicos',
   templateUrl: './examenes-medicos.component.html',
   styleUrls: ['./examenes-medicos.component.scss']
 })
-export class ExamenesMedicosComponent implements OnInit {
+export class ExamenesMedicosComponent implements OnInit, OnDestroy {
+
+  subscription: Subscription;
+
 
  // @ViewChild('modalEmpleados', { static: false }) public emp_modal: ElementRef;
   modalRef: BsModalRef;
@@ -102,6 +107,7 @@ export class ExamenesMedicosComponent implements OnInit {
     private ServiceExaMed: ServicesExamenesMedicosService,
     private modalService: BsModalService,
     private router: Router,
+    private auth: AuthService,
   ) {
     this.tablaExamenesOcup = <GridOptions>{
       columnDefs: this.columnasExamenesMedicos,
@@ -208,6 +214,10 @@ export class ExamenesMedicosComponent implements OnInit {
   }
   cerrarModal() {
     this.modalRef.hide();
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
 }

@@ -142,7 +142,7 @@ export class HistoriaClinicaComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await new Promise<void>(resolve => {
-      this.allHistory = this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('historias_clinicas', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
+      this.allHistory = this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('Historias_Clinicas', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
       this.subscription = this.allHistory.pipe().subscribe(async clinic_historyc => {
         if (clinic_historyc.length > 0) {
           this.histroiasList = clinic_historyc.filter((e) => !e.counter);

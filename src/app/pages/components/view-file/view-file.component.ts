@@ -42,7 +42,7 @@ export class ViewFileComponent implements OnInit {
   }
 
   openModal() {
-    this.openModalRef = this.modalService.show(this.ModalOpen, this.configModal);
+    //this.openModalRef = this.modalService.show(this.ModalOpen, this.configModal);
   }
 
   closeModal() {
