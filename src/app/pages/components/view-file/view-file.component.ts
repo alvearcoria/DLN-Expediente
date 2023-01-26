@@ -28,6 +28,7 @@ export class ViewFileComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log('por desarrollar');
 
   }
 

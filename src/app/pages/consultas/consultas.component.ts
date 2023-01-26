@@ -1,5 +1,5 @@
 
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
@@ -15,7 +15,7 @@ import { AccionesConsultaComponent } from './acciones-consulta/acciones-consulta
   templateUrl: './consultas.component.html',
   styleUrls: ['./consultas.component.scss']
 })
-export class ConsultasComponent implements OnInit {
+export class ConsultasComponent implements OnInit, OnDestroy{
 
   modalRef: BsModalRef;
   configModal = {

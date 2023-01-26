@@ -503,9 +503,9 @@
                                     <nb-radio value="no"> No </nb-radio>
                                 </nb-radio-group>
                                 <br>
-                                <label *ngIf="dataFrom.get('moviMuneca').value == 'si'">Describa que tipo de
+                                <label *ngIf="dataFrom.get('moviMuneca').value === 'si'">Describa que tipo de
                                     movimientos:</label><br>
-                                <input *ngIf="dataFrom.get('moviMuneca').value == 'si'" type="text" nbInput
+                                <input *ngIf="dataFrom.get('moviMuneca').value === 'si'" type="text" nbInput
                                     formControlName="descmovi" fullWidth placeholder="Especifique..."
                                     [status]="df.descmovi.dirty ? (df.descmovi.invalid  ? 'danger' : 'success') : 'danger'">
                                 <ng-container *ngIf="df.descmovi.invalid ">
@@ -523,9 +523,9 @@
                                     <nb-radio value="no"> No </nb-radio>
                                 </nb-radio-group>
                                 <br>
-                                <label *ngIf="dataFrom.get('manejocarga').value == 'si'">Describa que tipo de
+                                <label *ngIf="dataFrom.get('manejocarga').value === 'si'">Describa que tipo de
                                     cargas:</label><br>
-                                <input *ngIf="dataFrom.get('manejocarga').value == 'si'" type="text" nbInput
+                                <input *ngIf="dataFrom.get('manejocarga').value === 'si'" type="text" nbInput
                                     formControlName="tipocarga" fullWidth placeholder="Especifique..."
                                     [status]="df.tipocarga.dirty ? (df.tipocarga.invalid  ? 'danger' : 'success') : 'danger'">
                                 <ng-container *ngIf="df.tipocarga.invalid ">
@@ -772,9 +772,9 @@
                                     <nb-radio value="si"> Si </nb-radio>
                                     <nb-radio value="no"> No </nb-radio>
                                 </nb-radio-group><br>
-                                <label *ngIf="dataFrom.get('accidente_sufrido').value == 'si'">Describa que tipo de
+                                <label *ngIf="dataFrom.get('accidente_sufrido').value === 'si'">Describa que tipo de
                                     accidente:</label><br>
-                                <input *ngIf="dataFrom.get('accidente_sufrido').value == 'si'" type="text" nbInput
+                                <input *ngIf="dataFrom.get('accidente_sufrido').value === 'si'" type="text" nbInput
                                     formControlName="detalle_accidente" fullWidth placeholder="Especifique..."
                                     [status]="df.detalle_accidente.dirty ? (df.detalle_accidente.invalid  ? 'danger' : 'success') : 'danger'">
                                 <ng-container *ngIf="df.detalle_accidente.invalid ">
@@ -791,9 +791,9 @@
                                     <nb-radio value="si"> Si </nb-radio>
                                     <nb-radio value="no"> No </nb-radio>
                                 </nb-radio-group><br>
-                                <label *ngIf="dataFrom.get('enfe_trabajo').value == 'si'">Describa que tipo de
+                                <label *ngIf="dataFrom.get('enfe_trabajo').value === 'si'">Describa que tipo de
                                     enfermedad:</label><br>
-                                <input *ngIf="dataFrom.get('enfe_trabajo').value == 'si'" type="text" nbInput
+                                <input *ngIf="dataFrom.get('enfe_trabajo').value === 'si'" type="text" nbInput
                                     formControlName="detalle_enfermedad" fullWidth placeholder="Especifique..."
                                     [status]="df.detalle_enfermedad.dirty ? (df.detalle_enfermedad.invalid  ? 'danger' : 'success') : 'danger'">
                                 <ng-container *ngIf="df.detalle_enfermedad.invalid ">
@@ -834,7 +834,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('diabetes').value == 'si'">
+                                <div *ngIf="dataFrom.get('diabetes').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="diabetes_fam" fullWidth
                                         placeholder="Especifique..."
@@ -856,7 +856,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('hipertension').value == 'si'">
+                                <div *ngIf="dataFrom.get('hipertension').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="hipertension_fam" fullWidth
                                         placeholder="Especifique..."
@@ -878,7 +878,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('presionbaja').value == 'si'">
+                                <div *ngIf="dataFrom.get('presionbaja').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="presionbaja_fam" fullWidth
                                         placeholder="Especifique..."
@@ -902,7 +902,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('probcardio').value == 'si'">
+                                <div *ngIf="dataFrom.get('probcardio').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="probcardio_fam" fullWidth
                                         placeholder="Especifique..."
@@ -924,7 +924,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('probpulmonar').value == 'si'">
+                                <div *ngIf="dataFrom.get('probpulmonar').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="probpulmonar_fam" fullWidth
                                         placeholder="Especifique..."
@@ -946,7 +946,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('probrenal').value == 'si'">
+                                <div *ngIf="dataFrom.get('probrenal').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="probrenal_fam" fullWidth
                                         placeholder="Especifique..."
@@ -970,7 +970,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('problhepatico').value == 'si'">
+                                <div *ngIf="dataFrom.get('problhepatico').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="problhepatico_fam" fullWidth
                                         placeholder="Especifique..."
@@ -992,7 +992,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('enfersangre').value == 'si'">
+                                <div *ngIf="dataFrom.get('enfersangre').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="enfersangre_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1014,7 +1014,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('ansi_depre_ezquizo').value == 'si'">
+                                <div *ngIf="dataFrom.get('ansi_depre_ezquizo').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="ansi_depre_ezquizo_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1039,7 +1039,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('convulcion_epilecia').value == 'si'">
+                                <div *ngIf="dataFrom.get('convulcion_epilecia').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="convulcion_epilecia_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1062,7 +1062,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('cancer_tumor').value == 'si'">
+                                <div *ngIf="dataFrom.get('cancer_tumor').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="cancer_tumor_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1084,7 +1084,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('enboloa_derrame').value == 'si'">
+                                <div *ngIf="dataFrom.get('enboloa_derrame').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="enboloa_derrame_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1108,7 +1108,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('probltiroides').value == 'si'">
+                                <div *ngIf="dataFrom.get('probltiroides').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="probltiroides_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1130,7 +1130,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('obecidad').value == 'si'">
+                                <div *ngIf="dataFrom.get('obecidad').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="obecidad_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1152,7 +1152,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('problvisual').value == 'si'">
+                                <div *ngIf="dataFrom.get('problvisual').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="problvisual_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1176,7 +1176,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('alergias').value == 'si'">
+                                <div *ngIf="dataFrom.get('alergias').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="alergias_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1198,7 +1198,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('defcongenitos').value == 'si'">
+                                <div *ngIf="dataFrom.get('defcongenitos').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="defcongenitos_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1220,7 +1220,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group><br>
                                 </div>
-                                <div *ngIf="dataFrom.get('problhuesos').value == 'si'">
+                                <div *ngIf="dataFrom.get('problhuesos').value === 'si'">
                                     <label>Especifique que miembro:</label><br>
                                     <input type="text" nbInput formControlName="problhuesos_fam" fullWidth
                                         placeholder="Especifique..."
@@ -1308,7 +1308,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <div *ngIf="dataFrom.get('familiar_enfe_gravedad').value == 'si'">
+                                <div *ngIf="dataFrom.get('familiar_enfe_gravedad').value === 'si'">
                                     <input type="text" nbInput formControlName="familiar_enfe_gravedad_fam" fullWidth
                                         placeholder="Especifique..."
                                         [status]="df.familiar_enfe_gravedad_fam.dirty ? (df.familiar_enfe_gravedad_fam.invalid  ? 'danger' : 'success') : 'danger'">
@@ -1330,7 +1330,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <div *ngIf="dataFrom.get('mascotas').value == 'si'">
+                                <div *ngIf="dataFrom.get('mascotas').value === 'si'">
                                     <input type="text" nbInput formControlName="mascotas_detalle" fullWidth
                                         placeholder="Especifique..."
                                         [status]="df.mascotas_detalle.dirty ? (df.mascotas_detalle.invalid  ? 'danger' : 'success') : 'danger'">
@@ -1351,7 +1351,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <div *ngIf="dataFrom.get('ustedfuma').value == 'si'">
+                                <div *ngIf="dataFrom.get('ustedfuma').value === 'si'">
                                     <input type="text" nbInput formControlName="ustedfuma_detalle" fullWidth
                                         placeholder="Especifique..."
                                         [status]="df.ustedfuma_detalle.dirty ? (df.ustedfuma_detalle.invalid  ? 'danger' : 'success') : 'danger'">
@@ -1374,7 +1374,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <div *ngIf="dataFrom.get('bebidaalcoholica').value == 'si'">
+                                <div *ngIf="dataFrom.get('bebidaalcoholica').value === 'si'">
                                     <input type="text" nbInput formControlName="bebidaalcoholica_detalle" fullWidth
                                         placeholder="Especifique..."
                                         [status]="df.bebidaalcoholica_detalle.dirty ? (df.bebidaalcoholica_detalle.invalid  ? 'danger' : 'success') : 'danger'">
@@ -1396,7 +1396,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <div *ngIf="dataFrom.get('consumedrogas').value == 'si'">
+                                <div *ngIf="dataFrom.get('consumedrogas').value === 'si'">
                                     <input type="text" nbInput formControlName="consumedrogas_detalle" fullWidth
                                         placeholder="Especifique..."
                                         [status]="df.consumedrogas_detalle.dirty ? (df.consumedrogas_detalle.invalid  ? 'danger' : 'success') : 'danger'">
@@ -1418,7 +1418,7 @@
                                         <nb-radio value="no"> No </nb-radio>
                                     </nb-radio-group>
                                 </div>
-                                <div *ngIf="dataFrom.get('haceejercicio').value == 'si'">
+                                <div *ngIf="dataFrom.get('haceejercicio').value === 'si'">
                                     <input type="text" nbInput formControlName="haceejercicio_detalle" fullWidth
                                         placeholder="Especifique...">
                                 </div>
@@ -1649,7 +1649,7 @@
 
                 <!-- ///////////////////////////*ngIf="genero!='Masculino'"/////////////////////////////////////////////////////////////////////////////9 -->
 
-                <nb-accordion-item *ngIf="datosGeneralesFrom.get('pac_sexo').value != 'Masculino' ">
+                <nb-accordion-item *ngIf="datosGeneralesFrom.get('pac_sexo').value !== 'Masculino' ">
                     <nb-accordion-item-header style=" background-color: #fddbf7; color:rgb(0, 0, 0); margin: 1px;">
                         <label style="display: block; ">Gineco obstetricia</label>
                     </nb-accordion-item-header>

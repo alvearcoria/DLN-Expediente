@@ -4,16 +4,16 @@ import { MENU_ITEMS } from './pages-menu';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'ngx-pages',
+  selector: 'dln-pages',
   styleUrls: ['pages.component.scss'],
   template: `
-    <ngx-one-column-layout>
+    <dln-one-column-layout>
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
-    </ngx-one-column-layout>
+    </dln-one-column-layout>
   `,
 })
-export class PagesComponent {
+export class PagesComponent implements OnInit {
 
   menu = [];
   done: boolean = false;

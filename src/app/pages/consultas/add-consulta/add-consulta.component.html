@@ -142,7 +142,7 @@
                             </div>
 
                             <div class="form-group col-md-3 text-center"
-                                *ngIf="dataFrom.get('consu_tipo').value == 'Riesgo de trabajo'">
+                                *ngIf="dataFrom.get('consu_tipo').value === 'Riesgo de trabajo'">
                                 <label>Tipo de riesgo</label><br>
                                 <nb-select placeholder="Selecciona una opción" name="tipo_urge"
                                     formControlName="tipo_urge" fullWidth
@@ -220,14 +220,14 @@
                     <!-- DATOS DE ACCIDENTE -->
 
                     <div class="estilo_sub_div"
-                        *ngIf="dataFrom.get('consu_tipo').value == 'Riesgo de trabajo' && dataFrom.get('tipo_urge').value != ''">
+                        *ngIf="dataFrom.get('consu_tipo').value === 'Riesgo de trabajo' && dataFrom.get('tipo_urge').value !== ''">
                         <div class="form-row">
-                            <div class="col-md" *ngIf="dataFrom.get('tipo_urge').value == 'Accidente'">
+                            <div class="col-md" *ngIf="dataFrom.get('tipo_urge').value === 'Accidente'">
                                 <label class="d-block">
                                     <h5><strong>Datos del accidente</strong></h5>
                                 </label>
                             </div>
-                            <div class="col-md" *ngIf="dataFrom.get('tipo_urge').value == 'Incidente'">
+                            <div class="col-md" *ngIf="dataFrom.get('tipo_urge').value === 'Incidente'">
                                 <label class="d-block">
                                     <h5><strong>Datos del Incidente</strong></h5>
                                 </label>
@@ -378,7 +378,7 @@
                     <!-- Datos Consulta  -->
 
                     <div class="estilo_sub_div"
-                        *ngIf="dataFrom.get('consu_tipo').value != '' && dataFrom.get('consu_tipo').value != 'Riesgo de trabajo'">
+                        *ngIf="dataFrom.get('consu_tipo').value !== '' && dataFrom.get('consu_tipo').value !== 'Riesgo de trabajo'">
                         <div class="form-row">
                             <div class="col-md">
                                 <label class="d-block">
@@ -488,7 +488,7 @@
 
                     <!-- SUBIR EVIDENCIA -->
 
-                    <div class="estilo_sub_div" *ngIf="dataFrom.get('consu_tipo').value != ''">
+                    <div class="estilo_sub_div" *ngIf="dataFrom.get('consu_tipo').value !== ''">
                         <div class="form-row">
                             <div class="form-group col-md text-center">
                                 <div>
@@ -501,7 +501,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md text-center" *ngIf="dataFrom.get('subir_evi').value == 'si'">
+                            <div class="form-group col-md text-center" *ngIf="dataFrom.get('subir_evi').value === 'si'">
                                 <div>
                                     <label>¿Como deseas subir evidencia?</label><br>
                                     <nb-radio-group name="evi_tipo" formControlName="evi_tipo"
@@ -513,23 +513,23 @@
                             </div>
                         </div>
 
-                        <div class="form-row" *ngIf="mssbtn == 'Actualizar' && dataFrom.get('subir_evi').value == 'si'">
+                        <div class="form-row" *ngIf="mssbtn === 'Actualizar' && dataFrom.get('subir_evi').value === 'si'">
                             <div class="form-group col-md text-center">
                                 <div>
                                     <h5>Archivo actual</h5><br>
-                                    <object *ngIf="mssbtn == 'Actualizar' && dataFrom.get('evi_tipo').value == 'pdf' "
+                                    <object *ngIf="mssbtn === 'Actualizar' && dataFrom.get('evi_tipo').value === 'pdf' "
                                         [data]="fileURL | safe" width="100%" title="Alvear" height="500"
                                         type="application/pdf">
                                         <param name="title" value="Alexander">
                                         No Support
                                     </object>
-                                    <img *ngIf="mssbtn == 'Actualizar' && dataFrom.get('evi_tipo').value == 'photo' "
+                                    <img *ngIf="mssbtn === 'Actualizar' && dataFrom.get('evi_tipo').value === 'photo' "
                                         [src]="fileURL" width="90%">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-row" *ngIf="dataFrom.get('evi_tipo').value == 'photo'">
+                        <div class="form-row" *ngIf="dataFrom.get('evi_tipo').value === 'photo'">
                             <div class="form-group col-md text-center">
                                 <div>
                                     <dln-camara (Screenshot)="getImagen($event)"></dln-camara>
@@ -537,7 +537,7 @@
                             </div>
                         </div>
 
-                        <div class="form-row" *ngIf="dataFrom.get('evi_tipo').value == 'pdf'">
+                        <div class="form-row" *ngIf="dataFrom.get('evi_tipo').value === 'pdf'">
                             <div class="form-group col-md text-center">
                                 <label>Selecciona un archivo en PDF:</label>
                                 <input type="file" nbInput name="file" formControlName="file" fullWidth accept=".pdf"
@@ -554,7 +554,7 @@
 
                     <!-- APLICA INCAPACIDAD -->
 
-                    <div class="form-row estilo_sub_div" *ngIf="dataFrom.get('consu_tipo').value != ''">
+                    <div class="form-row estilo_sub_div" *ngIf="dataFrom.get('consu_tipo').value !== ''">
                         <div class="form-group col-md-3 text-center" *ngIf="!tieneInca">
                             <div>
                                 <label>¿Aplica incapacidad? </label><br>
@@ -605,7 +605,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row" *ngIf="dataFrom.get('inca_aplica').value == 'Si'">
+                    <div class="form-row" *ngIf="dataFrom.get('inca_aplica').value === 'Si'">
                         <div class="form-group col-md text-center">
                             <nb-alert outline="warning">Guarda la consulta para continuar con los datos de la
                                 incapacidad.</nb-alert>
@@ -637,10 +637,10 @@
         </div>
     </div>
     <div class="modal-body">
-        <div *ngIf="typefirma == 'ate'">
+        <div *ngIf="typefirma === 'ate'">
             <dln-efirma (efirma)="getfirma_ate($event)"></dln-efirma>
         </div>
-        <div *ngIf="typefirma == 'pac'">
+        <div *ngIf="typefirma === 'pac'">
             <dln-efirma (efirma)="getfirma_pac($event)"></dln-efirma>
         </div>
     </div>

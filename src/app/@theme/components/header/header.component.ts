@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 import { AuthService } from '../../../auth/auth.service';
 
 @Component({
-  selector: 'ngx-header',
+  selector: 'dln-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })

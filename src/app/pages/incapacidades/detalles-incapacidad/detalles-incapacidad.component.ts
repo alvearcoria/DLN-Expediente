@@ -10,6 +10,8 @@ export class DetallesIncapacidadComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('por desarrollar');
+
   }
 
 }

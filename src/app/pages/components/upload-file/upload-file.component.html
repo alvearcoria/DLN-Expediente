@@ -19,7 +19,7 @@
     </div>
     <div class="modal-footer">
       <button nbButton shape="semi-round" fullWidth status="success" title="Subir PDF" (click)="subirpdf()"
-        [disabled]="filePath == null">
+        [disabled]="filePath === null">
         <i class="fas fa-file-upload"></i>Subir Archivo </button>
     </div>
   </ng-template>

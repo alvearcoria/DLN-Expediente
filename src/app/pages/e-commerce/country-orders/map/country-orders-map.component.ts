@@ -9,7 +9,7 @@ import { takeWhile } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'ngx-country-orders-map',
+  selector: 'dln-country-orders-map',
   styleUrls: ['./country-orders-map.component.scss'],
   template: `
     <div leaflet [leafletOptions]="options" [leafletLayers]="layers" (leafletMapReady)="mapReady($event)"></div>
@@ -19,7 +19,7 @@ export class CountryOrdersMapComponent implements OnDestroy {
 
   @Input() countryId: string;
 
-  @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() Onselect: EventEmitter<any> = new EventEmitter();
 
   layers = [];
   currentTheme: any;
@@ -124,7 +124,7 @@ export class CountryOrdersMapComponent implements OnDestroy {
       this.resetHighlight(this.selectedCountry);
       this.highlightFeature(featureLayer);
       this.selectedCountry = featureLayer;
-      this.select.emit(featureLayer.feature.properties.name);
+      this.Onselect.emit(featureLayer.feature.properties.name);
     }
   }
 

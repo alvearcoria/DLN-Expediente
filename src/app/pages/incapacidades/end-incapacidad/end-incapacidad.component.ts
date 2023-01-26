@@ -10,6 +10,7 @@ export class EndIncapacidadComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('por desarrollar');
   }
 
 }

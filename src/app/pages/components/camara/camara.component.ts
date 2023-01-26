@@ -10,6 +10,8 @@ export class CamaraComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('por desarrollar');
+
   }
 
 }

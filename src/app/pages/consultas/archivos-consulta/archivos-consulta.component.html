@@ -1,10 +1,10 @@
-<div *ngIf="currentAccion == 'ViewFile'; then thenBlock else elseBlock"></div>
+<div *ngIf="currentAccion === 'ViewFile'; then thenBlock else elseBlock"></div>
 <ng-template #thenBlock>
     <div class="row">
         <div class="col-lg-12">
             <div class="form-row">
                 <div class="form-group col-md">
-                    <object *ngIf="currentURL.fileExt == 'pdf'; else Imagen;" [data]="currentURL.fileURL | view"
+                    <object *ngIf="currentURL.fileExt === 'pdf'; else Imagen;" [data]="currentURL.fileURL | view"
                         width="100%" title="PDfViewer" height="800" type="application/pdf">
                         <param name="title" value="Alexander">
                         No Support
@@ -32,7 +32,7 @@
     <div class="form-row">
         <div class="form-group col-md text-center">
             <button nbButton shape="semi-round" fullWidth status="success" title="Subir PDF" (click)="subirpdf()"
-                [disabled]="filePath == null">
+                [disabled]="filePath === null">
                 <i class="fas fa-file-upload"></i>Subir Archivo </button>
         </div>
     </div>

@@ -12,7 +12,7 @@
         <div class="col-lg-12">
           <div class="form-row">
             <div class="form-group col-md">
-              <object *ngIf="extencion == 'pdf'; else Imagen;" [data]="URLFile | safe" width="100%" title="PDfViewer"
+              <object *ngIf="extencion === 'pdf'; else Imagen;" [data]="URLFile | safe" width="100%" title="PDfViewer"
                 height="800" type="application/pdf">
                 <param name="title" value="safepiped">
                 No Support

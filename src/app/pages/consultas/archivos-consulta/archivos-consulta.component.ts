@@ -21,6 +21,7 @@ export class ArchivosConsultaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('por desarrollar');
   }
 
   changeimage() {

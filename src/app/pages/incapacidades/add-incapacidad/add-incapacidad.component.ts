@@ -10,6 +10,8 @@ export class AddIncapacidadComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('por desarrollar');
+
   }
 
 }

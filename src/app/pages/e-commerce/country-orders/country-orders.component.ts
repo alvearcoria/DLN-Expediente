@@ -4,20 +4,20 @@ import { takeWhile } from 'rxjs/operators';
 import { CountryOrderData } from '../../../@core/data/country-order';
 
 @Component({
-  selector: 'ngx-country-orders',
+  selector: 'dln-country-orders',
   styleUrls: ['./country-orders.component.scss'],
   template: `
     <nb-card [size]="breakpoint.width >= breakpoints.md ? 'medium' : 'giant'">
       <nb-card-header>Country Orders Statistics</nb-card-header>
       <nb-card-body>
-        <ngx-country-orders-map (select)="selectCountryById($event)"
+        <dln-country-orders-map (select)="selectCountryById($event)"
                                 countryId="USA">
-        </ngx-country-orders-map>
-        <ngx-country-orders-chart [countryName]="countryName"
+        </dln-country-orders-map>
+        <dln-country-orders-chart [countryName]="countryName"
                                   [data]="countryData"
                                   [labels]="countriesCategories"
                                   maxValue="20">
-        </ngx-country-orders-chart>
+        </dln-country-orders-chart>
       </nb-card-body>
     </nb-card>
   `,

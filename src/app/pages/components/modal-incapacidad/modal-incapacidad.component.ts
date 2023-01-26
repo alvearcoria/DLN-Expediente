@@ -17,6 +17,8 @@ export class ModalIncapacidadComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('por desarrollar');
+
   }
 
   closeModal(event: any) {

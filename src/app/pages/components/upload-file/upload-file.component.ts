@@ -36,6 +36,8 @@ export class UploadFileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('por desarrollar');
+
   }
 
   modalfirmaPDF(modalupload: TemplateRef<any>, idempleado, id_consulta) {

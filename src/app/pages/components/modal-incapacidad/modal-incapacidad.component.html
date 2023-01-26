@@ -7,18 +7,18 @@
     </div>
   </div>
   
-  <div class="modal-body" *ngIf="modalTipo == 'terminarIncapacidad'">
+  <div class="modal-body" *ngIf="modalTipo === 'terminarIncapacidad'">
     <dln-terminar-incapacidad (closeModal)="closeModal($event)" [currentIncapacidad]="currentIncapacidad"> </dln-terminar-incapacidad>
   </div>
   
-  <div class="modal-body" *ngIf="modalTipo == 'detalleInca'">
+  <div class="modal-body" *ngIf="modalTipo === 'detalleInca'">
     <dln-detalles-incapacidad (closeModal)="closeModal($event)" [currentIncapacidad]="currentIncapacidad"></dln-detalles-incapacidad>
   </div>
   
-  <div class="modal-body" *ngIf="modalTipo == 'addInca'">
+  <div class="modal-body" *ngIf="modalTipo === 'addInca'">
     <dln-anadir-incapacidad (closeModal)="closeModal($event)" [currentIncapacidad]="currentIncapacidad"> </dln-anadir-incapacidad>
   </div>
   
-  <div class="modal-body" *ngIf="modalTipo == 'ver_incapacidad'">
+  <div class="modal-body" *ngIf="modalTipo === 'ver_incapacidad'">
     <dln-anadir-incapacidad (closeModal)="closeModal($event)" [currentIncapacidad]="currentIncapacidad" [currentdetalle_inca]="currentdetalle_inca"> </dln-anadir-incapacidad>
   </div>

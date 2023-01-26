@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { GridOptions } from 'ag-grid-community';
 import { Observable, Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { ActionIncapacidadComponent } from './action-incapacidad/action-incapaci
   templateUrl: './incapacidades.component.html',
   styleUrls: ['./incapacidades.component.scss']
 })
-export class IncapacidadesComponent implements OnInit {
+export class IncapacidadesComponent implements OnInit, OnDestroy {
 
   done: boolean = false;
   incapacidadesList: any;

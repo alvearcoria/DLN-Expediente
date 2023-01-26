@@ -10,6 +10,8 @@ export class ModalConsultasComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log('por desarrollar');
+
   }
 
 }

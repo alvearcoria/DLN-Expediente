@@ -1,5 +1,5 @@
 <button nbButton size="tiny" title="Finalizar" hero status="danger" (click)="terminarInca()"
-  *ngIf="this.params.data.estatus_inca == 'activa'">
+  *ngIf="this.params.data.estatus_inca === 'activa'">
   <nb-icon icon="calendar-times"></nb-icon>
 </button> &nbsp;
 
@@ -8,7 +8,7 @@
 </button> &nbsp;
 
 <button nbButton size="tiny" title="Añadir Incapacidad" hero status="primary" (click)="addInca()"
-  *ngIf="this.params.data.estatus_inca == 'activa'">
+  *ngIf="this.params.data.estatus_inca === 'activa'">
   <nb-icon icon="calendar-plus"></nb-icon>
 </button> &nbsp;
 
