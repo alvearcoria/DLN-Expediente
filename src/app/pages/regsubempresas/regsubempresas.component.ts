@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
 import { Observable, Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 
 const Swal = require('sweetalert2');
 
@@ -61,6 +62,7 @@ export class RegsubempresasComponent implements OnInit, OnDestroy {
 	];
 
 	constructor(
+    public auth: AuthService,
 		private afs: AngularFirestore,
 		private router: Router,
 	) {
@@ -77,7 +79,7 @@ export class RegsubempresasComponent implements OnInit, OnDestroy {
 	}
 	async ngOnInit() {
 		await new Promise<void>(resolve => {
-			this.subempresa = this.afs.collection('Expedientes_empresa').doc('Gozilla')
+      this.subempresa = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos)
 				.collection('subempresas', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
 			this.subscription = this.subempresa.subscribe(subempresa => {
 				this.subempresaList = subempresa.filter((e) => e.estatus != 'eliminado');

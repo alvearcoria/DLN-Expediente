@@ -16,6 +16,7 @@ import { EmpleadosComponent } from './empleados/empleados.component';
 import { AddempleadoComponent } from './empleados/addempleado/addempleado.component';
 import { RegsubempresasComponent } from './regsubempresas/regsubempresas.component';
 import { IncapacidadesComponent } from './incapacidades/incapacidades.component';
+import { CheckupComponent } from './checkup/checkup.component';
 
 
 const routes: Routes = [{
@@ -59,6 +60,10 @@ const routes: Routes = [{
       component: AddHisClinicaComponent,
     },
     {
+      path: 'update-his-clinica',
+      component: AddHisClinicaComponent,
+    },
+    {
       path: 'examenes-medicos',
       component: ExamenesMedicosComponent,
     },
@@ -77,6 +82,10 @@ const routes: Routes = [{
     {
       path: 'incapacidades',
       component: IncapacidadesComponent,
+    },
+    {
+      path: 'checkup',
+      component: CheckupComponent,
     },
 
     {

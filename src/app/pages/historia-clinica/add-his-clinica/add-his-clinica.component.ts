@@ -123,7 +123,7 @@ export class AddHisClinicaComponent implements OnInit {
     private afs: AngularFirestore,
     public auth: AuthService,
     protected dateService: NbDateService<Date>,
-  ) { 
+  ) {
     this.min = this.dateService.addMonth(this.dateService.today(), -2);
     this.max = this.dateService.today();
     this.datosGeneralesFrom = this.createFormGrup_dataGeneral();
@@ -135,9 +135,9 @@ export class AddHisClinicaComponent implements OnInit {
 
     this.route2.queryParams.subscribe(async params => {
       this.dataEmpleado = params;
-      console.log(this.dataEmpleado);
-      await this.cargardatoscontacto(this.dataEmpleado);
+
       if (!params.id_reporte) {
+        await this.cargardatoscontacto(this.dataEmpleado);
         this.dataFrom.patchValue({
           area: this.dataEmpleado.area,
           numnomina: this.dataEmpleado.pac_nomina,
@@ -699,7 +699,7 @@ export class AddHisClinicaComponent implements OnInit {
         const ageDate = new Date(ageDifMs);
         edad = Math.abs(ageDate.getUTCFullYear() - 1970);
 
-      } catch { console.log("error obteniendo edad de fnacimiento") }
+      } catch { console.log("error obteniendo edad de nacimiento") }
 
       this.datosGeneralesFrom.patchValue({
         area: data.area,
@@ -732,14 +732,17 @@ export class AddHisClinicaComponent implements OnInit {
   async cargarReporte(id_reporte) {
     var reporte;
     await new Promise<void>(resolve => {
-      this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('expedientelaboral', ref => ref.
-        where('id_reportelab', '==', id_reporte)).valueChanges().subscribe(rep => {
+      this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('historia_clinica', ref => ref.
+        where('id_reporte', '==', id_reporte)).valueChanges().subscribe(rep => {
           reporte = rep[0];
           resolve();
         });
-    }).then(() => {
+    }).then(async () => {
+      await this.cargardatoscontacto(reporte.DataEmpleado);
 
-      if (reporte.fechaingreso.seconds) { this.dataFrom.patchValue({ fechaingreso: new Date(reporte.fechaingreso.seconds * 1000) }) }
+      if (reporte.fechaingreso.seconds) {
+        this.dataFrom.patchValue({ fechaingreso: new Date(reporte.fechaingreso.seconds * 1000) });
+      }
 
       this.dataFrom.patchValue({
         fechaRepo: new Date(reporte.fechaRepo.seconds * 1000),
@@ -958,7 +961,7 @@ export class AddHisClinicaComponent implements OnInit {
           enfermedades.at(i).setValue(true)
         }
       }
-      console.log('Prueba', this.dataFrom.get('list_enfe'))
+      //console.log('Prueba', this.dataFrom.get('list_enfe'))
     });
   }
 
@@ -989,12 +992,25 @@ export class AddHisClinicaComponent implements OnInit {
   savereport() {
 
     var post = this.dataFrom.value;
-    const id_reportelab = this.afs.createId();
-    post['id_reportelab'] = id_reportelab;
+    const id_reporte = this.afs.createId();
+    post['id_reporte'] = id_reporte;
     post['user_reg'] = this.auth.currentUserId;
     post['f_registro'] = new Date();
     post['id'] = this.dataEmpleado.id;
     post['estatus'] = 'creado';
+
+    post['DataEmpleado'] = {
+      id: this.dataEmpleado.id,
+      pac_nombres: this.dataEmpleado.pac_nombres,
+      pac_apPrimero: this.dataEmpleado.pac_apPrimero,
+      pac_apSegundo: this.dataEmpleado.pac_apSegundo,
+      pac_nomina: this.dataEmpleado.pac_nomina,
+      pac_imss: this.dataEmpleado.pac_imss,
+      pac_fNacimiento: this.dataEmpleado.pac_fNacimiento,
+      pac_sexo: this.dataEmpleado.pac_genero,
+      subempresa: this.dataEmpleado.subempresa,
+      ori_pac_name: this.dataEmpleado.ori_pac_name,
+    };
 
     const detalles_proteccion = this.dataFrom.value.proteccion_perso
       .map((checked, index) => (checked ? this.proteccion_personal[index].proteccion : null))
@@ -1011,12 +1027,12 @@ export class AddHisClinicaComponent implements OnInit {
       .filter((value) => value !== null);
     post["list_enfe"] = detalles_enfermedades;
 
-    const ref = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('Historias_Clinicas');
+    const ref = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('historia_clinica');
     ref.doc("counter").valueChanges().pipe(take(1)).subscribe(async (c) => {
       const idNum = Number(c["counter"]) + 1;
       post["idNumerico"] = idNum;
       await ref.doc("counter").set({ counter: idNum }).then(async () => {
-        await ref.doc(id_reportelab).set(post).then(() => {
+        await ref.doc(id_reporte).set(post).then(() => {
           Swal.fire(
             '¡Datos Guardados!',
             'Los datos ha sido guardado correctamente',
@@ -1053,7 +1069,7 @@ export class AddHisClinicaComponent implements OnInit {
       .filter((value) => value !== null);
     post["list_enfe"] = detalles_enfermedades;
 
-    this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('expedientelaboral').doc(this.dataEmpleado.id_reporte).update(post).then(() => {
+    this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('historia_clinica').doc(this.dataEmpleado.id_reporte).update(post).then(() => {
       Swal.fire(
         '¡Datos Actualizado!',
         'Los datos ha sido actualizados correctamente',

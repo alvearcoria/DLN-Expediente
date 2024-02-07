@@ -62,7 +62,7 @@ export class AddsubempresaComponent implements OnInit {
   async cargarConsulta(id_subemp) {
 
     await new Promise<void>(resolve => {
-      this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('subempresas', ref => ref.
+      this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('subempresas', ref => ref.
         where('id', '==', id_subemp)).valueChanges().subscribe(cons => {
           this.dataQuery = cons[0];
           resolve();
@@ -134,7 +134,7 @@ export class AddsubempresaComponent implements OnInit {
     }
     post['areas'] = a;
 
-    const ref = this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('subempresas');
+    const ref = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('subempresas');
     ref.doc("counter").valueChanges().pipe(take(1)).subscribe(async (c) => {
       const idNum = Number(c["counter"]) + 1;
       post["idNumerico"] = idNum;
@@ -166,7 +166,7 @@ export class AddsubempresaComponent implements OnInit {
     }
     post['areas'] = a;
 
-    this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('subempresas').doc(this.dataQuery.id).update(post).then(() => {
+    this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('subempresas').doc(this.dataQuery.id).update(post).then(() => {
       Swal.fire(
         '¡Datos Actualizado!',
         'Los datos ha sido actualizados correctamente',

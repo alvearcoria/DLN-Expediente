@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalConsultasComponent } from './../../components/modal-consultas/modal-consultas.component';
 import { ConsultasService } from '../../../services/consultas/service-consultas.service';
+import { ModalIncapacidadComponent } from '../../components/modal-incapacidad/modal-incapacidad.component';
 
 @Component({
   selector: 'dln-acciones-consulta',
@@ -53,42 +54,58 @@ export class AccionesConsultaComponent implements ICellRendererAngularComp {
     const extencion = this.params.data.urlPDF.split('.').pop();
     const fileURL = await this.consultasService.getURLFile(this.params.data.urlPDF);
 
-    const initialState = {
-      currentURL: { fileURL: fileURL, fileExt: extencion },
-      currentAccion: 'ViewFile',
-      title_modal: 'Reporte de consulta',
-      keyboard: false,
-      backdrop: true,
-      ignoreBackdropClick: true,
-      class: 'gray modal-lg'
+    const initialState: ModalOptions = {
+      initialState: {
+        currentURL: { fileURL: fileURL, fileExt: extencion },
+        currentAccion: 'ViewFile',
+        title_modal: 'Reporte de consulta',
+      },
     };
 
-    this.modalRef = this.modalService.show(ModalConsultasComponent, {
-      keyboard: false,
+    this.modalRef = this.modalService.show(ModalConsultasComponent, Object.assign({}, initialState, {
+      class: 'gray modal-lg',
+      keyboard: true,
       backdrop: true,
       ignoreBackdropClick: true,
-      //class: 'gray modal-lg', initialState
-    });
+    }));
 
   }
 
   uploadFile() {
     console.log('uploadFile');
-    const initialState = {
+    const initialState: ModalOptions = {
+      initialState: {
       currentData: { idConsulta: this.params.data.id_consulta, idEmpleado: this.params.data.id },
       currentAccion: 'upFile',
       title_modal: 'Subir archivo',
+      }
+    };
+
+    this.modalRef = this.modalService.show(ModalConsultasComponent, Object.assign({}, initialState, {
+      class: 'gray modal-lg',
+      keyboard: false,
+      backdrop: true,
+      ignoreBackdropClick: true,
+    }));
+  }
+
+  detalleIncapacidad() {
+    console.log('Detalle Incapacidad');
+    const initialState = {
+      currentIncapacidad: this.params.data,
+      title_modal: 'Detalle de la Incapacidad',
+      modalTipo: 'detalleInca',
       keyboard: false,
       backdrop: true,
       ignoreBackdropClick: true,
       class: 'gray modal-lg'
     };
 
-    this.modalRef = this.modalService.show(ModalConsultasComponent, {
+    this.modalRef = this.modalService.show(ModalIncapacidadComponent, {
       keyboard: false,
       backdrop: true,
       ignoreBackdropClick: true,
-      //class: 'gray modal-lg', initialState
+      class: 'gray modal-lg', initialState
     });
   }
 

@@ -1,1 +1,144 @@
-<p>add-incapacidad works!</p>
+<form [formGroup]="dataFrom" (ngSubmit)="btnAccion()" autocomplete="off" [nbSpinner]="loading" nbSpinnerSize="giant"
+  nbSpinnerStatus="danger">
+  <div class="estilo_sub_div">
+    <br>
+    <div class="form-row">
+      <div class="form-group col-md" *ngIf="datedisabled === 'false'">
+        <label>Fecha inicio de incapacidad</label><br>
+        <input nbInput placeholder="Selecciona fecha" [nbDatepicker]="inca_inicia" formControlName="inca_fInicia"
+          fullWidth [status]="cons.inca_fInicia.dirty ? (cons.inca_fInicia.invalid  ? 'danger' : 'success') : ''">
+        <nb-datepicker #inca_inicia hidePicker></nb-datepicker>
+        <ng-container *ngIf="cons.inca_fInicia.invalid && cons.inca_fInicia.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_fInicia.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+
+      <div class="form-group col-md" *ngIf="datedisabled === 'true'">
+        <label>Fecha inicio de incapacidad</label><br>
+        <input nbInput type="text" formControlName="inca_fInicia" value="{{valueDate | date: 'dd/MM/yyyy'}}" fullWidth
+          readonly>
+      </div>
+
+      <div class="form-group col-md">
+        <label>Fecha en que se recibe</label><br>
+        <input nbInput placeholder="Selecciona fecha" [nbDatepicker]="inca_recibe" class="form-control"
+          formControlName="inca_fRecibe" fullWidth
+          [status]="cons.inca_fRecibe.dirty ? (cons.inca_fRecibe.invalid  ? 'danger' : 'success') : ''">
+        <nb-datepicker #inca_recibe></nb-datepicker>
+        <ng-container *ngIf="cons.inca_fRecibe.invalid && cons.inca_fRecibe.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_fRecibe.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md">
+        <label> Folio: </label>
+        <input type="number" nbInput formControlName="inca_folio" fullWidth fullWidth
+          [status]="cons.inca_folio.dirty ? (cons.inca_folio.invalid  ? 'danger' : 'success') : ''" />
+        <ng-container *ngIf="cons.inca_folio.invalid && cons.inca_folio.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_folio.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+
+      <div class="form-group col-md">
+        <label for="inputEstadoCivil">Tipo de incapacidad </label>
+        <nb-select placeholder="Selecciona tipo de incapacidad" name="inca_tipo" formControlName="inca_tipo" fullWidth
+          [status]="cons.inca_tipo.dirty ? (cons.inca_tipo.invalid  ? 'danger' : 'success') : ''">
+          <nb-option value="Maternidad">Maternidad</nb-option>
+          <nb-option value="Enfermedad General">Enfermedad General</nb-option>
+          <nb-option value="Riesgo de Trabajo">Riesgo de Trabajo</nb-option>
+        </nb-select>
+        <ng-container *ngIf="cons.inca_tipo.invalid ">
+          <p class="caption status-danger" *ngIf="cons.inca_tipo.errors.required">
+            CAMPO REQUERIDO! </p>
+        </ng-container>
+      </div>
+
+      <div class="form-group col-md">
+        <label> Tiene riesgo de trabajo: </label>
+        <nb-radio-group name="inca_riesgo" formControlName="inca_riesgo" class=" custom-control-inline"
+          [status]="cons.inca_riesgo.dirty ? (cons.inca_riesgo.invalid  ? 'danger' : 'success') : ''">
+          <nb-radio value="si"> Si </nb-radio>
+          <nb-radio value="no"> No </nb-radio>
+        </nb-radio-group>
+        <ng-container *ngIf="cons.inca_riesgo.invalid && cons.inca_riesgo.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_riesgo.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label> Dias de incapacidad: </label>
+        <input type="number" nbInput formControlName="inca_dias" fullWidth
+          [status]="cons.inca_dias.dirty ? (cons.inca_dias.invalid  ? 'danger' : 'success') : ''" />
+        <ng-container *ngIf="cons.inca_dias.invalid && cons.inca_dias.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_dias.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+      <div class="form-group col-md-3" *ngIf="fTermina_inca !== ''">
+        <label>Fecha fin de incapacidad</label><br>
+        <input nbInput type="text" fullWidth [value]=fTermina_inca readonly>
+      </div>
+    </div>
+
+    <div class="form-row ">
+      <div class="form-group col-md">
+        <label> Diagnóstico de incapacidad: </label>
+        <textarea nbInput fullWidth placeholder="Describa los sintomas del empleado" rows="5"
+          formControlName="inca_diagnostico"
+          [status]="cons.inca_diagnostico.dirty ? (cons.inca_diagnostico.invalid  ? 'danger' : 'success') : ''"></textarea>
+        <ng-container *ngIf="cons.inca_diagnostico.invalid && cons.inca_diagnostico.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_diagnostico.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="form-row" *ngIf="statusBtn !== false">
+      <div class="form-group col-md text-center">
+        <label>Selecciona archivo de incapacidad en PDF: &nbsp;&nbsp; </label>
+        <input type="file" nbInput name="inca_file" formControlName="inca_file" fullWidth accept=".pdf"
+          (change)="upfile($event)"
+          [status]="cons.inca_file.dirty ? (cons.inca_file.invalid  ? 'danger' : 'success') : ''">
+        <ng-container *ngIf="cons.inca_file.invalid && cons.inca_file.touched">
+          <p class="caption status-danger" *ngIf="cons.inca_file.errors.required">
+            CAMPO REQUERIDO!
+          </p>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="form-row" *ngIf="statusBtn === false">
+      <div class="form-group col-md text-center">
+        <label>Archivo de la incapacidad &nbsp;&nbsp; </label>
+        <object [data]="fileURL | view" width="100%" title="Alvear" height="500" type="application/pdf">
+          <param name="title" value="Alexander">
+          No Support
+        </object>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row align-center justify-content-center" *ngIf="statusBtn !== false">
+    <button type="submit" nbButton shape="semi-round" size="large" status="primary" hero
+      [disabled]="!dataFrom.valid || !statusBtn">
+      <nb-icon icon="save"></nb-icon> {{mssbtn}} incapacidad
+    </button>
+  </div>
+</form>
+
+
+<!-- <pre>{{dataFrom.value | json}}</pre> -->

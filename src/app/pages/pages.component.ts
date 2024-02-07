@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
   selector: 'dln-pages',
   styleUrls: ['pages.component.scss'],
   template: `
-    <dln-one-column-layout>
+    <dln-one-column-layout *ngIf="done">
       <nb-menu [items]="menu"></nb-menu>
       <router-outlet></router-outlet>
     </dln-one-column-layout>

@@ -197,15 +197,15 @@ export class AddConsultaComponent implements OnInit {
   get cons() { return this.dataFrom.controls; }
 
   async ngOnInit() {
-
     this.route2.queryParams.subscribe(async params => {
       this.dataEmpleado = params;
       await this.cargardatoscontacto(this.dataEmpleado);
       if (!params.id_consulta) {
         console.log(this.auth);
-        
+        console.log(this.auth.userData.displayName)
+
         this.dataFrom.patchValue({
-          //nombre_atiende: this.auth.dataUser.displayName,
+          nombre_atiende: this.auth.userData.displayName,
         });
         this.mssbtn = "Guardar";
       } else {

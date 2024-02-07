@@ -15,10 +15,7 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './examenes-medicos.component.html',
   styleUrls: ['./examenes-medicos.component.scss']
 })
-export class ExamenesMedicosComponent implements OnInit, OnDestroy {
-
-  subscription: Subscription;
-
+export class ExamenesMedicosComponent implements OnInit {
 
  // @ViewChild('modalEmpleados', { static: false }) public emp_modal: ElementRef;
   modalRef: BsModalRef;
@@ -107,7 +104,6 @@ export class ExamenesMedicosComponent implements OnInit, OnDestroy {
     private ServiceExaMed: ServicesExamenesMedicosService,
     private modalService: BsModalService,
     private router: Router,
-    private auth: AuthService,
   ) {
     this.tablaExamenesOcup = <GridOptions>{
       columnDefs: this.columnasExamenesMedicos,
@@ -145,6 +141,8 @@ export class ExamenesMedicosComponent implements OnInit, OnDestroy {
             + p.pac_apPrimero + ' '
             + p.pac_apSegundo;
         });
+
+
 
         if (!(this.tablaEmpleados.api === undefined)) {
           this.tablaEmpleados.api.setRowData(this.empleadoslist);
@@ -216,8 +214,8 @@ export class ExamenesMedicosComponent implements OnInit, OnDestroy {
     this.modalRef.hide();
   }
 
-  ngOnDestroy(): void {
+ /*  ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
-  }
+  } */
 
 }

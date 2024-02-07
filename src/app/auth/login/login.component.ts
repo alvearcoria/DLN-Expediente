@@ -16,21 +16,32 @@ export class LoginComponent implements OnInit {
   emailError = false;
   passError = false;
   errorMessage: string = '';
+  done: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private router: Router
   ) {
+    this.auth.afAuth.authState.subscribe(async user => {
+      if (user != null) {
+        this.router.navigate(['/pages/dashboard']);
+      } else {
+        setTimeout(() => {
+          this.done = true;
+        }, 1000);
+      }
+    })
     this.loginForm = this.formBuilder.group({
       num_cuenta: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+    this.onChanges();
 
   }
-  ngOnInit(): void {
-    this.onChanges();
+  ngOnInit() {
+    console.log('Login');
   }
 
   get f() { return this.loginForm.controls; }
@@ -53,10 +64,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.auth.SignIn(
-      this.loginForm.controls['num_cuenta'].value,
-      this.loginForm.controls['email'].value,
-      this.loginForm.controls['password'].value ).then(res => {
+    this.errorMessage = '';
+    this.auth.SignIn(this.loginForm.controls['num_cuenta'].value, this.loginForm.controls['email'].value, this.loginForm.controls['password'].value)
+      .then(res => {
+        console.log('login success');
+        console.log(res);
         this.router.navigate(['/pages']);
       }, err => {
         console.log(err);

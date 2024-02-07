@@ -4,7 +4,7 @@
         <div class="col-lg-12">
             <div class="form-row">
                 <div class="form-group col-md">
-                    <object *ngIf="currentURL.fileExt === 'pdf'; else Imagen;" [data]="currentURL.fileURL | view"
+                    <object *ngIf="currentURL.fileExt === 'pdf'; else Imagen;" [data]="currentURL.fileURL | viewfilePDF"
                         width="100%" title="PDfViewer" height="800" type="application/pdf">
                         <param name="title" value="Alexander">
                         No Support

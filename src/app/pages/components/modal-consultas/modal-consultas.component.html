@@ -1,1 +1,13 @@
-<p>modal-consultas works!</p>
+<div class="modal-header text-center " style=" background-color: #34495E; ">
+  <h4 class="modal-title pull-left" style=" color:#fff; margin: 10px;"> {{title_modal}} </h4>
+  <div class="pull-right">
+    <button type="button" class="btn btn-danger" title="Cerrar" (click)="modalRef.hide();">
+      <span class="fa fa-times-circle"></span>
+    </button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <dln-archivos-consulta (closeModal)="closeModal($event)" [currentURL]="currentURL" [currentAccion]="currentAccion"
+    [currentData]="currentData"> </dln-archivos-consulta>
+</div>

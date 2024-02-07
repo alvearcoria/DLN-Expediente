@@ -113,7 +113,7 @@ export class EmpleadosComponent implements OnInit, OnDestroy {
       console.log('Datos UserData-->>>> ', this.auth.userData )
       console.log(this.auth.currentUserId); */
 
-      this.usuarios =  this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('empleados', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
+      this.usuarios = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('empleados', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
       this.subscription = this.usuarios.pipe().subscribe(async usuarios => {
         if (usuarios.length > 0) {
           this.usuariosList = usuarios.filter((e) => !e.counter);
@@ -123,7 +123,7 @@ export class EmpleadosComponent implements OnInit, OnDestroy {
               + p.pac_apSegundo;
           });
         }
-        
+
         if (!(this.tablaEmpleados.api === undefined)) {
           this.tablaEmpleados.api.setRowData(this.usuariosList);
         }
@@ -171,7 +171,7 @@ export class EmpleadosComponent implements OnInit, OnDestroy {
         confirmButtonText: 'Si, Eliminar cliente',
       }).then((result) => {
         if (result.value) {
-          this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('empleados')
+          this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('empleados')
             .doc(params.data.id).delete();
           Swal.fire(
             '¡Eliminado!',

@@ -1,1 +1,60 @@
-<p>detalles-incapacidad works!</p>
+<div class="row col-md-12" class="recuadro">
+  <div class="form-row">
+    <div class="form-group col-md">
+      <label>Nombre(s)</label>
+      <input type="text" nbInput icon="window-close" fullWidth readonly
+        [value]=currentIncapacidad.detalleEmpleado.fullname />
+    </div>
+    <!-- <div class="form-group col-md-3">
+        <label>Primer Apellido</label>
+        <input type="text" nbInput fullWidth readonly [value]=currentEmpleado.pac_apPrimero />
+      </div>
+      <div class="form-group col-md-3">
+        <label>Segundo Apellido</label>
+        <input type="text" nbInput fullWidth readonly [value]=currentEmpleado.pac_apSegundo />
+      </div> -->
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md">
+      <label> IMSS </label>
+      <input type="text" nbInput fullWidth readonly [value]=currentIncapacidad.detalleEmpleado.pac_imss />
+    </div>
+    <div class="form-group col-md">
+      <label> ID Nomina </label>
+      <input type="text" nbInput fullWidth readonly [value]=currentIncapacidad.detalleEmpleado.pac_nomina />
+    </div>
+  </div>
+</div>
+
+<div class="row col-md-12" class="recuadro">
+  <div class="form-row">
+    <div class="form-group col-md">
+      <label>Fecha de inicio incapacidad</label>
+      <input type="text" nbInput icon="window-close" fullWidth readonly [value]=fIniciainca />
+    </div>
+    <div class="form-group col-md">
+      <label> Dias totales de incapacidad </label>
+      <input type="text" nbInput fullWidth readonly [value]=diastotales />
+    </div>
+    <div class="form-group col-md">
+      <label>Fecha ingreso a laborar</label>
+      <input type="text" nbInput fullWidth readonly [value]=fRegresoLaboral />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md">
+      <label> Estado de la incapacidad </label>
+      <input type="text" nbInput fullWidth readonly [value]=estado_incapacidad />
+    </div>
+  </div>
+</div>
+<div class="row col-md-12" class="recuadro">
+  <ag-grid-angular #agGrid2 class="ag-theme-balham" style="width: 100%; height: 250px;" [gridOptions]="tablaConsultas"
+    [pagination]="true" (cellClicked)="onCellClicked($event)" (gridReady)="gridReady($event)"></ag-grid-angular>
+</div>
+
+<div class="row justify-content-center" *ngIf="currentIncapacidad.estatus_inca === 'activa'">
+  <button type="submit" nbButton shape="semi-round" size="small" status="primary" hero (click)="addInca()">
+    Agregar incapacidad
+  </button>
+</div>

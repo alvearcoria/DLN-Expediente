@@ -8,6 +8,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Registro Checkup',
+    icon: 'user-tie',
+    link: '/pages/checkup',
+  },
+  {
     title: 'Empleados',
     icon: 'user-tie',
     link: '/pages/empleados',

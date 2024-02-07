@@ -61,7 +61,8 @@
               "echarts",
               "lodash",
               "zrender/lib/svg/svg",
-              "zrender/lib/vml/vml"
+              "zrender/lib/vml/vml",
+              "rxjs-compat"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

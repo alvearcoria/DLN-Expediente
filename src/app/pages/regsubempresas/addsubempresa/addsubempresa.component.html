@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-lg-12">
       <nb-card>
-        <nb-card-header>
+        <nb-card-header style=" background-color: #677077;">
           <div class=" form-group col-lg">
-            <h4>{{encabezado}}
+            <h4 class="d-block " style="color:#fff; ">{{encabezado}}
               <button nbButton size="medium" shape="semi-round" status="danger" hero class="float-right"
                 (click)="redirect();">
                 <nb-icon icon="window-close"></nb-icon> CANCELAR
@@ -14,7 +14,7 @@
         <nb-card-body>
           <form class="panel is-valid " [formGroup]="subempForm" (ngSubmit)="btnAccion()" novalidate autocomplete="off"
             [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="giant">
-  
+
             <div class="form-row">
               <div class="form-group col-md">
                 <label> Nombre subempresa </label>
@@ -36,7 +36,7 @@
                   <ng-container *ngIf="areasFC.controls[i].get('name_area').invalid && areasFC.controls[i].get('name_area').touched">
                     <p class="caption status-danger" *ngIf="areasFC.controls[i].get('name_area').errors.required"> CAMPO REQUERIDO! </p>
                   </ng-container>
-  
+
                   <ng-container *ngIf="messageError !== ''"><p class="caption status-danger">{{messageError}}</p>
                   </ng-container>
                 </div>
@@ -63,7 +63,7 @@
                 <nb-icon icon="save"></nb-icon> {{mssbtn}}
               </button>
             </div>
-  
+
           </form>
         </nb-card-body>
       </nb-card>

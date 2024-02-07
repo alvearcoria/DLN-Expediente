@@ -32,21 +32,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-/*     console.log('Encabezado >>>>>>>>>>');
-
+    /* console.log('Encabezado >>>>>>>>>>');
     console.log('Auth >>>>>>>', this.auth);
     console.log('UserData >>>', this.auth.userData);
     console.log(await this.auth.getUserAccount()); */
 
-
-    
-    this.nameEmpresa = 'errorExc';
+    this.nameEmpresa = this.auth.userData.empresa;
 
  /*    this.auth.afAuth.authState.subscribe(
       async x => {
         console.log(x)
         if ( x != null) {
-          
+
           if(this.user.foto=="" && this.user.sexo=='masculino'){
             this.user['img']='https://firebasestorage.googleapis.com/v0/b/dlnclinico.appspot.com/o/fotos_users%2Fuser-male.png?alt=media&token=0ac17f17-9160-490f-8bea-939654e4318f'
           }else if(this.user.foto=="" && this.user.sexo=='femenino'){
@@ -66,7 +63,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.auth.SignOut();
       }
     });
-    
+
     this.currentTheme = this.themeService.currentTheme;
   }
 

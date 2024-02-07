@@ -7,7 +7,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   templateUrl: './action-buttons.component.html',
   styleUrls: ['./action-buttons.component.scss']
 })
-export class ActionButtonsComponent implements OnInit {
+export class ActionButtonsComponent implements ICellRendererAngularComp {
   public params: any;
   public actvo: boolean;
   public isDisabled: boolean = false;
@@ -15,9 +15,6 @@ export class ActionButtonsComponent implements OnInit {
   constructor(
     private router: Router,
   ) { }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
 
   async agInit(params: any): Promise<void> {
     this.params = params;

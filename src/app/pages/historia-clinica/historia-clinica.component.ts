@@ -39,9 +39,9 @@ export class HistoriaClinicaComponent implements OnInit, OnDestroy {
 
   columnsHistory = [
     { width: 60, headerName: 'No', field: 'idNumerico', sort: 'asc', },
-    { width: 130, headerName: 'ID/Nomina', field: 'pac_nomina' },
+    { width: 130, headerName: 'ID/Nomina', field: 'DataEmpleado.pac_nomina' },
     { width: 250, headerName: 'Nombre(s)', field: 'fullname' },
-    { width: 130, headerName: 'Ciudad', field: 'pac_ciudad' },
+    { width: 130, headerName: 'Ciudad', field: 'DataEmpleado.pac_ciudad' },
     {
       headerName: 'Opciones',
       pinned: 'right',
@@ -142,14 +142,14 @@ export class HistoriaClinicaComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await new Promise<void>(resolve => {
-      this.allHistory = this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('Historias_Clinicas', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
+      this.allHistory = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('historia_clinica', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
       this.subscription = this.allHistory.pipe().subscribe(async clinic_historyc => {
         if (clinic_historyc.length > 0) {
           this.histroiasList = clinic_historyc.filter((e) => !e.counter);
           this.histroiasList.map(p => {
-            p['fullname'] = p.pac_nombres + ' '
-              + p.pac_apPrimero + ' '
-              + p.pac_apSegundo;
+            p['fullname'] = p.DataEmpleado.pac_nombres + ' '
+              + p.DataEmpleado.pac_apPrimero + ' '
+              + p.DataEmpleado.pac_apSegundo;
           });
         }
         if (!(this.tableClinicHistory.api === undefined)) {
@@ -204,7 +204,7 @@ export class HistoriaClinicaComponent implements OnInit, OnDestroy {
 
   onCellClicked(params: any) {
     if (params.colDef.headerName === 'Editar') {
-      this.router.navigate(['/pages/update-empleado'],
+      this.router.navigate(['/pages/update-his-clinica'],
         { queryParams: { ...params.data }, skipLocationChange: true });
     } else if (params.colDef.headerName === 'Eliminar') {
       Swal.fire({
@@ -217,7 +217,7 @@ export class HistoriaClinicaComponent implements OnInit, OnDestroy {
         confirmButtonText: 'Si, Eliminar cliente',
       }).then((result) => {
         if (result.value) {
-          this.afs.collection('Expedientes_empresa').doc('Gozilla').collection('empleados')
+          this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos).collection('empleados')
             .doc(params.data.id).delete();
           Swal.fire(
             '¡Eliminado!',

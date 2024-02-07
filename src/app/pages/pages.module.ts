@@ -38,6 +38,8 @@ import { ModalConsultasComponent } from './components/modal-consultas/modal-cons
 import { ModalIncapacidadComponent } from './components/modal-incapacidad/modal-incapacidad.component';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
 import { ViewFileComponent } from './components/view-file/view-file.component';
+import { ViewfilePDFPipe } from './viewfile-pdf.pipe';
+import { CheckupComponent } from './checkup/checkup.component';
 
 @NgModule({
   imports: [
@@ -81,6 +83,8 @@ import { ViewFileComponent } from './components/view-file/view-file.component';
     ModalIncapacidadComponent,
     UploadFileComponent,
     ViewFileComponent,
+    ViewfilePDFPipe,
+    CheckupComponent,
   ],
   providers: [
     NgSelectConfig,

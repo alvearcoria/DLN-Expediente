@@ -24,7 +24,7 @@ export class ConsultasComponent implements OnInit, OnDestroy{
     backdrop: true,
     ignoreBackdropClick: true,
     animated: true,
-    class: 'modal-lg', 
+    class: 'modal-lg',
   };
 
   done: boolean = false;
@@ -40,6 +40,9 @@ export class ConsultasComponent implements OnInit, OnDestroy{
 
   min: Date;
   max: Date;
+
+  userList: any;
+  user: any;
 
   columnasConsultas = [
 
@@ -141,6 +144,7 @@ export class ConsultasComponent implements OnInit, OnDestroy{
   }
 
   async ngOnInit() {
+
     await new Promise<void>(resolve => {
       this.allempleados = this.afs.collection(this.auth.dataEmp.raiz).doc(this.auth.dataEmp.basedatos)
         .collection('empleados', ref => ref.orderBy('idNumerico', 'asc')).valueChanges();
@@ -230,7 +234,7 @@ export class ConsultasComponent implements OnInit, OnDestroy{
   async modalEmpleado(modalEmpleados: TemplateRef<any>) {
     this.modalRef = this.modalService.show(modalEmpleados, this.configModal);
   }
-  
+
   cerrarModal() {
     this.modalRef.hide();
   }
